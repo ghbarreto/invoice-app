@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+    db:
+        image: postgres
+        container_name: invoice-db
+        restart: always
+
+        environment:
+            POSTGRES_DB: ${DB_NAME}
+            POSTGRES_USER: ${DB_USERNAME}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+        ports:
+            - 5432:5432
+
+    go:
+        image: golang:latest
+        container_name: backend-api-invoice
+        restart: always
+
+        build:
+            context: ./backend
+            dockerfile: Dockerfile
+        volumes:
+            - ./backend:/app
+        ports:
+            - 8080:8080
+        depends_on:
+            - db
+
+    client:
+        image: client:latest
+        container_name: client
+        restart: always
+        ports:
+            - 3000:3000
+        depends_on:
+            - go
+            - db
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        volumes:
+            - ./frontend:/app
+            - /frontend/node_modules
+            - /frontend/.next
+
+volumes:
+    pgdata:
