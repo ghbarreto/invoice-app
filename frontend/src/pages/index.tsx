@@ -9,7 +9,7 @@ import { secureFetch } from '@/utils/fetch';
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
-    const { user, login, logout } = useAuth();
+    const { user, login, logout, token } = useAuth();
 
     const { isLoading, error, data } = useQuery({
         queryKey: ['test'],
@@ -24,6 +24,7 @@ export default function Home() {
                 <div onClick={login}>LOGIN</div>
                 <div onClick={logout}>SIGN OFF</div>
             </div>
+            <div style={{ maxWidth: '40%', textAlign: 'left' }}>idToken: {token}</div>
         </main>
     );
 }

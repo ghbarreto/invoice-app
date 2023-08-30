@@ -30,14 +30,12 @@ func Auth(next http.HandlerFunc) http.HandlerFunc {
 			return
 		}
 
-		// Get the token from the "Authorization" header
 		authHeader := r.Header.Get("Authorization")
 		if authHeader == "" {
 			http.Error(w, "Unauthorized", http.StatusUnauthorized)
 			return
 		}
 
-		// Extract the token from the "Bearer" scheme
 		tokenParts := strings.Split(authHeader, " ")
 		if len(tokenParts) != 2 || tokenParts[0] != "Bearer" {
 			http.Error(w, "Unauthorized token", http.StatusUnauthorized)
@@ -46,7 +44,6 @@ func Auth(next http.HandlerFunc) http.HandlerFunc {
 
 		token := tokenParts[1]
 
-		// Verify the ID token
 		_, err = authClient.VerifyIDToken(ctx, token)
 		if err != nil {
 			http.Error(w, "Unauthorized idtoken", http.StatusUnauthorized)

@@ -17,15 +17,18 @@ type AuthContext = {
     login: () => Promise<UserCredential>;
     logout: () => Promise<void>;
     user: User | null | undefined;
+    token: any;
 };
 
 const AuthContext = React.createContext<AuthContext>({} as AuthContext);
 
 export const AuthProvider = ({ children }: React.PropsWithChildren) => {
-    const app = initializeApp(firebaseConfig);
+    initializeApp(firebaseConfig);
     const auth = getAuth();
     const [user, setUser] = useState<User | null>();
-
+    // rm later
+    const [token, setIdToken] = useState<string | null>();
+    // -----------
     const provider = useCallback(() => new GoogleAuthProvider(), []);
 
     provider().setCustomParameters({
@@ -50,6 +53,7 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
             if (user) {
                 user.getIdToken()
                     .then(idToken => {
+                        setIdToken(idToken);
                         return localStorage.setItem('auth_token', idToken);
                     })
                     .catch(error => {
@@ -68,8 +72,9 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
             login,
             logout,
             user,
+            token,
         }),
-        [login, logout, user]
+        [login, logout, user, token]
     );
 
     return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;

@@ -1,17 +1,15 @@
 package main
 
 import (
-	p "backend-api/api/product"
+	i "backend-api/api/invoices"
 	r "backend-api/api/user"
 	"backend-api/auth"
-	"fmt"
 	"net/http"
 
 	"github.com/rs/cors"
 )
 
 func main() {
-	fmt.Println("here")
 	allowedOrigins := []string{"http://localhost:3000"}
 	corsMiddleware := cors.New(
 		cors.Options{
@@ -23,7 +21,7 @@ func main() {
 		},
 	)
 
-	http.Handle("/api/invoices", corsMiddleware.Handler(auth.Auth(http.HandlerFunc(p.Product))))
+	http.Handle("/api/invoices", corsMiddleware.Handler(auth.Auth(http.HandlerFunc(i.Invoices))))
 	http.Handle("/api/credentials", corsMiddleware.Handler(auth.Auth(http.HandlerFunc(r.Registration))))
 
 	http.ListenAndServe(":8080", nil)
