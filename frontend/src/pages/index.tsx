@@ -13,8 +13,11 @@ export default function Home() {
 
     const { isLoading, error, data } = useQuery({
         queryKey: ['test'],
-        queryFn: async () => await secureFetch('products'),
+        queryFn: async () => await secureFetch('invoices', { method: 'POST', body: { uid: user!.uid } }),
+        enabled: !!user,
     });
+
+    console.log(user);
 
     return (
         <main className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}>

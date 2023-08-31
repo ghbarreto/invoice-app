@@ -1,6 +1,7 @@
 package product
 
 import (
+	api "backend-api/api/utils"
 	"backend-api/db"
 	"encoding/json"
 	"fmt"
@@ -32,7 +33,9 @@ func Invoices(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	rows, err := db.Db().Query("SELECT invoice_id, date_due, currency_code, description, status, first_name, last_name, price FROM invoices WHERE user_id = $1", u.Uid)
+	rows, err := db.Db().Query("SELECT invoice_id, date_due, currency_code, "+
+		"description, status, first_name, last_name, price "+
+		"FROM invoices WHERE user_id = $1", u.Uid)
 
 	if err != nil {
 		fmt.Println(err)
@@ -51,14 +54,5 @@ func Invoices(w http.ResponseWriter, r *http.Request) {
 
 	db.Db().Close()
 
-	jsonData, err := json.Marshal(invoices)
-	if err != nil {
-		http.Error(w, "Error marshaling JSON", http.StatusInternalServerError)
-		return
-	}
-
-	fmt.Println(jsonData)
-
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	api.Resp(w, http.StatusOK, invoices)
 }

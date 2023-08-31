@@ -1,5 +1,5 @@
 type Others = {
-    body?: BodyInit;
+    body?: BodyInit | null | undefined | any;
     method?: 'GET' | 'POST';
 };
 
@@ -29,8 +29,8 @@ const apiClient = async (endpoint: string, o?: Others) => {
         headers: headers,
         body: o?.body,
     });
-
-    const responseData = response.json();
+    const responseData = await response.json();
+    console.log(responseData);
 
     return responseData;
 };

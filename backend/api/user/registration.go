@@ -1,6 +1,7 @@
 package user
 
 import (
+	api "backend-api/api/utils"
 	"backend-api/db"
 	"encoding/json"
 	"fmt"
@@ -21,6 +22,8 @@ func Registration(w http.ResponseWriter, r *http.Request) {
 	if rows == 0 {
 		insertNewUser(r, &user)
 	}
+
+	api.Resp(w, 200, user)
 }
 
 func insertNewUser(r *http.Request, user *User) {

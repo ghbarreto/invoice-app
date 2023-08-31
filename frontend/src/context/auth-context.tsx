@@ -12,6 +12,7 @@ import { initializeApp } from 'firebase/app';
 import { useEffect, useState } from 'react';
 
 import { firebaseConfig } from '@utils/firebase_helpers';
+import { authUser } from '@/apis/registration/user';
 
 type AuthContext = {
     login: () => Promise<UserCredential>;
@@ -54,6 +55,11 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
                 user.getIdToken()
                     .then(idToken => {
                         setIdToken(idToken);
+                        authUser({
+                            id: user.uid,
+                            email: user.email,
+                            provider_id: user.providerId,
+                        });
                         return localStorage.setItem('auth_token', idToken);
                     })
                     .catch(error => {
