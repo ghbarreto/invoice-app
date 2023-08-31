@@ -26,6 +26,7 @@ type Body struct {
 func Invoices(w http.ResponseWriter, r *http.Request) {
 	var invoices []I
 	var u Body
+
 	err := json.NewDecoder(r.Body).Decode(&u)
 
 	if err != nil {
@@ -52,7 +53,38 @@ func Invoices(w http.ResponseWriter, r *http.Request) {
 		invoices = append(invoices, invoice)
 	}
 
+	var paidInvoices int = getInvoicesCount(u.Uid, "paid")
+	var pendingInvoices int = getInvoicesCount(u.Uid, "pending")
+	var completedInvoices int = getInvoicesCount(u.Uid, "completed")
+
 	db.Db().Close()
 
-	api.Resp(w, http.StatusOK, invoices)
+	// todo fix this so it only queries the database once
+	res := map[string]interface{}{
+		"paid_invoices":      paidInvoices,
+		"invoices":           invoices,
+		"completed_invoices": completedInvoices,
+		"invoices_count":     len(invoices),
+		"pending_invoices":   pendingInvoices,
+	}
+
+	api.Resp(w, http.StatusOK, res)
+}
+
+func getInvoicesCount(uid string, t string) int {
+	var count int
+
+	row, err := db.Db().Query("SELECT COUNT(*) FROM invoices WHERE user_id = $1 AND status = $2", uid, t)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	defer row.Close()
+
+	for row.Next() {
+		row.Scan(&count)
+	}
+
+	return count
 }
