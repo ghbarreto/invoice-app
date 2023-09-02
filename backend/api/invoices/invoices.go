@@ -19,6 +19,12 @@ type I struct {
 	Price         float64 `json:"price"`
 }
 
+type InvoiceStatus struct {
+	Paid      string `json:"paid"`
+	Completed string `json:"completed"`
+	Pending   string `json:"pending"`
+}
+
 type Body struct {
 	Uid string `json:"uid"`
 }
@@ -53,28 +59,25 @@ func Invoices(w http.ResponseWriter, r *http.Request) {
 		invoices = append(invoices, invoice)
 	}
 
-	var paidInvoices int = getInvoicesCount(u.Uid, "paid")
-	var pendingInvoices int = getInvoicesCount(u.Uid, "pending")
-	var completedInvoices int = getInvoicesCount(u.Uid, "completed")
+	var paidInvoices = getInvoiceStatus(u.Uid)
 
 	db.Db().Close()
 
 	// todo fix this so it only queries the database once
 	res := map[string]interface{}{
-		"paid_invoices":      paidInvoices,
-		"invoices":           invoices,
-		"completed_invoices": completedInvoices,
-		"invoices_count":     len(invoices),
-		"pending_invoices":   pendingInvoices,
+		"paid_invoices":  paidInvoices,
+		"invoices":       invoices,
+		"invoices_count": len(invoices),
 	}
 
 	api.Resp(w, http.StatusOK, res)
 }
 
-func getInvoicesCount(uid string, t string) int {
+func getInvoiceStatus(uid string) int {
 	var count int
+	var status InvoiceStatus
 
-	row, err := db.Db().Query("SELECT COUNT(*) FROM invoices WHERE user_id = $1 AND status = $2", uid, t)
+	row, err := db.Db().Query("SELECT status, COUNT(*) as count from invoices where user_id = $1 GROUP BY status", uid)
 
 	if err != nil {
 		fmt.Println(err)
@@ -83,8 +86,9 @@ func getInvoicesCount(uid string, t string) int {
 	defer row.Close()
 
 	for row.Next() {
-		row.Scan(&count)
+		row.Scan(&status, &count)
 	}
 
-	return count
+	fmt.Println(status, count)
+	return 12
 }
