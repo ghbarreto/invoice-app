@@ -9,7 +9,7 @@ import (
 )
 
 type Invoice struct {
-	Id            string  `json:"invoice_id"`
+	Id            *string `json:"invoice_id"`
 	Date_due      *string `json:"date_due"`
 	Currency_code *string `json:"currency_code"`
 	Description   string  `json:"description"`

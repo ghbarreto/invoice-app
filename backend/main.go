@@ -3,26 +3,17 @@ package main
 import (
 	r "backend-api/api/user"
 	i "backend-api/api/user/invoices"
-	"backend-api/auth"
+	utils "backend-api/api/utils"
 	"net/http"
-
-	"github.com/rs/cors"
 )
 
 func main() {
-	allowedOrigins := []string{"http://localhost:3000"}
-	corsMiddleware := cors.New(
-		cors.Options{
-			AllowedOrigins:   allowedOrigins,
-			AllowedMethods:   []string{"GET", "POST", "OPTIONS"},
-			AllowedHeaders:   []string{"Authorization", "Content-Type"},
-			AllowCredentials: true,
-			Debug:            true,
-		},
-	)
+	// invoice wrapper
+	utils.Routes("invoices", i.Invoices)
+	utils.Routes("create_invoice", i.CreateInvoice)
 
-	http.Handle("/api/invoices", corsMiddleware.Handler(auth.Auth(http.HandlerFunc(i.Invoices))))
-	http.Handle("/api/credentials", corsMiddleware.Handler(auth.Auth(http.HandlerFunc(r.Registration))))
+	// user wrapper
+	utils.Routes("credentials", r.Registration)
 
 	http.ListenAndServe(":8080", nil)
 }

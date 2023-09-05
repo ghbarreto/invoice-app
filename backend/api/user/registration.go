@@ -3,7 +3,6 @@ package user
 import (
 	api "backend-api/api/utils"
 	"backend-api/db"
-	"encoding/json"
 	"fmt"
 	"net/http"
 )
@@ -16,6 +15,8 @@ type User struct {
 
 func Registration(w http.ResponseWriter, r *http.Request) {
 	var user User
+
+	api.JsonDecode(r, &user)
 
 	rows := searchCredentials(r, &user)
 
@@ -39,12 +40,6 @@ func insertNewUser(r *http.Request, user *User) {
 }
 
 func searchCredentials(r *http.Request, user *User) (rows int64) {
-	err := json.NewDecoder(r.Body).Decode(&user)
-
-	if err != nil {
-		fmt.Println("Error decoding JSON")
-		panic(err)
-	}
 
 	findUser := `SELECT uid from credentials WHERE uid = $1;`
 	u, err := db.Db().Exec(findUser, user.Id)

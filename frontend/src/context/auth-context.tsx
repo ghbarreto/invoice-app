@@ -67,8 +67,6 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
                         return localStorage.removeItem('auth_token');
                     });
                 setUser({ ...user });
-            } else {
-                setUser(null);
             }
         });
     }, [auth]);

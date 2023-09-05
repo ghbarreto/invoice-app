@@ -24,13 +24,17 @@ const apiClient = async (endpoint: string, o?: Others) => {
         o.body = JSON.stringify(o.body);
     }
 
-    const response = await fetch(`${BE_BASE_URL}/${endpoint}`, {
+    const response: Response = await fetch(`${BE_BASE_URL}/${endpoint}`, {
         method: o?.method,
         headers: headers,
         body: o?.body,
     });
+
+    if (!response.ok) {
+        return 'Error fetching the data';
+    }
+
     const responseData = await response.json();
-    console.log(responseData);
 
     return responseData;
 };

@@ -1,11 +1,28 @@
 package invoices
 
-import "fmt"
+import (
+	api "backend-api/api/utils"
+	"backend-api/db"
+	"net/http"
+)
 
-// INSERT INTO invoices (short_id, other_columns_here)
-// VALUES (generate_unique_short_id('XM', 6), 'other_value');
+type Create_Invoice struct {
+	Invoice
+	Uid string `json:"uid"`
+}
 
-func CreateInvoice() {
+func CreateInvoice(w http.ResponseWriter, r *http.Request) {
+	var invoice Create_Invoice
 
-	fmt.Println("CreateInvoice")
+	api.JsonDecode(r, &invoice)
+
+	insertInvoice := `INSERT INTO invoices (user_id, date_due, currency_code, description, 
+		status, first_name, last_name, price, address, country, city, client_email, zip_code)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING id`
+
+	_ = db.Db().QueryRow(insertInvoice, invoice.Uid, invoice.Date_due, invoice.Currency_code, invoice.Description,
+		invoice.Status, invoice.First_name, invoice.Last_name, invoice.Price, invoice.Address,
+		invoice.Country, invoice.City, invoice.Client_Email, invoice.Zip_Code).Scan(&invoice.Id)
+
+	api.Resp(w, 200, invoice)
 }
