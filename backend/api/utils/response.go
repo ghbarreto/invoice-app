@@ -21,8 +21,6 @@ func Resp(w http.ResponseWriter, status int, data interface{}) {
 		message = "success"
 	} else if status == 400 {
 		message = "bad request"
-	} else if status == 401 {
-		message = "unauthorized"
 	} else if status == 404 {
 		message = "not found"
 	} else if status == 500 {

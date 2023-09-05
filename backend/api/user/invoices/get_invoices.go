@@ -2,6 +2,7 @@ package invoices
 
 import (
 	api "backend-api/api/utils"
+	"backend-api/auth"
 	"backend-api/db"
 	"encoding/json"
 	"fmt"
@@ -10,7 +11,7 @@ import (
 
 type Invoice struct {
 	Id            *string `json:"invoice_id"`
-	Date_due      *string `json:"date_due"`
+	Date_due      string  `json:"date_due"`
 	Currency_code *string `json:"currency_code"`
 	Description   string  `json:"description"`
 	Status        string  `json:"status"`
@@ -39,13 +40,21 @@ func Invoices(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
+	if r.Method == "GET" {
+		fmt.Println("get received")
+	}
+
 	rows, err := db.Db().Query("SELECT id, date_due, currency_code, "+
 		"description, status, first_name, last_name, price, address, country, city, client_email, zip_code "+
-		"FROM invoices WHERE user_id = $1", u.Uid)
+		"FROM invoices WHERE user_id = $1 AND is_visible = true", u.Uid)
 
 	if err != nil {
 		fmt.Println(err)
 	}
+
+	c := r.Context().Value(auth.UidContextKey).(string)
+
+	fmt.Println(c)
 
 	defer rows.Close()
 

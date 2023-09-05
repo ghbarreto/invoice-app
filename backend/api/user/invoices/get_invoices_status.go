@@ -14,7 +14,7 @@ type InvoiceStatus struct {
 func getInvoiceStatus(uid string) InvoiceStatus {
 	var status = InvoiceStatus{}
 
-	row, err := db.Db().Query("SELECT status, COUNT(*) from invoices where user_id = $1 GROUP BY status", uid)
+	row, err := db.Db().Query("SELECT status, COUNT(*) from invoices where user_id = $1 AND is_visible = true GROUP BY status ", uid)
 
 	if err != nil {
 		fmt.Println(err)
@@ -36,8 +36,6 @@ func getInvoiceStatus(uid string) InvoiceStatus {
 			status.Pending = fmt.Sprintf("%d", c)
 		}
 	}
-
-	fmt.Println(status)
 
 	db.Db().Close()
 
