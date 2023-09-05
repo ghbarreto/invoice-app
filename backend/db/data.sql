@@ -30,42 +30,27 @@ CREATE TYPE public.status_enum AS ENUM (
 ALTER TYPE public.status_enum OWNER TO root;
 
 --
--- Name: generate_short_id(integer); Type: FUNCTION; Schema: public; Owner: root
+-- Name: generate_unique_short_id(); Type: FUNCTION; Schema: public; Owner: root
 --
 
-CREATE FUNCTION public.generate_short_id(length integer) RETURNS character varying
+CREATE FUNCTION public.generate_unique_short_id() RETURNS character varying
     LANGUAGE plpgsql
     AS $$
 DECLARE
-    chars varchar := 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    result varchar := '';
+    chars VARCHAR := 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    new_id VARCHAR;
+    prefix VARCHAR := '';
 BEGIN
-    FOR i IN 1..length LOOP
-        result := result || substr(chars, floor(random() * length(chars) + 1)::integer, 1);
-    END LOOP;
-    RETURN result;
-END;
-$$;
-
-
-ALTER FUNCTION public.generate_short_id(length integer) OWNER TO root;
-
---
--- Name: generate_unique_short_id(character varying, integer); Type: FUNCTION; Schema: public; Owner: root
---
-
-CREATE FUNCTION public.generate_unique_short_id(prefix character varying, length integer) RETURNS character varying
-    LANGUAGE plpgsql
-    AS $$
-DECLARE
-    chars varchar := 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    new_id varchar;
-BEGIN
+    -- Generate a random prefix with 2 random letters
+    prefix := substr(chars, floor(random() * length(chars) + 1)::integer, 1) ||
+              substr(chars, floor(random() * length(chars) + 1)::integer, 1);
+    
     LOOP
-        new_id := prefix || lpad(CAST(floor(random() * power(10, length - length(prefix) + 1)) AS text), length - length(prefix) + 1, '0');
+        -- Generate a random 6-digit number with leading zeros
+        new_id := prefix || lpad(floor(random() * 1000000)::text, 5, '0');
         
         -- Check if the generated ID is unique
-        EXIT WHEN NOT EXISTS (SELECT 1 FROM invoices WHERE invoice_id = new_id);
+        EXIT WHEN NOT EXISTS (SELECT 1 FROM invoices WHERE id = new_id);
     END LOOP;
     
     RETURN new_id;
@@ -73,7 +58,7 @@ END;
 $$;
 
 
-ALTER FUNCTION public.generate_unique_short_id(prefix character varying, length integer) OWNER TO root;
+ALTER FUNCTION public.generate_unique_short_id() OWNER TO root;
 
 SET default_tablespace = '';
 
@@ -97,7 +82,7 @@ ALTER TABLE public.credentials OWNER TO root;
 --
 
 CREATE TABLE public.invoices (
-    invoice_id character varying(10) NOT NULL,
+    id character varying(10) DEFAULT public.generate_unique_short_id() NOT NULL,
     date_due date,
     currency_code character varying(3),
     user_id character varying(128),
@@ -105,7 +90,12 @@ CREATE TABLE public.invoices (
     price numeric(10,2),
     status public.status_enum,
     first_name character varying(50),
-    last_name character varying(50)
+    last_name character varying(50),
+    address character varying(128),
+    country character varying(50),
+    city character varying(50),
+    client_email character varying(150),
+    zip_code character varying(20)
 );
 
 
@@ -118,6 +108,9 @@ ALTER TABLE public.invoices OWNER TO root;
 COPY public.credentials (uid, email, provider_id) FROM stdin;
 oiwque123124	test@gmail.com	firebase
 oiapoke	acc@gmail.com	firebase
+sZq0R42xeSgSS4V9yK48GC4l0WD3	vuxgamer@gmail.com	firebase
+o3zfqLReWKfMIIJCPlsfML3NqO43	henriqve.dev@gmail.com	firebase
+uOrlewIx0HgorQz9osr8FJsGxBv2	gabriel.barreto@fansunite.com	firebase
 \.
 
 
@@ -125,10 +118,12 @@ oiapoke	acc@gmail.com	firebase
 -- Data for Name: invoices; Type: TABLE DATA; Schema: public; Owner: root
 --
 
-COPY public.invoices (invoice_id, date_due, currency_code, user_id, description, price, status, first_name, last_name) FROM stdin;
-CZ19706	2023-09-15	USD	oiwque123124	Sample invoice 1	250.00	paid	John	Doe
-XM54699	2023-09-30	EUR	oiwque123124	Sample invoice 2	150.75	pending	Jane	Smith
-SD33869	2023-10-10	GBP	oiapoke	Sample invoice 3	500.50	completed	Michael	Johnson
+COPY public.invoices (id, date_due, currency_code, user_id, description, price, status, first_name, last_name, address, country, city, client_email, zip_code) FROM stdin;
+SD33869	2023-10-10	GBP	oiapoke	Sample invoice 3	500.50	completed	Michael	Johnson	\N	\N	\N	\N	\N
+CZ19706	2023-09-15	USD	sZq0R42xeSgSS4V9yK48GC4l0WD3	Sample invoice 1	250.00	paid	John	Doe	\N	\N	\N	\N	\N
+XM54699	2023-09-30	EUR	sZq0R42xeSgSS4V9yK48GC4l0WD3	Sample invoice 2	150.75	pending	Jane	Smith	\N	\N	\N	\N	\N
+1231214	2023-10-10	usd	sZq0R42xeSgSS4V9yK48GC4l0WD3	test	124124.00	pending	f_test	last_test	\N	\N	\N	\N	\N
+SU825509	2023-10-10	usd	sZq0R42xeSgSS4V9yK48GC4l0WD3	test	12.34	completed	f_test2	last_test2	\N	\N	\N	\N	\N
 \.
 
 
@@ -145,7 +140,7 @@ ALTER TABLE ONLY public.credentials
 --
 
 ALTER TABLE ONLY public.invoices
-    ADD CONSTRAINT invoices_pkey PRIMARY KEY (invoice_id);
+    ADD CONSTRAINT invoices_pkey PRIMARY KEY (id);
 
 
 --

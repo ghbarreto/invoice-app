@@ -1,8 +1,8 @@
 package main
 
 import (
-	i "backend-api/api/invoices"
 	r "backend-api/api/user"
+	i "backend-api/api/user/invoices"
 	"backend-api/auth"
 	"net/http"
 
