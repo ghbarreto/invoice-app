@@ -10,6 +10,7 @@ require (
 
 require (
 	github.com/MicahParks/keyfunc v1.9.0 // indirect
+	github.com/gofrs/uuid/v5 v5.0.0 // indirect
 	github.com/golang-jwt/jwt/v4 v4.5.0 // indirect
 	github.com/rs/cors v1.9.0 // indirect
 	google.golang.org/appengine/v2 v2.0.2 // indirect
@@ -24,6 +25,7 @@ require (
 	cloud.google.com/go/longrunning v0.5.1 // indirect
 	cloud.google.com/go/storage v1.32.0 // indirect
 	firebase.google.com/go/v4 v4.12.0
+	github.com/gofrs/uuid v4.4.0+incompatible
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/google/go-cmp v0.5.9 // indirect

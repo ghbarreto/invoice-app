@@ -30,7 +30,7 @@ func Registration(w http.ResponseWriter, r *http.Request) {
 }
 
 func insertNewUser(r *http.Request, user *User) {
-	insertUser := `INSERT INTO credentials (uid, email, provider_id) VALUES ($1, $2, $3);`
+	insertUser := `INSERT INTO credentials (id, email, provider_id) VALUES ($1, $2, $3);`
 
 	_, err := db.Db().Exec(insertUser, user.Id, user.Email, user.ProviderId)
 
@@ -42,7 +42,7 @@ func insertNewUser(r *http.Request, user *User) {
 
 func searchCredentials(r *http.Request, user *User) (rows int64) {
 
-	findUser := `SELECT uid from credentials WHERE uid = $1;`
+	findUser := `SELECT id from credentials WHERE id = $1;`
 	u, err := db.Db().Exec(findUser, user.Id)
 
 	if err != nil {
@@ -56,5 +56,6 @@ func searchCredentials(r *http.Request, user *User) (rows int64) {
 		fmt.Println("Error getting rows affected")
 		panic(err)
 	}
+
 	return rows
 }

@@ -12,7 +12,7 @@ func Routes(endpoint string, r func(http.ResponseWriter, *http.Request)) {
 	c := cors.New(
 		cors.Options{
 			AllowedOrigins:   allowedOrigins,
-			AllowedMethods:   []string{"GET", "POST", "OPTIONS"},
+			AllowedMethods:   []string{"GET", "POST", "OPTIONS", "PUT", "DELETE"},
 			AllowedHeaders:   []string{"Authorization", "Content-Type"},
 			AllowCredentials: true,
 			Debug:            true,

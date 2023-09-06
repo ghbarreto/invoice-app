@@ -3,7 +3,6 @@ package invoices
 import (
 	api "backend-api/api/utils"
 	"backend-api/db"
-	"fmt"
 	"net/http"
 )
 
@@ -24,7 +23,7 @@ func UpdateInvoice(w http.ResponseWriter, r *http.Request) {
 		invoice.City, invoice.Client_Email, invoice.Zip_Code, invoice.Id, invoice.Uid)
 
 	if err != nil {
-		fmt.Println(err)
+		api.Resp(w, 500, err)
 	}
 
 	db.Db().Close()

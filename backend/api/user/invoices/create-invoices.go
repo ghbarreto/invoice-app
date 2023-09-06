@@ -20,9 +20,18 @@ func CreateInvoice(w http.ResponseWriter, r *http.Request) {
 		status, first_name, last_name, price, address, country, city, client_email, zip_code)
 		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING id`
 
-	_ = db.Db().QueryRow(insertInvoice, invoice.Uid, api.DateToUTC(invoice.Date_due), invoice.Currency_code, invoice.Description,
+	row := db.Db().QueryRow(insertInvoice, invoice.Uid, api.DateToUTC(invoice.Date_due), invoice.Currency_code, invoice.Description,
 		invoice.Status, invoice.First_name, invoice.Last_name, invoice.Price, invoice.Address,
-		invoice.Country, invoice.City, invoice.Client_Email, invoice.Zip_Code).Scan(&invoice.Id)
+		invoice.Country, invoice.City, invoice.Client_Email, invoice.Zip_Code)
 
-	api.Resp(w, 200, invoice)
+	err := row.Scan(&invoice.Id)
+
+	db.Db().Close()
+
+	if err != nil {
+		api.Resp(w, 500, err)
+	} else {
+		api.Resp(w, 200, invoice)
+	}
+
 }
