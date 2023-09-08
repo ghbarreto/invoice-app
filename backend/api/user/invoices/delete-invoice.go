@@ -16,7 +16,8 @@ func DeleteInvoice(w http.ResponseWriter, r *http.Request) {
 
 	api.JsonDecode(r, &invoice_to_delete)
 
-	deleteInvoice := `DELETE FROM invoices WHERE id = $1 AND user_id = $2`
+	deleteInvoice := `UPDATE invoices SET is_visible = false
+	WHERE id = $1 AND user_id = $2`
 
 	_, err := db.Db().Exec(deleteInvoice, invoice_to_delete.Id, invoice_to_delete.Uid)
 

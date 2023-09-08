@@ -14,6 +14,8 @@ type Invoice struct {
 	City          *string `json:"city"`
 	Client_Email  *string `json:"client_email"`
 	Zip_Code      string  `json:"zip_code"`
+
+	Items []InvoiceItems `json:"items"`
 }
 
 type Body struct {
@@ -21,7 +23,7 @@ type Body struct {
 }
 
 type InvoiceStatus struct {
-	Paid      string `json:"paid"`
-	Completed string `json:"completed"`
-	Pending   string `json:"pending"`
+	Paid      *int `json:"paid"`
+	Completed *int `json:"completed"`
+	Pending   *int `json:"pending"`
 }
