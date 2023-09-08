@@ -1,6 +1,6 @@
 package invoices
 
-type Invoice struct {
+type invoice struct {
 	Id            *string `json:"invoice_id"`
 	Date_due      string  `json:"date_due"`
 	Currency_code *string `json:"currency_code"`
@@ -15,14 +15,23 @@ type Invoice struct {
 	Client_Email  *string `json:"client_email"`
 	Zip_Code      string  `json:"zip_code"`
 
-	Items []InvoiceItems `json:"items"`
+	Items []invoiceItems `json:"items"`
 }
 
-type Body struct {
+type invoiceItems struct {
+	Invoice_id  string  `json:"invoice_id"`
+	Item_id     string  `json:"item_id"`
+	Name        string  `json:"name"`
+	Item_amount int     `json:"item_amount"`
+	Price       float64 `json:"price"`
+	Total       float64 `json:"total"`
+}
+
+type body struct {
 	Uid string `json:"uid"`
 }
 
-type InvoiceStatus struct {
+type invoiceStatus struct {
 	Paid      *int `json:"paid"`
 	Completed *int `json:"completed"`
 	Pending   *int `json:"pending"`

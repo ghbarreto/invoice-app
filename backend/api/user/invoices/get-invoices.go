@@ -9,7 +9,7 @@ import (
 )
 
 func GetInvoices(w http.ResponseWriter, r *http.Request) {
-	var invoices []Invoice
+	var invoices []invoice
 	uid := r.Context().Value(auth.UidContextKey).(string)
 
 	rows, err := db.Db().Query(`SELECT invoices.id, date_due, currency_code, 
@@ -25,7 +25,7 @@ func GetInvoices(w http.ResponseWriter, r *http.Request) {
 	defer rows.Close()
 
 	for rows.Next() {
-		var i Invoice
+		var i invoice
 
 		rows.Scan(&i.Id, &i.Date_due, &i.Currency_code,
 			&i.Description, &i.Status,
@@ -59,8 +59,8 @@ func getInvoicesCount(uid string) int {
 	return count
 }
 
-func getInvoiceStatus(uid string) InvoiceStatus {
-	var status = InvoiceStatus{}
+func getInvoiceStatus(uid string) invoiceStatus {
+	var status = invoiceStatus{}
 
 	row, err := db.Db().Query("SELECT status, COUNT(*) from invoices where user_id = $1 AND is_visible = true GROUP BY status ", uid)
 

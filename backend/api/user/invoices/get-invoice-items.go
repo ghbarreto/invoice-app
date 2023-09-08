@@ -4,17 +4,8 @@ import (
 	"backend-api/db"
 )
 
-type InvoiceItems struct {
-	Invoice_id  string  `json:"invoice_id"`
-	Item_id     string  `json:"item_id"`
-	Name        string  `json:"name"`
-	Item_amount int     `json:"item_amount"`
-	Price       float64 `json:"price"`
-	Total       float64 `json:"total"`
-}
-
-func getInvoiceItems(invoice_id *string) []InvoiceItems {
-	var items []InvoiceItems
+func getInvoiceItems(invoice_id *string) []invoiceItems {
+	var items []invoiceItems
 
 	query := `
 		SELECT invoice_items.invoice_id, items.id as item_id, items.name, invoice_items.item_amount,  items.price
@@ -30,7 +21,7 @@ func getInvoiceItems(invoice_id *string) []InvoiceItems {
 	}
 
 	for rows.Next() {
-		var i InvoiceItems
+		var i invoiceItems
 
 		err := rows.Scan(&i.Invoice_id, &i.Item_id, &i.Name, &i.Item_amount, &i.Price)
 

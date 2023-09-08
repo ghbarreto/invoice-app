@@ -8,7 +8,7 @@ import (
 )
 
 type ManageInvoice struct {
-	Invoice
+	invoice
 	Uid string `json:"uid"`
 }
 

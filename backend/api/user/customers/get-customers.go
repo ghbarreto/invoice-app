@@ -7,11 +7,7 @@ import (
 	"net/http"
 )
 
-// SELECT c.id, c.first_name, invoices.price from customers as c
-// INNER JOIN invoices  ON c.id = invoices.customer_id
-// WHERE invoices.user_id =
-
-type Customer struct {
+type customer struct {
 	Id           string  `json:"id"`
 	First_name   string  `json:"first_name"`
 	Last_name    string  `json:"last_name"`
@@ -24,7 +20,7 @@ type Customer struct {
 }
 
 func GetCustomers(w http.ResponseWriter, r *http.Request) {
-	var customers []Customer
+	var customers []customer
 
 	uid := r.Context().Value(auth.UidContextKey).(string)
 
@@ -38,7 +34,7 @@ func GetCustomers(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for rows.Next() {
-		var c Customer
+		var c customer
 
 		rows.Scan(&c.Id, &c.First_name, &c.Last_name, &c.Address, &c.Country, &c.City, &c.Client_email, &c.Zip_code, &c.Phone)
 

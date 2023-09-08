@@ -6,13 +6,13 @@ import (
 	"net/http"
 )
 
-type DelCustomer struct {
-	Customer
+type deleteCustomer struct {
+	customer
 	Uid string `json:"uid"`
 }
 
 func DeleteCustomer(w http.ResponseWriter, r *http.Request) {
-	var customer DelCustomer
+	var customer deleteCustomer
 
 	api.JsonDecode(r, &customer)
 
