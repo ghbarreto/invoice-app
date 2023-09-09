@@ -1,7 +1,7 @@
 package invoices
 
 type invoice struct {
-	Id            *string `json:"invoice_id"`
+	Id            string  `json:"invoice_id"`
 	Date_due      string  `json:"date_due"`
 	Currency_code *string `json:"currency_code"`
 	Description   string  `json:"description"`
@@ -15,10 +15,10 @@ type invoice struct {
 	Client_Email  *string `json:"client_email"`
 	Zip_Code      string  `json:"zip_code"`
 
-	Items []invoiceItems `json:"items"`
+	Items []invoiceItem `json:"items"`
 }
 
-type invoiceItems struct {
+type invoiceItem struct {
 	Invoice_id  string  `json:"invoice_id"`
 	Item_id     string  `json:"item_id"`
 	Name        string  `json:"name"`

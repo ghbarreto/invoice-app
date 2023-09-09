@@ -4,8 +4,8 @@ import (
 	"backend-api/db"
 )
 
-func getInvoiceItems(invoice_id *string) []invoiceItems {
-	var items []invoiceItems
+func getInvoiceItems(invoice_id string) []invoiceItem {
+	var items []invoiceItem
 
 	query := `
 		SELECT invoice_items.invoice_id, items.id as item_id, items.name, invoice_items.item_amount,  items.price
@@ -21,7 +21,7 @@ func getInvoiceItems(invoice_id *string) []invoiceItems {
 	}
 
 	for rows.Next() {
-		var i invoiceItems
+		var i invoiceItem
 
 		err := rows.Scan(&i.Invoice_id, &i.Item_id, &i.Name, &i.Item_amount, &i.Price)
 
