@@ -136,7 +136,7 @@ ALTER TABLE public.invoice_address OWNER TO root;
 --
 
 CREATE TABLE public.invoice_items (
-    id uuid NOT NULL,
+    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
     item_id uuid,
     invoice_id character varying(10),
     item_amount integer
@@ -212,6 +212,11 @@ COPY public.invoice_address (id, first_name, last_name, address, country, city, 
 769fc125-d81c-45ee-9175-0cd5cf813580	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	FA56939	sZq0R42xeSgSS4V9yK48GC4l0WD3
 91cd37af-7a2e-4d4f-a574-cb3fcac8708d	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	SS48389	sZq0R42xeSgSS4V9yK48GC4l0WD3
 7507d428-5b02-4796-a809-0353e0045223	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	NR52650	sZq0R42xeSgSS4V9yK48GC4l0WD3
+360419ea-15aa-4070-a5b9-98e1012c1474	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	JC33159	sZq0R42xeSgSS4V9yK48GC4l0WD3
+f259b5b5-621b-4d34-8c5f-1a2d5900df69	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	DP70661	sZq0R42xeSgSS4V9yK48GC4l0WD3
+87692199-5a21-477b-8b62-baa658ba8fb4	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	AA41388	sZq0R42xeSgSS4V9yK48GC4l0WD3
+cbcc21ba-f2d2-4c4c-99c2-68a6c3de2020	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	TH20751	sZq0R42xeSgSS4V9yK48GC4l0WD3
+16032f92-0b1d-4c3d-adbc-dc4dfd47c0e2	TesIT WORKED	Last IT WORKED	this is the address IT WORKED	Br IT WORKED	Sao IT WORKED	ITWORKED@gmail.com	4420-IT WORKED	HJ22423	sZq0R42xeSgSS4V9yK48GC4l0WD3
 \.
 
 
@@ -220,6 +225,15 @@ COPY public.invoice_address (id, first_name, last_name, address, country, city, 
 --
 
 COPY public.invoice_items (id, item_id, invoice_id, item_amount) FROM stdin;
+0aaed4e5-1742-4c87-8ea5-3c93b2b90d52	b9dc438a-d36d-463f-8f88-c0e25f2eb970	FA56939	4
+a9bb917d-2afb-4fba-a76e-7b10f391cf8a	b2be4c29-6ae7-490e-b893-41d3040de92d	FA56939	4
+71b7035f-5abe-4d7f-9031-28e7ca8d08ef	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	FA56939	4
+fdf1a5b8-e261-413a-9716-593ca2680bda	b9dc438a-d36d-463f-8f88-c0e25f2eb970	NR52650	1
+b797c695-a3ac-40c2-ac68-b47f410c3cef	b2be4c29-6ae7-490e-b893-41d3040de92d	NR52650	2
+5fc3ee99-ee97-4021-b05c-63ed0383ac12	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	NR52650	3
+c3c6230a-e3c7-4ebf-8f9a-6614a295ea0f	b9dc438a-d36d-463f-8f88-c0e25f2eb970	HJ22423	22424
+75bec014-da1c-483c-9854-9c73da77d667	b2be4c29-6ae7-490e-b893-41d3040de92d	HJ22423	2522222
+c14b3f43-93a8-4216-b61d-8662758a4fe6	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	HJ22423	32323
 \.
 
 
@@ -228,9 +242,14 @@ COPY public.invoice_items (id, item_id, invoice_id, item_amount) FROM stdin;
 --
 
 COPY public.invoices (id, date_due, currency_code, user_id, description, price, status, is_visible) FROM stdin;
-FA56939	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	pending	f
 SS48389	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	pending	t
 NR52650	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	pending	t
+FA56939	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	pending	t
+JC33159	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	pending	t
+DP70661	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	pending	t
+AA41388	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	pending	t
+TH20751	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	pending	t
+HJ22423	2024-09-07 19:38:21.178+00	Bdw	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description ITwwwww WORKED	1520.20	completed	t
 \.
 
 
