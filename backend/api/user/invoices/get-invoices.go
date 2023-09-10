@@ -8,15 +8,17 @@ import (
 	"net/http"
 )
 
+var GET_INVOICE = `SELECT invoices.id, date_due, currency_code, 
+description, status, first_name, last_name, price, address, country, city, client_email, zip_code 
+FROM invoices 
+LEFT JOIN invoice_address ON invoices.id = invoice_address.invoice_id
+WHERE invoices.user_id = $1 AND is_visible = true`
+
 func GetInvoices(w http.ResponseWriter, r *http.Request) {
 	var invoices []invoice
 	uid := r.Context().Value(auth.UidContextKey).(string)
 
-	rows, err := db.Db().Query(`SELECT invoices.id, date_due, currency_code, 
-		description, status, first_name, last_name, price, address, country, city, client_email, zip_code 
-		FROM invoices 
-		LEFT JOIN invoice_address ON invoices.id = invoice_address.invoice_id
-		WHERE invoices.user_id = $1 AND is_visible = true`, uid)
+	rows, err := db.Db().Query(GET_INVOICE, uid)
 
 	if err != nil {
 		fmt.Println(err)

@@ -5,6 +5,7 @@ import { useQuery } from 'react-query';
 import { useAuth } from '@/context/auth-context';
 import { GetServerSideProps } from 'next';
 import { secureFetch } from '@/utils/fetch';
+import { Button } from '@/components';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -26,6 +27,8 @@ export default function Home() {
                 <Image src={user?.photoURL || '/vercel.svg'} alt="Vercel Logo" width={100} height={24} priority />
                 <div onClick={login}>LOGIN</div>
                 <div onClick={logout}>SIGN OFF</div>
+                <Button type="primary" />
+                <Button />
             </div>
             <div>
                 <div className="mt-3 break-words">
