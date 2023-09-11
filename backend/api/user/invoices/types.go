@@ -27,12 +27,9 @@ type invoiceItem struct {
 	Total       float64 `json:"total"`
 }
 
-type body struct {
-	Uid string `json:"uid"`
-}
-
 type invoiceStatus struct {
 	Paid      *int `json:"paid"`
 	Completed *int `json:"completed"`
 	Pending   *int `json:"pending"`
+	Draft     *int `json:"draft"`
 }

@@ -4,8 +4,11 @@ import (
 	api "backend-api/api/utils"
 	"backend-api/auth"
 	"backend-api/db"
+	"database/sql"
 	"fmt"
 	"net/http"
+	"strconv"
+	"strings"
 )
 
 var GET_INVOICE = `SELECT invoices.id, date_due, currency_code, 
@@ -18,10 +21,43 @@ func GetInvoices(w http.ResponseWriter, r *http.Request) {
 	var invoices []invoice
 	uid := r.Context().Value(auth.UidContextKey).(string)
 
-	rows, err := db.Db().Query(GET_INVOICE, uid)
+	get_filters := r.URL.Query().Get("f")
+	filters := strings.Split(get_filters, ",")
 
-	if err != nil {
-		fmt.Println(err)
+	var rows *sql.Rows
+
+	if get_filters != "" {
+		if len(filters) > 0 {
+			var placeholders []string
+			var values []interface{}
+			values = append(values, uid)
+
+			for i, str := range filters {
+				var start_at = 1 + i
+				placeholders = append(placeholders, "$"+strconv.Itoa(start_at+1))
+				values = append(values, str)
+			}
+
+			filter := strings.Join(placeholders, ", ")
+			query := GET_INVOICE + " AND status IN (" + filter + ")"
+
+			fmt.Println(query)
+			i, err := db.Db().Query(query, values...)
+
+			if err != nil {
+				fmt.Println(err)
+			}
+
+			rows = i
+		}
+
+	} else {
+		i, err := db.Db().Query(GET_INVOICE, uid)
+
+		if err != nil {
+			fmt.Println(err)
+		}
+		rows = i
 	}
 
 	defer rows.Close()
@@ -84,6 +120,8 @@ func getInvoiceStatus(uid string) invoiceStatus {
 			status.Completed = c
 		} else if s == "pending" {
 			status.Pending = c
+		} else if s == "draft" {
+			status.Draft = c
 		}
 	}
 
