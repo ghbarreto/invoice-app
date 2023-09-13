@@ -5,7 +5,7 @@ import { useQuery } from 'react-query';
 import { useAuth } from '@/context/auth-context';
 import { GetServerSideProps } from 'next';
 import { secureFetch } from '@/utils/fetch';
-import { Button, Dropdown } from '@/components';
+import { Button, Dropdown, Input, DatePicker } from '@/components';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,8 +18,6 @@ export default function Home() {
     //     enabled: !!user,
     // });
 
-    console.log(user);
-
     const addProp = () => {
         if (document.documentElement.classList.contains('dark')) {
             return document.documentElement.classList.remove('dark');
@@ -30,6 +28,35 @@ export default function Home() {
     return (
         <>
             <main className={`p-10`}>
+                <DatePicker />
+                <Dropdown
+                    label="Payment Terms"
+                    values={[
+                        {
+                            label: 'Net 1 Day',
+                            value: '1',
+                        },
+
+                        {
+                            label: 'Net 7 Days',
+                            value: '7',
+                        },
+                        {
+                            label: 'Net 14 Days',
+                            value: '14',
+                        },
+
+                        {
+                            label: 'Net 30 Days',
+                            value: '30',
+                        },
+                    ]}
+                    sel={{
+                        label: 'Net 30 Days',
+                        value: '30',
+                    }}
+                />
+                <Input label="Test" onChange={() => null} value="123" />
                 <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm">
                     <div>uid: {user?.uid}</div>
                     <Image
@@ -51,48 +78,14 @@ export default function Home() {
                 >
                     <div className="mt-3 break-words">
                         <Button txt="Mark as Paid" type="secondary" />
-
                         <Button txt="Mark as Paid" type="delete" />
                         <Button txt="Edit" type="third" />
                         <Button txt="Add New Item" type="fourth" />
-
                         <strong>token:</strong>
                         <p>{token}</p>
                     </div>
                 </div>
             </main>
-            <Dropdown
-                label="Net 30 Days"
-                values={[
-                    {
-                        label: 'Net 1 Day',
-                        value: '1',
-                    },
-
-                    {
-                        label: 'Net 7 Days',
-                        value: '7',
-                    },
-                    {
-                        label: 'Net 14 Days',
-                        value: '14',
-                    },
-
-                    {
-                        label: 'Net 30 Days',
-                        value: '30',
-                    },
-                ]}
-                sel={{
-                    label: 'Net 30 Days',
-                    value: '30',
-                }}
-            />
         </>
     );
 }
-
-// export const getServerSideProps: GetServerSideProps = async () => {
-//     const { user } = useAuth();
-//     return {};
-// };

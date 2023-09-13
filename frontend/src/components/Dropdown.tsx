@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+
+import { Text } from '@/components';
 
 type TDropdown = {
-    label: string;
+    label?: string;
 
     values: Array<{
         label: string;
@@ -16,7 +18,7 @@ type TDropdown = {
 
 export const Dropdown = ({ label, values, sel }: TDropdown) => {
     const [isToggled, setIsToggled] = useState<boolean>(false);
-
+    const ref = useRef(null);
     const [selected, setSelected] = useState({
         label: sel.label,
         value: sel.value,
@@ -29,19 +31,27 @@ export const Dropdown = ({ label, values, sel }: TDropdown) => {
         toggle();
     };
 
+    useEffect(() => {
+        console.log(ref);
+    }, [ref]);
+
     return (
-        <div className="ml-10 w-4/12">
+        <div className="w-8/12 max-w-xs" ref={ref}>
+            <Text t="body-variant" customClasses="mb-2 ml-1 text-secondary_light_hover">
+                {label}
+            </Text>
             <button
                 onClick={toggle}
-                className={`text-white bg-white bg-background_light text-sm font-medium rounded-md border
-				${isToggled ? `border-primary` : 'border-secondary_light'}
-				hover:border-primary
-				 px-4 pt-3 py-2.5 inline-flex items-center w-full justify-between
-				 font-semibold
+                className={`text-white bg-white rounded-md border px-4 pt-3 py-2.5 inline-flex items-center w-full justify-between hover:border-primary
+				 ${isToggled ? `border-primary ` : 'border-secondary_light'}
+				dark:bg-dark_primary
+				dark:border-dark_primary_hover
 				 `}
                 type="button"
             >
-                {selected.label}
+                <Text t="heading-small" customClasses="dark:text-white">
+                    {selected.label}
+                </Text>
                 <svg
                     className="w-2.5 h-3.5 ml-2.5"
                     aria-hidden="true"
@@ -60,23 +70,22 @@ export const Dropdown = ({ label, values, sel }: TDropdown) => {
             </button>
 
             {isToggled && (
-                <div className="z-10 mt-3 w-full bg-white divide-y bg-background_light rounded-lg shadow-[5px_5px_0px_0px_rgba(109,40,217)]">
-                    <ul
-                        className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                        aria-labelledby="dropdownDividerButton"
-                    >
+                <div className="absolute w-8/12 max-w-xs z-10 mt-3 divide-y bg-white dark:bg-dark_primary_hover rounded-lg shadow-[5px_5px_0px_0px_rgba(109,40,217)]">
+                    <ul className="py-2 " aria-labelledby="dropdownDividerButton">
                         {values.map((e, i, arr) => {
-                            const lastIndex = arr.length - 1 !== i ? 'border-b border-b-secondary_light' : '';
+                            const lastIndex =
+                                arr.length - 1 !== i
+                                    ? 'border-b border-b-secondary_light dark:border-dark_primary'
+                                    : 'py-1';
 
                             return (
-                                <li key={i + e.label}>
-                                    <a
-                                        href="#"
-                                        onClick={() => onChange(e.label, e.value)}
-                                        className={`${lastIndex} block px-4 py-2 text-sm hover:text-primary font-semibold hover:bg-gray-100 `}
+                                <li className="py-1" key={i + e.label} onClick={() => onChange(e.label, e.value)}>
+                                    <Text
+                                        t="heading-small"
+                                        customClasses={`${lastIndex} px-4 py-2 hover:text-primary dark:text-secondary_light dark:hover:text-primary`}
                                     >
                                         {e.label}
-                                    </a>
+                                    </Text>
                                 </li>
                             );
                         })}

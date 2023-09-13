@@ -16,21 +16,23 @@ const config: Config = {
         },
 
         colors: {
-            primary: 'rgb(124, 93, 250)',
-            primary_hover: 'rgb(146, 119, 255)',
-            dark_primary: 'rgb(30,33,57)',
-            dark_primary_hover: 'rgb(37, 41, 69)',
+            primary: 'var(--primary)', //1
+            primary_hover: 'var(--primary_hover)', //2
+            dark_primary: 'var(--dark_primary)', //3
+            dark_primary_hover: 'var(--dark_primary_hover)', //4
 
-            secondary_light: 'rgb(233, 227, 250)',
-            secondary_dark: 'rgb(136, 142, 176)',
-            secondary_light_hover: 'rgb(126, 136, 195)',
-            secondary_black: 'rgb(12,14,22)',
+            secondary_light: 'var(--secondary_light)', //5
+            secondary_dark: 'var(--secondary_dark)', //6
+            secondary_light_hover: 'var(--secondary_light_hover)', //7
+            secondary_black: 'var(--secondary_black)', //8
 
-            danger: 'rgb(236, 87, 87)',
-            danger_hover: 'rgb(255, 151, 151)',
+            danger: 'var(--danger)', //9
+            danger_hover: 'var(--danger_hover)', //10
 
-            background_light: 'rgb(248, 248, 251)',
-            background_dark: 'rgb(20, 22, 37)',
+            background_light: 'var(--background_light)', //11
+            background_dark: 'var(--background_dark)', //12
+            white: 'var(--white)',
+            btn_bg: '#373B53',
         },
 
         fontFamily: {

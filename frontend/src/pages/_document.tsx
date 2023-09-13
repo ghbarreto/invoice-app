@@ -11,7 +11,7 @@ export default function Document() {
                     rel="stylesheet"
                 />
             </Head>
-            <body className="bg-secondary_light dark:bg-background_dark">
+            <body className="bg-white dark:bg-background_dark">
                 <Main />
                 <NextScript />
             </body>
