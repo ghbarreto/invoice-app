@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { Text } from './';
+import { Text } from '..';
 
 type TButton = {
     hasPlusSign?: boolean;
     type: 'primary' | 'secondary' | 'delete' | 'third' | 'fourth';
     txt: string;
     isDisabled?: boolean;
+    customClasses?: string;
 };
 
 export const Button = ({ type, hasPlusSign, txt, ...props }: TButton) => {
@@ -15,9 +16,7 @@ export const Button = ({ type, hasPlusSign, txt, ...props }: TButton) => {
         secondary: `bg-btn_bg hover:bg-secondary_black hover:dark:bg-dark_primary`,
         delete: `bg-danger hover:bg-danger_hover `,
         third: `bg-background_light hover:bg-secondary_light dark:bg-dark_primary dark:hover:bg-background_light`,
-        fourth: `bg-background_light w-10/12 justify-center dark:bg-dark_primary max-w-sm
-				hover:bg-secondary_light 
-		`,
+        fourth: `bg-background_light w-10/12 justify-center dark:bg-dark_primary max-w-sm hover:bg-secondary_light`,
     }[type];
 
     const txtColor = {
@@ -30,23 +29,23 @@ export const Button = ({ type, hasPlusSign, txt, ...props }: TButton) => {
 
     return (
         <button
-            className={`${buttonProps} w-max-content h-12 rounded-full flex items-center transition`}
+            className={`${buttonProps} w-max-content flex h-12 items-center rounded-full font-sans transition ${props.customClasses}`}
             onClick={() => alert('hello')}
             disabled={props.isDisabled}
         >
             {hasPlusSign && (
-                <div className="bg-background_light text-4xl rounded-full h-8 w-8 flex justify-center ml-3 relative font-sans">
-                    <span className="relative top-0 text-primary text-3xl">+</span>
+                <div className='relative ml-3 flex h-8 w-8 justify-center rounded-full bg-background_light font-sans text-4xl'>
+                    <span className='relative top-0 text-3xl text-primary'>+</span>
                 </div>
             )}
 
-            <div className="ml-6 mr-6 inline-flex">
+            <div className='ml-6 mr-6 inline-flex'>
                 {type === 'fourth' && (
-                    <Text t="heading-medium" customClasses="text-secondary_light_hover font-medium mr-2">
+                    <Text t='heading-medium' customClasses='text-secondary_light_hover font-medium mr-2'>
                         +
                     </Text>
                 )}
-                <Text t="heading-small" customClasses={txtColor}>
+                <Text t='heading-small' customClasses={txtColor}>
                     {txt}
                 </Text>
             </div>

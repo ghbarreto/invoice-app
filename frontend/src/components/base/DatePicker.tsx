@@ -3,25 +3,25 @@ import D from 'react-datepicker';
 import Image from 'next/image';
 
 import Calendar from '/public/calendar.svg';
-import { Text } from './';
+import { Text } from './Text';
 
 export const DatePicker = () => {
     const [startDate, setStartDate] = useState<Date | null>(new Date());
 
     return (
-        <div className="w-8/12 max-w-xs">
-            <Text t="body-variant" customClasses="mb-2 ml-1 text-secondary_light_hover">
+        <div className='w-8/12 max-w-xs'>
+            <Text t='body-variant' customClasses='mb-2 ml-1 text-secondary_light_hover'>
                 Test
             </Text>
             <D
                 selected={startDate}
                 showFourColumnMonthYearPicker={false}
                 showPopperArrow={false}
-                dateFormatCalendar="MMM yyyy"
-                dateFormat="dd MMM yyyy"
+                dateFormatCalendar='MMM yyyy'
+                dateFormat='dd MMM yyyy'
                 showIcon
                 customInput={React.createElement(React.forwardRef(CustomInput))}
-                onChange={d => setStartDate(d)}
+                onChange={(d) => setStartDate(d)}
             />
         </div>
     );
@@ -29,18 +29,18 @@ export const DatePicker = () => {
 
 export const CustomInput = ({ value, onClick }: { value: string; onClick: () => void }) => {
     return (
-        <div className="relative">
+        <div className='relative'>
             <input
-                className={`bg-white rounded-md border w-full
-					border-secondary_light font-bold text-secondary_black
-					border-btn-bg active:border-primary outline-none
-					dark:bg-dark_primary dark:border-dark_primary_hover dark:text-white focus:border-primary
+                className={`border-btn-bg w-full rounded-md border
+					border-secondary_light bg-white font-bold
+					text-secondary_black outline-none focus:border-primary
+					active:border-primary dark:border-dark_primary_hover dark:bg-dark_primary dark:text-white
 			`}
                 value={value}
                 onClick={onClick}
             />
-            <span className="float-right absolute top-3 right-4" onClick={onClick}>
-                <Image src={Calendar} alt="calendar" width={20} height={20} />
+            <span className='absolute right-4 top-3 float-right' onClick={onClick}>
+                <Image src={Calendar} alt='calendar' width={20} height={20} />
             </span>
         </div>
     );

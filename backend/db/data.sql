@@ -37,7 +37,8 @@ COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UU
 CREATE TYPE public.status_enum AS ENUM (
     'paid',
     'pending',
-    'completed'
+    'completed',
+    'draft'
 );
 
 
@@ -188,7 +189,7 @@ oiapoke	acc@gmail.com	firebase
 sZq0R42xeSgSS4V9yK48GC4l0WD3	vuxgamer@gmail.com	firebase
 o3zfqLReWKfMIIJCPlsfML3NqO43	henriqve.dev@gmail.com	firebase
 uOrlewIx0HgorQz9osr8FJsGxBv2	gabriel.barreto@fansunite.com	firebase
-T3Z9Js9MzSWepbJW1DAdoksuXMT2	ighbarreto@gmail.com	firebase
+jnmaDePoXwNXECWDKpvrFqg9iDY2	gh.barreto@hotmail.com	firebase
 \.
 
 
@@ -242,14 +243,14 @@ c14b3f43-93a8-4216-b61d-8662758a4fe6	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	HJ2242
 --
 
 COPY public.invoices (id, date_due, currency_code, user_id, description, price, status, is_visible) FROM stdin;
-SS48389	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	pending	t
-NR52650	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	pending	t
-FA56939	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	pending	t
 JC33159	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	pending	t
-DP70661	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	pending	t
 AA41388	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	pending	t
 TH20751	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	pending	t
 HJ22423	2024-09-07 19:38:21.178+00	Bdw	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description ITwwwww WORKED	1520.20	completed	t
+FA56939	2023-09-07 19:38:21.178+00	BRL	oiapoke	this is the description	150.20	paid	t
+DP70661	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	draft	t
+NR52650	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	completed	t
+SS48389	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	paid	t
 \.
 
 

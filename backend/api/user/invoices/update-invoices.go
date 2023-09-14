@@ -27,13 +27,13 @@ func UpdateInvoice(w http.ResponseWriter, r *http.Request) {
 		api.Resp(w, 500, err)
 	}
 
-	err = updateAddress(w, invoice)
+	err = updateAddress(invoice)
 
 	if err != nil {
 		api.Resp(w, 500, err)
 	}
 
-	err = bulkUpdateItems(w, invoice.Items, invoice.Id)
+	err = bulkUpdateItems(invoice.Items, invoice.Id)
 
 	if err != nil {
 		api.Resp(w, 500, err)
@@ -44,7 +44,7 @@ func UpdateInvoice(w http.ResponseWriter, r *http.Request) {
 	api.Resp(w, 200, invoice)
 }
 
-func updateAddress(w http.ResponseWriter, invoice manageInvoice) error {
+func updateAddress(invoice manageInvoice) error {
 	u := `UPDATE invoice_address SET first_name = $1, last_name = $2, 
 				address = $3, country = $4, city = $5, client_email = $6, zip_code = $7
 			WHERE invoice_id = $8 AND user_id = $9`
@@ -56,7 +56,7 @@ func updateAddress(w http.ResponseWriter, invoice manageInvoice) error {
 	return err
 }
 
-func bulkUpdateItems(w http.ResponseWriter, items []invoiceItem, invoice_id string) error {
+func bulkUpdateItems(items []invoiceItem, invoice_id string) error {
 	update, err := db.Db().Begin()
 
 	if err != nil {
