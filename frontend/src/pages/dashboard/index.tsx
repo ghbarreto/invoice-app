@@ -1,11 +1,11 @@
 import React from 'react';
 import Image from 'next/image';
 
-import { useAuth } from '@/context/auth-context';
+import { useAuth, AuthCheck } from '@/context/auth-context';
 import { Button, SelectBox, Input, DatePicker, LoginForm, Navigation } from '@/components';
 
 const Dashboard = () => {
-    const { user, token, error } = useAuth();
+    const { user, token } = useAuth();
 
     const addProp = () => {
         if (document.documentElement.classList.contains('dark')) {
@@ -14,22 +14,25 @@ const Dashboard = () => {
         return document.documentElement.classList.add('dark');
     };
 
-    return (
-        <main className={`h-screen items-center bg-background_light dark:bg-background_dark`}>
-            <Navigation />
+    console.log(typeof window);
 
-            <div
-                style={{
-                    width: '100%',
-                }}
-            >
-                <div className='mt-3 break-words'>
-                    <strong>token:</strong>
-                    {error != '' ? <p>{error}</p> : null}
-                    <details>{token}</details>
+    return (
+        <AuthCheck>
+            <main className={`h-screen items-center bg-background_light dark:bg-background_dark`}>
+                <Navigation />
+
+                <div
+                    style={{
+                        width: '100%',
+                    }}
+                >
+                    <div className='mt-3 break-words'>
+                        <strong>token:</strong>
+                        <details>{token}</details>
+                    </div>
                 </div>
-            </div>
-        </main>
+            </main>
+        </AuthCheck>
     );
 };
 

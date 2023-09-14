@@ -6,12 +6,14 @@ import { Credentials } from './Credentials';
 import { useAuth } from '@/context/auth-context';
 
 export const LoginForm = () => {
-    const { user, logout, token, createUserWEmailAndPassword, signInWithEmailNPassword } = useAuth();
+    const { user, logout, token, error, createUserWEmailAndPassword, signInWithEmailNPassword } = useAuth();
     const [isSigningUp, setIsSigningUp] = useState<boolean>(false);
     const [credentials, setCredentials] = useState<{ email: string; password: string }>({ email: '', password: '' });
 
+    const hasError = error != '';
+
     const setSignUp = () => setIsSigningUp(!isSigningUp);
-    console.log(credentials.password);
+
     const handleRegister = () => {
         createUserWEmailAndPassword(credentials.email, credentials.password);
     };
@@ -43,7 +45,13 @@ export const LoginForm = () => {
                 </div>
 
                 <div className='m-auto w-full pb-5 font-sans'>
-                    <Credentials handleCredentialsChange={handleCredentialsChange} />
+                    {hasError ? (
+                        <Text t='heading-small' customClasses='text-center mt-2 mb-3 text-danger'>
+                            {error}
+                        </Text>
+                    ) : null}
+
+                    <Credentials handleCredentialsChange={handleCredentialsChange} hasError={hasError} />
                 </div>
 
                 <div className='flex w-full items-center justify-between pr-6'>
