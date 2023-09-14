@@ -24,7 +24,7 @@ func Registration(w http.ResponseWriter, r *http.Request) {
 		insertNewUser(r, &user)
 	}
 
-	db.Db().Close()
+	defer db.Db().Close()
 
 	api.Resp(w, 200, user)
 }
@@ -38,10 +38,10 @@ func insertNewUser(r *http.Request, user *User) {
 		fmt.Println("Error inserting new user")
 		panic(err)
 	}
+
 }
 
 func searchCredentials(r *http.Request, user *User) (rows int64) {
-
 	findUser := `SELECT id from credentials WHERE id = $1;`
 	u, err := db.Db().Exec(findUser, user.Id)
 

@@ -58,14 +58,14 @@ func bulkInsert(invoiceItems []invoiceItem, invoice_id string) {
 		fmt.Println(err)
 	}
 
-	stmt, err := insert.Prepare(pq.CopyIn("invoice_items", "item_id", "invoice_id", "item_amount"))
+	stmt, err := insert.Prepare(pq.CopyIn("invoice_items", "item_id", "invoice_id", "item_amount", "overcharge"))
 
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	for _, item := range invoiceItems {
-		_, err = stmt.Exec(item.Item_id, invoice_id, item.Item_amount)
+		_, err = stmt.Exec(item.Item_id, invoice_id, item.Item_amount, item.Overcharge)
 
 		if err != nil {
 			fmt.Println(err)

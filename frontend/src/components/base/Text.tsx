@@ -1,12 +1,18 @@
 import React from 'react';
 
+import { twMerge } from 'tailwind-merge';
+
 type TText = {
     t: 'heading-large' | 'heading-medium' | 'heading-small' | 'heading-small-variant' | 'body' | 'body-variant';
+    id?: string;
+    tag?: 'h1' | 'p' | 'h2';
     children: React.ReactNode;
     customClasses?: string;
 };
 
 export const Text = ({ t, children, customClasses, ...props }: TText) => {
+    const Tag = props.tag || 'p';
+
     const textProps = {
         'heading-large': 'text-4xl font-bold tracking-tighter leading-8',
         'heading-medium': 'text-2xl font-bold tracking-tighter leading-6',
@@ -17,11 +23,13 @@ export const Text = ({ t, children, customClasses, ...props }: TText) => {
     }[t];
 
     return (
-        <p
-            className={`${textProps} font-sans ${customClasses} text-secondary_black dark:text-secondary_light `}
+        <Tag
+            className={twMerge(
+                `  ${textProps}  font-sans  text-secondary_black dark:text-secondary_light ${customClasses} `
+            )}
             {...props}
         >
             {children}
-        </p>
+        </Tag>
     );
 };

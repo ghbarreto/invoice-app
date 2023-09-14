@@ -29,17 +29,17 @@ export const Button = ({ type, hasPlusSign, txt, ...props }: TButton) => {
 
     return (
         <button
-            className={`${buttonProps} w-max-content flex h-12 items-center rounded-full font-sans transition ${props.customClasses}`}
+            className={`${buttonProps} w-max-content flex h-14 items-center rounded-full font-sans transition ${props.customClasses}`}
             onClick={() => alert('hello')}
             disabled={props.isDisabled}
         >
             {hasPlusSign && (
-                <div className='relative ml-3 flex h-8 w-8 justify-center rounded-full bg-background_light font-sans text-4xl'>
-                    <span className='relative top-0 text-3xl text-primary'>+</span>
+                <div className='relative ml-3 flex h-10 w-10 justify-center rounded-full bg-background_light font-sans font-semibold text-4xl'>
+                    <span className='relative top-1 text-3xl text-primary'>+</span>
                 </div>
             )}
 
-            <div className='ml-6 mr-6 inline-flex'>
+            <div className='ml-2 mr-4 inline-flex'>
                 {type === 'fourth' && (
                     <Text t='heading-medium' customClasses='text-secondary_light_hover font-medium mr-2'>
                         +

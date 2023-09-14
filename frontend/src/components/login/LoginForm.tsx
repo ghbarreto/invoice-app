@@ -6,11 +6,13 @@ import { Credentials } from './Credentials';
 import { useAuth } from '@/context/auth-context';
 
 export const LoginForm = () => {
-    const { user, logout, token, error, createUserWEmailAndPassword, signInWithEmailNPassword } = useAuth();
+    const { user, logout, token, message, createUserWEmailAndPassword, signInWithEmailNPassword, forgotPassword } =
+        useAuth();
     const [isSigningUp, setIsSigningUp] = useState<boolean>(false);
     const [credentials, setCredentials] = useState<{ email: string; password: string }>({ email: '', password: '' });
 
-    const hasError = error != '';
+    const hasMessage = message.type != '';
+    const messageProps = message.type != 'success' ? 'text-danger' : 'text-primary';
 
     const setSignUp = () => setIsSigningUp(!isSigningUp);
 
@@ -29,11 +31,23 @@ export const LoginForm = () => {
     const label = 'text-secondary_dark block text-sm font-medium dark:text-white';
 
     return (
-        <section className='center shadow-normal m-auto flex w-11/12 max-w-sm rounded-md bg-white dark:bg-dark_primary_hover'>
+        <section
+            aria-labelledby='login-id'
+            title='login'
+            className='center shadow-normal m-auto flex w-11/12 max-w-sm rounded-md bg-white dark:bg-dark_primary_hover'
+        >
             <div className='w-full pl-5 pr-5'>
-                <Text t='heading-large' customClasses='w-full p7 pt-8 pb-5 font-bold tracking-wide text-xl'>
-                    {isSigningUp ? 'Register your account' : 'Sign in to your account'}
-                </Text>
+                <header>
+                    <Text
+                        tag='h1'
+                        id='login-id'
+                        t='heading-large'
+                        customClasses='w-full p7 pt-8 pb-5 font-bold tracking-wide text-xl'
+                    >
+                        {isSigningUp ? 'Register your account' : 'Sign in to your account'}
+                    </Text>
+                </header>
+
                 <div className='flex w-full justify-between'>
                     <SocialMediaSignInButtons />
                 </div>
@@ -45,13 +59,13 @@ export const LoginForm = () => {
                 </div>
 
                 <div className='m-auto w-full pb-5 font-sans'>
-                    {hasError ? (
-                        <Text t='heading-small' customClasses='text-center mt-2 mb-3 text-danger'>
-                            {error}
+                    {hasMessage ? (
+                        <Text t='heading-small' customClasses={`text-center mt-2 mb-3 ${messageProps}`}>
+                            {message.message}
                         </Text>
                     ) : null}
 
-                    <Credentials handleCredentialsChange={handleCredentialsChange} hasError={hasError} />
+                    <Credentials handleCredentialsChange={handleCredentialsChange} hasError={hasMessage} />
                 </div>
 
                 <div className='flex w-full items-center justify-between pr-6'>
@@ -64,7 +78,9 @@ export const LoginForm = () => {
                         />
                         <label className={label}>Remember me</label>
                     </span>
-                    <button className='text-sm text-primary'>Forgot password?</button>
+                    <button className='text-sm text-primary' onClick={() => forgotPassword(credentials.email)}>
+                        Forgot password?
+                    </button>
                 </div>
 
                 <div className='m-auto flex w-full justify-center pt-8'>

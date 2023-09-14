@@ -47,7 +47,7 @@ func GetInvoices(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				fmt.Println(err)
 			}
-
+			defer i.Close()
 			rows = i
 		}
 
@@ -57,10 +57,9 @@ func GetInvoices(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			fmt.Println(err)
 		}
+		defer i.Close()
 		rows = i
 	}
-
-	defer rows.Close()
 
 	for rows.Next() {
 		var i invoice
@@ -72,9 +71,15 @@ func GetInvoices(w http.ResponseWriter, r *http.Request) {
 
 		i.Items = getInvoiceItems(i.Id)
 
+		for _, items := range i.Items {
+			i.Total += items.Total
+		}
+
 		invoices = append(invoices, i)
 
 	}
+
+	defer db.Db().Close()
 
 	res := map[string]interface{}{
 		"invoices_status": getInvoiceStatus(uid),
@@ -124,8 +129,6 @@ func getInvoiceStatus(uid string) invoiceStatus {
 			status.Draft = c
 		}
 	}
-
-	db.Db().Close()
 
 	return status
 }

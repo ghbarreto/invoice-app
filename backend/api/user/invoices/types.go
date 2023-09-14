@@ -14,6 +14,7 @@ type invoice struct {
 	City          *string `json:"city"`
 	Client_Email  *string `json:"client_email"`
 	Zip_Code      string  `json:"zip_code"`
+	Total         float64 `json:"total"`
 
 	Items []invoiceItem `json:"items"`
 }
@@ -21,10 +22,11 @@ type invoice struct {
 type invoiceItem struct {
 	Invoice_id  string  `json:"invoice_id"`
 	Item_id     string  `json:"item_id"`
-	Name        string  `json:"name"`
+	Name        string  `json:"item_name"`
 	Item_amount int     `json:"item_amount"`
 	Price       float64 `json:"price"`
 	Total       float64 `json:"total"`
+	Overcharge  float64 `json:"overcharge"`
 }
 
 type invoiceStatus struct {

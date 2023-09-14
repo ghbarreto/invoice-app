@@ -8,7 +8,7 @@ func getInvoiceItems(invoice_id string) []invoiceItem {
 	var items []invoiceItem
 
 	query := `
-		SELECT invoice_items.invoice_id, items.id as item_id, items.name, invoice_items.item_amount,  items.price
+		SELECT invoice_items.invoice_id, items.id as item_id, items.name, invoice_items.item_amount,  items.price, overcharge
 			FROM invoice_items
 			FULL JOIN items ON invoice_items.item_id = items.id
 			WHERE invoice_items.invoice_id = $1
@@ -23,16 +23,19 @@ func getInvoiceItems(invoice_id string) []invoiceItem {
 	for rows.Next() {
 		var i invoiceItem
 
-		err := rows.Scan(&i.Invoice_id, &i.Item_id, &i.Name, &i.Item_amount, &i.Price)
+		err := rows.Scan(&i.Invoice_id, &i.Item_id, &i.Name, &i.Item_amount, &i.Price, &i.Overcharge)
 
 		if err != nil {
 			panic(err)
 		}
 
 		i.Total = float64(i.Item_amount) * i.Price
+		i.Total += i.Overcharge
 
 		items = append(items, i)
 	}
+
+	db.Db().Close()
 
 	return items
 }

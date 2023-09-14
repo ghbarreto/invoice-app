@@ -26,10 +26,11 @@ func CreateCustomer(w http.ResponseWriter, r *http.Request) {
 		new_customer.Last_name, new_customer.Address, new_customer.Country, new_customer.City, new_customer.Client_email, new_customer.Zip_code, new_customer.Phone)
 	err := row.Scan(&new_customer.Id)
 
+	db.Db().Close()
+
 	if err != nil && err != sql.ErrNoRows {
 		api.Resp(w, 500, err)
 	} else {
-		db.Db().Close()
 		api.Resp(w, 200, new_customer)
 	}
 

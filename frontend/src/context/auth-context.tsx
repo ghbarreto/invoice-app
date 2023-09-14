@@ -10,6 +10,7 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     GithubAuthProvider,
+    sendPasswordResetEmail,
 } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { useEffect, useState } from 'react';
@@ -25,8 +26,12 @@ type AuthContext = {
     user: User | null | undefined;
     createUserWEmailAndPassword: (email: string, password: string) => Promise<void>;
     signInWithEmailNPassword: (email: string, password: string) => Promise<void>;
+    forgotPassword: (email: string) => void;
     token: any;
-    error: string;
+    message: {
+        type: 'error' | 'success' | '';
+        message: string;
+    };
 };
 
 const AuthContext = React.createContext<AuthContext>({} as AuthContext);
@@ -43,7 +48,10 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
         (p: 'github' | 'google' = 'google') => (p === 'github' ? new GithubAuthProvider() : new GoogleAuthProvider()),
         []
     );
-    const [error, setError] = useState('');
+    const [message, setMessage] = useState({
+        type: '' as 'error' | 'success' | '',
+        message: '',
+    });
 
     provider().setCustomParameters({
         prompt: 'select_account',
@@ -54,7 +62,10 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
             try {
                 return await signInWithPopup(auth, provider(p));
             } catch (err: any) {
-                setError(handleError(err.code));
+                setMessage({
+                    type: 'error',
+                    message: handleError(err.code),
+                });
             }
         },
         [auth, provider]
@@ -63,9 +74,12 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
     const createUserWEmailAndPassword = useCallback(
         async (email: string, password: string) => {
             try {
-                const a = await createUserWithEmailAndPassword(auth, email, password);
+                await createUserWithEmailAndPassword(auth, email, password);
             } catch (err: any) {
-                setError(handleError(err.code));
+                setMessage({
+                    type: 'error',
+                    message: handleError(err.code),
+                });
             }
         },
         [auth]
@@ -78,7 +92,36 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
 
                 console.log(p);
             } catch (err: any) {
-                setError(handleError(err.code));
+                setMessage({
+                    type: 'error',
+                    message: handleError(err.code),
+                });
+            }
+        },
+        [auth]
+    );
+
+    const forgotPassword = useCallback(
+        async (email: string) => {
+            if (!email) {
+                setMessage({
+                    type: 'error',
+                    message: 'Please enter your email address',
+                });
+                return;
+            }
+
+            try {
+                setMessage({
+                    type: 'success',
+                    message: 'Password reset has been sent',
+                });
+                return await sendPasswordResetEmail(auth, email);
+            } catch (err: any) {
+                setMessage({
+                    type: 'error',
+                    message: handleError(err.code),
+                });
             }
         },
         [auth]
@@ -89,8 +132,11 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
             localStorage.removeItem('auth_token');
             router.push('/');
             return await signOut(auth);
-        } catch (err) {
-            console.log(err);
+        } catch (err: any) {
+            setMessage({
+                type: 'error',
+                message: handleError(err.code),
+            });
         }
     }, [auth, router]);
 
@@ -103,7 +149,7 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
                         authUser({
                             id: user.uid,
                             email: user.email,
-                            provider_id: user.providerId,
+                            provider_id: user.providerData[0].providerId,
                         });
                         router.push('/dashboard');
                         return localStorage.setItem('auth_token', idToken);
@@ -129,9 +175,10 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
             token,
             createUserWEmailAndPassword,
             signInWithEmailNPassword,
-            error,
+            message,
+            forgotPassword,
         }),
-        [login, logout, user, token, createUserWEmailAndPassword, signInWithEmailNPassword, error]
+        [login, logout, user, token, createUserWEmailAndPassword, signInWithEmailNPassword, message, forgotPassword]
     );
 
     return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
@@ -139,7 +186,7 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
 
 export const useAuth = () => React.useContext(AuthContext);
 
-export const AuthCheck = (props: any) => {
+export const ProtectedRoute = (props: any) => {
     const router = useRouter();
     const { user } = useAuth();
 

@@ -24,6 +24,8 @@ func DeleteCustomer(w http.ResponseWriter, r *http.Request) {
 
 	rows, err := rw.RowsAffected()
 
+	db.Db().Close()
+
 	if rows == 0 {
 		api.Resp(w, 500, "customer not found")
 		return

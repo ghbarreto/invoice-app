@@ -140,7 +140,8 @@ CREATE TABLE public.invoice_items (
     id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
     item_id uuid,
     invoice_id character varying(10),
-    item_amount integer
+    item_amount integer,
+    overcharge numeric(10,2) DEFAULT 0.0
 );
 
 
@@ -189,7 +190,9 @@ oiapoke	acc@gmail.com	firebase
 sZq0R42xeSgSS4V9yK48GC4l0WD3	vuxgamer@gmail.com	firebase
 o3zfqLReWKfMIIJCPlsfML3NqO43	henriqve.dev@gmail.com	firebase
 uOrlewIx0HgorQz9osr8FJsGxBv2	gabriel.barreto@fansunite.com	firebase
-jnmaDePoXwNXECWDKpvrFqg9iDY2	gh.barreto@hotmail.com	firebase
+Chw2dswewxeg0BZSrPG1xDAR3zB2	gh.barreto@hotmail.com	github.com
+T3Z9Js9MzSWepbJW1DAdoksuXMT2	ighbarreto@gmail.com	google.com
+uzfvkmRMyQX3XJ72uz2QSaAN6Bl1	anjodafuria@hotmail.com	password
 \.
 
 
@@ -218,6 +221,9 @@ f259b5b5-621b-4d34-8c5f-1a2d5900df69	Test	Last_test	this is the address	Brazil	S
 87692199-5a21-477b-8b62-baa658ba8fb4	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	AA41388	sZq0R42xeSgSS4V9yK48GC4l0WD3
 cbcc21ba-f2d2-4c4c-99c2-68a6c3de2020	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	TH20751	sZq0R42xeSgSS4V9yK48GC4l0WD3
 16032f92-0b1d-4c3d-adbc-dc4dfd47c0e2	TesIT WORKED	Last IT WORKED	this is the address IT WORKED	Br IT WORKED	Sao IT WORKED	ITWORKED@gmail.com	4420-IT WORKED	HJ22423	sZq0R42xeSgSS4V9yK48GC4l0WD3
+64767353-eb3d-4338-ad17-52b4a92fb1e3	TesIT WORKED	Last IT WORKED	this is the address IT WORKED	Br IT WORKED	Sao IT WORKED	ITWORKED@gmail.com	4420-IT WORKED	XL33637	o3zfqLReWKfMIIJCPlsfML3NqO43
+0a3d777c-1672-49d5-a76a-f1d5841cf8f5	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	US41082	o3zfqLReWKfMIIJCPlsfML3NqO43
+3dbfd388-f7e1-43b7-9d97-e68b760fda4e	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	KD81204	o3zfqLReWKfMIIJCPlsfML3NqO43
 \.
 
 
@@ -225,16 +231,25 @@ cbcc21ba-f2d2-4c4c-99c2-68a6c3de2020	Test	Last_test	this is the address	Brazil	S
 -- Data for Name: invoice_items; Type: TABLE DATA; Schema: public; Owner: root
 --
 
-COPY public.invoice_items (id, item_id, invoice_id, item_amount) FROM stdin;
-0aaed4e5-1742-4c87-8ea5-3c93b2b90d52	b9dc438a-d36d-463f-8f88-c0e25f2eb970	FA56939	4
-a9bb917d-2afb-4fba-a76e-7b10f391cf8a	b2be4c29-6ae7-490e-b893-41d3040de92d	FA56939	4
-71b7035f-5abe-4d7f-9031-28e7ca8d08ef	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	FA56939	4
-fdf1a5b8-e261-413a-9716-593ca2680bda	b9dc438a-d36d-463f-8f88-c0e25f2eb970	NR52650	1
-b797c695-a3ac-40c2-ac68-b47f410c3cef	b2be4c29-6ae7-490e-b893-41d3040de92d	NR52650	2
-5fc3ee99-ee97-4021-b05c-63ed0383ac12	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	NR52650	3
-c3c6230a-e3c7-4ebf-8f9a-6614a295ea0f	b9dc438a-d36d-463f-8f88-c0e25f2eb970	HJ22423	22424
-75bec014-da1c-483c-9854-9c73da77d667	b2be4c29-6ae7-490e-b893-41d3040de92d	HJ22423	2522222
-c14b3f43-93a8-4216-b61d-8662758a4fe6	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	HJ22423	32323
+COPY public.invoice_items (id, item_id, invoice_id, item_amount, overcharge) FROM stdin;
+5b28d8fc-e343-4b6c-a347-0b0cb73e4a07	b9dc438a-d36d-463f-8f88-c0e25f2eb970	KD81204	1	1250.00
+fb15f6af-8e84-40f9-b531-a36fa30e807d	b2be4c29-6ae7-490e-b893-41d3040de92d	KD81204	2	0.00
+2118c43e-cbc7-47d0-a738-9dfe0b5786e7	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	KD81204	3	0.00
+0aaed4e5-1742-4c87-8ea5-3c93b2b90d52	b9dc438a-d36d-463f-8f88-c0e25f2eb970	FA56939	4	0.00
+a9bb917d-2afb-4fba-a76e-7b10f391cf8a	b2be4c29-6ae7-490e-b893-41d3040de92d	FA56939	4	0.00
+71b7035f-5abe-4d7f-9031-28e7ca8d08ef	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	FA56939	4	0.00
+fdf1a5b8-e261-413a-9716-593ca2680bda	b9dc438a-d36d-463f-8f88-c0e25f2eb970	NR52650	1	0.00
+b797c695-a3ac-40c2-ac68-b47f410c3cef	b2be4c29-6ae7-490e-b893-41d3040de92d	NR52650	2	0.00
+5fc3ee99-ee97-4021-b05c-63ed0383ac12	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	NR52650	3	0.00
+3282f94e-a82e-4d7d-9315-236cd5d2583e	b9dc438a-d36d-463f-8f88-c0e25f2eb970	HJ22423	22424	0.00
+b4ab8667-347e-4aae-972d-6e3da92bfa89	b2be4c29-6ae7-490e-b893-41d3040de92d	HJ22423	2522222	0.00
+4dedc1b2-b48a-41d6-ac6b-c0d5bd7fe1f9	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	HJ22423	32323	0.00
+4df2985f-e903-4e3b-93fa-3dc2e7dd7f63	b9dc438a-d36d-463f-8f88-c0e25f2eb970	XL33637	22424	0.00
+48769a46-80e6-4bc4-9bbf-14e19e7bee0d	b2be4c29-6ae7-490e-b893-41d3040de92d	XL33637	2522222	0.00
+a4176ee0-aaed-407b-87bf-899e9df32846	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	XL33637	32323	0.00
+8c404447-5024-4f8d-a276-e8ea93a5e1cf	b9dc438a-d36d-463f-8f88-c0e25f2eb970	US41082	1	0.00
+583c2319-ed78-43a0-a949-e0f5ec71e345	b2be4c29-6ae7-490e-b893-41d3040de92d	US41082	2	0.00
+01423001-179b-4039-9973-058e1fdec5bc	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	US41082	3	0.00
 \.
 
 
@@ -251,6 +266,9 @@ FA56939	2023-09-07 19:38:21.178+00	BRL	oiapoke	this is the description	150.20	pa
 DP70661	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	draft	t
 NR52650	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	completed	t
 SS48389	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	paid	t
+XL33637	2024-09-07 19:38:21.178+00	Bdw	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the description ITwwwww WORKED	1520.20	completed	t
+US41082	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the description	150.20	pending	t
+KD81204	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the description	150.20	pending	t
 \.
 
 

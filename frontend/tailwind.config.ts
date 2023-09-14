@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+const colors = require('tailwindcss/colors');
 
 const config: Config = {
     content: [
@@ -32,6 +33,20 @@ const config: Config = {
             background_dark: 'var(--background_dark)', //12
             white: 'var(--white)',
             btn_bg: '#373B53',
+
+            transparent: 'transparent',
+            current: 'currentColor',
+            black: colors.black,
+            emerald: colors.emerald,
+            indigo: colors.indigo,
+            yellow: colors.yellow,
+            stone: colors.warmGray,
+            sky: colors.lightBlue,
+            neutral: colors.trueGray,
+            gray: colors.coolGray,
+            slate: colors.blueGray,
+            lime: colors.lime,
+            rose: colors.rose,
         },
 
         fontFamily: {
