@@ -9,6 +9,7 @@ import {
     UserCredential,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
+    GithubAuthProvider,
 } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { useEffect, useState } from 'react';
@@ -19,7 +20,7 @@ import { useRouter } from 'next/navigation';
 import { handleError } from '@/utils/firebaseErrors';
 
 type AuthContext = {
-    loginWithGoogle: () => Promise<UserCredential | void>;
+    login: (provider: 'google' | 'github') => Promise<UserCredential | void>;
     logout: () => Promise<void>;
     user: User | null | undefined;
     createUserWEmailAndPassword: (email: string, password: string) => Promise<void>;
@@ -38,20 +39,26 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
     // rm later
     const [token, setIdToken] = useState<string | null>();
     // -----------
-    const provider = useCallback(() => new GoogleAuthProvider(), []);
+    const provider = useCallback(
+        (p: 'github' | 'google' = 'google') => (p === 'github' ? new GithubAuthProvider() : new GoogleAuthProvider()),
+        []
+    );
     const [error, setError] = useState('');
 
     provider().setCustomParameters({
         prompt: 'select_account',
     });
 
-    const loginWithGoogle = useCallback(async () => {
-        try {
-            return await signInWithPopup(auth, provider());
-        } catch (err) {
-            console.log(err);
-        }
-    }, [auth, provider]);
+    const login = useCallback(
+        async (p: 'google' | 'github') => {
+            try {
+                return await signInWithPopup(auth, provider(p));
+            } catch (err: any) {
+                setError(handleError(err.code));
+            }
+        },
+        [auth, provider]
+    );
 
     const createUserWEmailAndPassword = useCallback(
         async (email: string, password: string) => {
@@ -116,7 +123,7 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
 
     const values = useMemo(
         () => ({
-            loginWithGoogle,
+            login,
             logout,
             user,
             token,
@@ -124,7 +131,7 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
             signInWithEmailNPassword,
             error,
         }),
-        [loginWithGoogle, logout, user, token, createUserWEmailAndPassword, signInWithEmailNPassword, error]
+        [login, logout, user, token, createUserWEmailAndPassword, signInWithEmailNPassword, error]
     );
 
     return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;

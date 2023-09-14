@@ -1,13 +1,13 @@
 import { useAuth } from '@/context/auth-context';
 
 export const SocialMediaSignInButtons = () => {
-    const { loginWithGoogle } = useAuth();
+    const { login } = useAuth();
 
     return (
         <>
             <button
                 type='button'
-                onClick={loginWithGoogle}
+                onClick={() => login('google')}
                 className='mb-2 mr-2 inline-flex items-center rounded-lg bg-danger px-5 py-2.5 text-center font-sans text-xs font-medium text-white hover:bg-danger_hover focus:ring-1 focus:ring-danger_hover dark:focus:ring-danger'
             >
                 <svg
@@ -30,6 +30,7 @@ export const SocialMediaSignInButtons = () => {
 
             <button
                 type='button'
+                onClick={() => login('github')}
                 className='dark:hover:bg-primary_dark mb-2 mr-2 inline-flex items-center rounded-lg bg-background_dark px-5 py-2.5 text-center text-xs font-medium text-white hover:bg-dark_primary focus:ring-1 focus:ring-dark_primary dark:focus:ring-background_dark'
             >
                 <svg
