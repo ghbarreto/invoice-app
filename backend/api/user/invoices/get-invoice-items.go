@@ -6,6 +6,7 @@ import (
 
 func getInvoiceItems(invoice_id string) []invoiceItem {
 	var items []invoiceItem
+	conn := db.GetConnection()
 
 	query := `
 		SELECT invoice_items.invoice_id, items.id as item_id, items.name, invoice_items.item_amount,  items.price, overcharge
@@ -14,7 +15,7 @@ func getInvoiceItems(invoice_id string) []invoiceItem {
 			WHERE invoice_items.invoice_id = $1
 	`
 
-	rows, err := db.Db().Query(query, invoice_id)
+	rows, err := conn.Query(query, invoice_id)
 
 	if err != nil {
 		panic(query)
@@ -35,7 +36,7 @@ func getInvoiceItems(invoice_id string) []invoiceItem {
 		items = append(items, i)
 	}
 
-	db.Db().Close()
+	defer rows.Close()
 
 	return items
 }

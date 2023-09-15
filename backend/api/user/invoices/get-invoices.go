@@ -21,6 +21,8 @@ func GetInvoices(w http.ResponseWriter, r *http.Request) {
 	var invoices []invoice
 	uid := r.Context().Value(auth.UidContextKey).(string)
 
+	conn := db.GetConnection()
+
 	get_filters := r.URL.Query().Get("f")
 	filters := strings.Split(get_filters, ",")
 
@@ -41,23 +43,20 @@ func GetInvoices(w http.ResponseWriter, r *http.Request) {
 			filter := strings.Join(placeholders, ", ")
 			query := GET_INVOICE + " AND status IN (" + filter + ")"
 
-			fmt.Println(query)
-			i, err := db.Db().Query(query, values...)
+			i, err := conn.Query(query, values...)
 
 			if err != nil {
 				fmt.Println(err)
 			}
-			defer i.Close()
 			rows = i
 		}
 
 	} else {
-		i, err := db.Db().Query(GET_INVOICE, uid)
+		i, err := conn.Query(GET_INVOICE, uid)
 
 		if err != nil {
 			fmt.Println(err)
 		}
-		defer i.Close()
 		rows = i
 	}
 
@@ -78,13 +77,12 @@ func GetInvoices(w http.ResponseWriter, r *http.Request) {
 		invoices = append(invoices, i)
 
 	}
-
-	defer db.Db().Close()
+	defer rows.Close()
 
 	res := map[string]interface{}{
-		"invoices_status": getInvoiceStatus(uid),
+		"invoices_status": 1,
 		"invoices":        invoices,
-		"invoices_count":  getInvoicesCount(uid),
+		"invoices_count":  2,
 	}
 
 	api.Resp(w, http.StatusOK, res)
@@ -97,7 +95,7 @@ func getInvoicesCount(uid string) int {
 
 	row.Scan(&count)
 
-	db.Db().Close()
+	defer db.Db().Close()
 
 	return count
 }
@@ -110,8 +108,6 @@ func getInvoiceStatus(uid string) invoiceStatus {
 	if err != nil {
 		fmt.Println(err)
 	}
-
-	defer row.Close()
 
 	for row.Next() {
 		var s string
@@ -128,6 +124,9 @@ func getInvoiceStatus(uid string) invoiceStatus {
 		} else if s == "draft" {
 			status.Draft = c
 		}
+
+		defer row.Close()
+
 	}
 
 	return status

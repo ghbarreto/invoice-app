@@ -33,7 +33,6 @@ const Dashboard = () => {
             <header>
                 <Navigation />
             </header>
-
             {!data ? (
                 <div>loading...</div>
             ) : (
@@ -71,8 +70,8 @@ const Dashboard = () => {
                               const color = i % 2 === 0 ? 'bg-primary' : 'bg-danger';
                               return (
                                   <div key={e.name} className={`mt-5 ${color}`}>
-                                      {/* {e.invoice_id} */}
-                                      {/* {e.description} */}
+                                      {e.first_name}
+                                      {e.description}ddddd
                                       {items?.map((v: any) => {
                                           console.log(v);
                                           return (

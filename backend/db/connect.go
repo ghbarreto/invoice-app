@@ -9,6 +9,12 @@ import (
 	_ "github.com/lib/pq"
 )
 
+var dbConn *sql.DB
+
+func Init() {
+	dbConn = Db()
+}
+
 func Db() *sql.DB {
 	var (
 		DB_HOST     = env.Env("DB_HOST")
@@ -39,4 +45,8 @@ func Db() *sql.DB {
 	}
 
 	return db
+}
+
+func GetConnection() *sql.DB {
+	return dbConn
 }

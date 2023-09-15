@@ -14,19 +14,19 @@ type User struct {
 }
 
 func Registration(w http.ResponseWriter, r *http.Request) {
-	var user User
+	// var user User
 
-	api.JsonDecode(r, &user)
+	// api.JsonDecode(r, &user)
 
-	rows := searchCredentials(r, &user)
+	// rows := searchCredentials(r, &user)
 
-	if rows == 0 {
-		insertNewUser(r, &user)
-	}
+	// if rows == 0 {
+	// 	insertNewUser(r, &user)
+	// }
 
-	defer db.Db().Close()
+	// defer db.Db().Close()
 
-	api.Resp(w, 200, user)
+	api.Resp(w, 200, "user")
 }
 
 func insertNewUser(r *http.Request, user *User) {

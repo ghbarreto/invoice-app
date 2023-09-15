@@ -5,5 +5,5 @@ type TInvoices = {
 };
 
 export const Invoices = ({ invoice }: TInvoices) => {
-    return <div>hello world</div>;
+    return <div>hedllo world</div>;
 };
