@@ -151,7 +151,6 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
                             email: user.email,
                             provider_id: user.providerData[0].providerId,
                         });
-                        router.push('/dashboard');
                         return localStorage.setItem('auth_token', idToken);
                     })
                     .catch((error) => {

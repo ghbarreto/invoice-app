@@ -19,4 +19,6 @@
     --background_light: rgb(248, 248, 251);
     --background_dark: rgb(20, 22, 37);
     --white: #ffffff;
+
+    --font-monospace: 'PT Mono', monospace;
 }

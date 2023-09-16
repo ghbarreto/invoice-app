@@ -12,7 +12,7 @@ type TButton = {
 
 export const Button = ({ type, hasPlusSign, txt, ...props }: TButton) => {
     const buttonProps = {
-        primary: `bg-primary hover:bg-primary_hover  `,
+        primary: `bg-primary hover:bg-primary_hover`,
         secondary: `bg-btn_bg hover:bg-secondary_black hover:dark:bg-dark_primary`,
         delete: `bg-danger hover:bg-danger_hover `,
         third: `bg-background_light hover:bg-secondary_light dark:bg-dark_primary dark:hover:bg-background_light`,
@@ -39,7 +39,7 @@ export const Button = ({ type, hasPlusSign, txt, ...props }: TButton) => {
                 </div>
             )}
 
-            <div className='ml-2 mr-4 inline-flex'>
+            <div className='ml-2 mr-5 inline-flex'>
                 {type === 'fourth' && (
                     <Text t='heading-medium' customClasses='text-secondary_light_hover font-medium mr-2'>
                         +

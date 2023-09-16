@@ -15,7 +15,7 @@ export const Currency = ({ amount, currencyCode }: CurrencyProps) => {
     const value = curr.format(amount).replaceAll(cc?.value ?? '', '');
 
     return (
-        <Text t='heading-small' customClasses='pt-2'>
+        <Text t='heading-small' customClasses='pt-2 tracking-wide font-normal font-monospace'>
             {cc?.value ?? currencyCode}
             <span className='pl-1'>{value}</span>
         </Text>

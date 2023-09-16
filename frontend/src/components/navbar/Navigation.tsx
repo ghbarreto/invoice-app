@@ -3,6 +3,7 @@ import Image from 'next/image';
 
 import { useAuth } from '@/context/auth-context';
 import moon from '/public/moon.svg';
+import sun from '/public/icon-sun.svg';
 import pacman from '/public/pacman.svg';
 
 import { Text } from '@/components';
@@ -13,11 +14,14 @@ import { RxAvatar } from 'react-icons/rx';
 export const Navigation = () => {
     const { user, token, logout } = useAuth();
     const [navigationOpen, setNavigationOpen] = useState<boolean>(false);
+    const [dark, setDark] = useState(false);
 
     const addProp = () => {
         if (document.documentElement.classList.contains('dark')) {
+            setDark(!dark);
             return document.documentElement.classList.remove('dark');
         }
+        setDark(!dark);
         return document.documentElement.classList.add('dark');
     };
 
@@ -31,7 +35,11 @@ export const Navigation = () => {
                         <Image src={pacman} alt='logo' width={80} height={80} />
                     </li>
                     <li className='border-l-1 flex items-center'>
-                        <Image src={moon} onClick={addProp} alt='moon' width={20} height={20} />
+                        {dark ? (
+                            <Image src={moon} onClick={addProp} alt='moon' width={20} height={20} />
+                        ) : (
+                            <Image src={sun} onClick={addProp} alt='sun' width={20} height={20} />
+                        )}
                     </li>
                 </span>
 

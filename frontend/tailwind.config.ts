@@ -49,10 +49,16 @@ const config: Config = {
             rose: colors.rose,
             orange: colors.orange,
             green: colors.green,
+
+            'green-tag': 'rgba(51, 214, 159, 0.2)',
+            'orange-tag': 'rgba(255, 143, 0, 0.2)',
+            'gray-tag': 'rgba(151, 151, 151, 0.1)',
+            'danger-tag': 'rgba(251, 113, 133, 0.2)',
         },
 
         fontFamily: {
             sans: ['Montserrat'],
+            monospace: 'var(--font-monospace)',
         },
     },
     plugins: [],

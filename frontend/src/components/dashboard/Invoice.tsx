@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import { Currency, Text } from '@/components';
 import { InvoiceStatus, Invoice as TInvoice } from '@/types/invoice_types';
 import { Tag } from './Tag';
+import router from 'next/router';
 
 type InvoiceProps = {
     invoice: TInvoice;
@@ -13,7 +14,12 @@ export const Invoice = ({ invoice }: InvoiceProps) => {
     const date = new Date(invoice.date_due);
 
     return (
-        <div className='bg-white mt-5 rounded-md mb-5'>
+        <div
+            className='bg-white mt-5 rounded-md mb-5 dark:bg-dark_primary shadow-normal'
+            onClick={() => {
+                router.push('/dashboard/invoice/[id]', `/dashboard/invoice/${invoice.invoice_id}`);
+            }}
+        >
             <div className='flex p-5 justify-between items-baseline'>
                 <div className='flex items-baseline'>
                     <Text t='heading-small' customClasses='text-md text-secondary_dark'>

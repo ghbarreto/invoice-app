@@ -4,13 +4,14 @@ import { Text } from '@/components';
 import { SocialMediaSignInButtons } from './SocialMediaSignInButtons';
 import { Credentials } from './Credentials';
 import { useAuth } from '@/context/auth-context';
+import { useRouter } from 'next/navigation';
 
 export const LoginForm = () => {
     const { user, logout, token, message, createUserWEmailAndPassword, signInWithEmailNPassword, forgotPassword } =
         useAuth();
     const [isSigningUp, setIsSigningUp] = useState<boolean>(false);
     const [credentials, setCredentials] = useState<{ email: string; password: string }>({ email: '', password: '' });
-
+    const router = useRouter();
     const hasMessage = message.type != '';
     const messageProps = message.type != 'success' ? 'text-danger' : 'text-primary';
 
@@ -28,6 +29,9 @@ export const LoginForm = () => {
         setCredentials((state) => ({ ...state, [e.target.name]: e.target.value }));
     };
 
+    if (user) {
+        return router.push('/dashboard');
+    }
     const label = 'text-secondary_dark block text-sm font-medium dark:text-white';
 
     return (
