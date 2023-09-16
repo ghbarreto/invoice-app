@@ -18,6 +18,5 @@ func Routes(endpoint string, r func(http.ResponseWriter, *http.Request)) {
 			Debug:            true,
 		},
 	)
-
 	http.Handle("/api/"+endpoint, c.Handler(auth.Auth(http.HandlerFunc(r))))
 }
