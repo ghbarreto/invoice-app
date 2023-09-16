@@ -1,8 +1,5 @@
-export { Button } from './base/Button';
-export { SelectBox } from './base/SelectBox';
-export { Text } from './base/Text';
-export { Input } from './base/TextInput';
-export { DatePicker } from './base/DatePicker';
+export { Button, SelectBox, Text, Input, DatePicker, Currency } from './base';
+
 export { LoginForm } from './login/LoginForm';
 
 export { Navigation } from './navbar/Navigation';

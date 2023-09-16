@@ -80,9 +80,9 @@ func GetInvoices(w http.ResponseWriter, r *http.Request) {
 	defer rows.Close()
 
 	res := map[string]interface{}{
-		"invoices_status": 1,
+		"invoices_status": getInvoiceStatus(uid),
 		"invoices":        invoices,
-		"invoices_count":  2,
+		"invoices_count":  getInvoicesCount(uid),
 	}
 
 	api.Resp(w, http.StatusOK, res)
@@ -91,11 +91,9 @@ func GetInvoices(w http.ResponseWriter, r *http.Request) {
 func getInvoicesCount(uid string) int {
 	var count int
 
-	row := db.Db().QueryRow("SELECT COUNT(*) as count from invoices where user_id = $1 AND is_visible = true", uid)
+	row := db.GetConnection().QueryRow("SELECT COUNT(*) as count from invoices where user_id = $1 AND is_visible = true", uid)
 
 	row.Scan(&count)
-
-	defer db.Db().Close()
 
 	return count
 }
@@ -103,7 +101,7 @@ func getInvoicesCount(uid string) int {
 func getInvoiceStatus(uid string) invoiceStatus {
 	var status = invoiceStatus{}
 
-	row, err := db.Db().Query("SELECT status, COUNT(*) from invoices where user_id = $1 AND is_visible = true GROUP BY status ", uid)
+	row, err := db.GetConnection().Query("SELECT status, COUNT(*) from invoices where user_id = $1 AND is_visible = true GROUP BY status ", uid)
 
 	if err != nil {
 		fmt.Println(err)
@@ -117,8 +115,8 @@ func getInvoiceStatus(uid string) invoiceStatus {
 
 		if s == "paid" {
 			status.Paid = c
-		} else if s == "completed" {
-			status.Completed = c
+		} else if s == "overdue" {
+			status.Overdue = c
 		} else if s == "pending" {
 			status.Pending = c
 		} else if s == "draft" {

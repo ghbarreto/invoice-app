@@ -29,7 +29,7 @@ func CreateInvoice(w http.ResponseWriter, r *http.Request) {
 	FROM inserted_invoice
 	RETURNING invoice_id`
 
-	row := db.Db().QueryRow(insertInvoice, invoice.Uid, api.DateToUTC(invoice.Date_due), invoice.Currency_code, invoice.Description,
+	row := db.GetConnection().QueryRow(insertInvoice, invoice.Uid, api.DateToUTC(invoice.Date_due), invoice.Currency_code, invoice.Description,
 		invoice.Price, invoice.Status, invoice.First_name, invoice.Last_name, invoice.Address,
 		invoice.Country, invoice.City, invoice.Client_Email, invoice.Zip_Code, invoice.Uid)
 
@@ -52,7 +52,7 @@ func CreateInvoice(w http.ResponseWriter, r *http.Request) {
 }
 
 func bulkInsert(invoiceItems []invoiceItem, invoice_id string) {
-	insert, err := db.Db().Begin()
+	insert, err := db.GetConnection().Begin()
 
 	if err != nil {
 		fmt.Println(err)

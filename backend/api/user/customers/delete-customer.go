@@ -16,15 +16,13 @@ func DeleteCustomer(w http.ResponseWriter, r *http.Request) {
 
 	api.JsonDecode(r, &customer)
 
-	rw, err := db.Db().Exec(`DELETE FROM customers WHERE id = $1 AND user_id = $2`, customer.Id, customer.Uid)
+	rw, err := db.GetConnection().Exec(`DELETE FROM customers WHERE id = $1 AND user_id = $2`, customer.Id, customer.Uid)
 
 	if err != nil {
 		api.Resp(w, 500, err)
 	}
 
 	rows, err := rw.RowsAffected()
-
-	db.Db().Close()
 
 	if rows == 0 {
 		api.Resp(w, 500, "customer not found")

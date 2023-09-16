@@ -5,38 +5,38 @@ import { useAuth, ProtectedRoute } from '@/context/auth-context';
 import { Button, SelectBox, Input, DatePicker, LoginForm, Navigation, Text } from '@/components';
 import { useQuery } from 'react-query';
 import { secureFetch } from '@/utils/fetch';
+import { useInvoices } from './store';
 import arrowDown from '/public/arrow-down.svg';
+import { Invoice as TInvoice } from '@/types/invoice_types';
+import { Invoice } from '@/components/dashboard';
 
 const Dashboard = () => {
     const { user, token } = useAuth();
+    const { setState, invoices, invoicesCount } = useInvoices();
 
-    // const { isLoading, error, data } = useQuery({
-    //     queryKey: ['test'],
-    //     queryFn: async () => {
-    //         for (let i = 0; i < 100; i++) {
-    //             return await secureFetch('invoices', { method: 'GET' });
-    //         }
-    //     },
-    //     enabled: !!user,
-    // });
-
-    const { isLoading, error, data } = useQuery({
+    const { isLoading, error } = useQuery({
         queryKey: ['test'],
         queryFn: async () => await secureFetch('invoices', { method: 'GET' }),
+        onSettled: (data) => setState(data.data),
         enabled: !!user,
     });
-
-    const invoices = data?.data?.invoices;
 
     return (
         <ProtectedRoute>
             <header>
                 <Navigation />
             </header>
-            {!data ? (
+            {!invoices ? (
                 <div>loading...</div>
             ) : (
-                <main className={`h-screen items-center bg-background_light dark:bg-background_dark p-5`}>
+                <main className={`h-100 items-center bg-background_light dark:bg-background_dark p-5`}>
+                    <div className=' break-words flex gap-2 -mt-6'>
+                        <details>
+                            <summary></summary>
+                            {token}
+                        </details>
+                        {user?.uid}
+                    </div>
                     <section
                         id='dashboard-title'
                         aria-labelledby='dashboard-title'
@@ -46,8 +46,8 @@ const Dashboard = () => {
                             <Text t='heading-medium' tag='h1' id='dashboard-title'>
                                 Invoices
                             </Text>
-                            <Text t='body' customClasses='text-secondary_dark font-medium'>
-                                {data?.data?.invoices_count} invoices
+                            <Text t='body' customClasses='text-secondary_dark font-medium mt-1'>
+                                {invoicesCount} invoices
                             </Text>
                         </div>
 
@@ -63,40 +63,12 @@ const Dashboard = () => {
                         </div>
                     </section>
                     {isLoading ? <div>loading...</div> : null}
-                    {user?.uid}
+
                     {invoices?.length > 0
-                        ? invoices.map((e: any, i: number) => {
-                              const { items } = e;
-                              const color = i % 2 === 0 ? 'bg-primary' : 'bg-danger';
-                              return (
-                                  <div key={e.name} className={`mt-5 ${color}`}>
-                                      {e.first_name}
-                                      {e.description}ddddd
-                                      {items?.map((v: any) => {
-                                          console.log(v);
-                                          return (
-                                              <article key={v.invoice_id}>
-                                                  <Text t='heading-small'>
-                                                      {/* {v.item_name} {v.item_amount} {v.price} {v.total} */}
-                                                  </Text>
-                                              </article>
-                                          );
-                                      })}
-                                      <hr />
-                                  </div>
-                              );
+                        ? invoices.map((invoice: TInvoice, index: number) => {
+                              return <Invoice key={invoice.first_name + index} invoice={invoice} />;
                           })
                         : null}
-                    <div
-                        style={{
-                            width: '100%',
-                        }}
-                    >
-                        <div className='mt-3 break-words'>
-                            <strong>token:</strong>
-                            <details>{token}</details>
-                        </div>
-                    </div>
                 </main>
             )}
         </ProtectedRoute>

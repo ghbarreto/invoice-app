@@ -47,6 +47,8 @@ const config: Config = {
             slate: colors.blueGray,
             lime: colors.lime,
             rose: colors.rose,
+            orange: colors.orange,
+            green: colors.green,
         },
 
         fontFamily: {

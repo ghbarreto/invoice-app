@@ -35,9 +35,9 @@ COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UU
 --
 
 CREATE TYPE public.status_enum AS ENUM (
-    'paid',
     'pending',
-    'completed',
+    'overdue',
+    'paid',
     'draft'
 );
 
@@ -213,17 +213,17 @@ c37a5f6e-2d4f-405a-9afd-74ebce6ee859	sZq0R42xeSgSS4V9yK48GC4l0WD3	David	Johnson	
 --
 
 COPY public.invoice_address (id, first_name, last_name, address, country, city, client_email, zip_code, invoice_id, user_id) FROM stdin;
-769fc125-d81c-45ee-9175-0cd5cf813580	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	FA56939	sZq0R42xeSgSS4V9yK48GC4l0WD3
-91cd37af-7a2e-4d4f-a574-cb3fcac8708d	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	SS48389	sZq0R42xeSgSS4V9yK48GC4l0WD3
-7507d428-5b02-4796-a809-0353e0045223	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	NR52650	sZq0R42xeSgSS4V9yK48GC4l0WD3
-360419ea-15aa-4070-a5b9-98e1012c1474	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	JC33159	sZq0R42xeSgSS4V9yK48GC4l0WD3
-f259b5b5-621b-4d34-8c5f-1a2d5900df69	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	DP70661	sZq0R42xeSgSS4V9yK48GC4l0WD3
-87692199-5a21-477b-8b62-baa658ba8fb4	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	AA41388	sZq0R42xeSgSS4V9yK48GC4l0WD3
-cbcc21ba-f2d2-4c4c-99c2-68a6c3de2020	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	TH20751	sZq0R42xeSgSS4V9yK48GC4l0WD3
-16032f92-0b1d-4c3d-adbc-dc4dfd47c0e2	TesIT WORKED	Last IT WORKED	this is the address IT WORKED	Br IT WORKED	Sao IT WORKED	ITWORKED@gmail.com	4420-IT WORKED	HJ22423	sZq0R42xeSgSS4V9yK48GC4l0WD3
-64767353-eb3d-4338-ad17-52b4a92fb1e3	TesIT WORKED	Last IT WORKED	this is the address IT WORKED	Br IT WORKED	Sao IT WORKED	ITWORKED@gmail.com	4420-IT WORKED	XL33637	o3zfqLReWKfMIIJCPlsfML3NqO43
-0a3d777c-1672-49d5-a76a-f1d5841cf8f5	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	US41082	o3zfqLReWKfMIIJCPlsfML3NqO43
-3dbfd388-f7e1-43b7-9d97-e68b760fda4e	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	KD81204	o3zfqLReWKfMIIJCPlsfML3NqO43
+16032f92-0b1d-4c3d-adbc-dc4dfd47c0e2	gabriel	barreto	this is the address IT WORKED	Br IT WORKED	Sao IT WORKED	ITWORKED@gmail.com	4420-IT WORKED	HJ22423	sZq0R42xeSgSS4V9yK48GC4l0WD3
+64767353-eb3d-4338-ad17-52b4a92fb1e3	gabriel	barreto	this is the address IT WORKED	Br IT WORKED	Sao IT WORKED	ITWORKED@gmail.com	4420-IT WORKED	XL33637	o3zfqLReWKfMIIJCPlsfML3NqO43
+769fc125-d81c-45ee-9175-0cd5cf813580	gabriel	barreto	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	FA56939	sZq0R42xeSgSS4V9yK48GC4l0WD3
+91cd37af-7a2e-4d4f-a574-cb3fcac8708d	gabriel	barreto	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	SS48389	sZq0R42xeSgSS4V9yK48GC4l0WD3
+7507d428-5b02-4796-a809-0353e0045223	gabriel	barreto	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	NR52650	sZq0R42xeSgSS4V9yK48GC4l0WD3
+360419ea-15aa-4070-a5b9-98e1012c1474	gabriel	barreto	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	JC33159	sZq0R42xeSgSS4V9yK48GC4l0WD3
+f259b5b5-621b-4d34-8c5f-1a2d5900df69	gabriel	barreto	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	DP70661	sZq0R42xeSgSS4V9yK48GC4l0WD3
+87692199-5a21-477b-8b62-baa658ba8fb4	gabriel	barreto	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	AA41388	sZq0R42xeSgSS4V9yK48GC4l0WD3
+cbcc21ba-f2d2-4c4c-99c2-68a6c3de2020	gabriel	barreto	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	TH20751	sZq0R42xeSgSS4V9yK48GC4l0WD3
+0a3d777c-1672-49d5-a76a-f1d5841cf8f5	gabriel	barreto	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	US41082	o3zfqLReWKfMIIJCPlsfML3NqO43
+3dbfd388-f7e1-43b7-9d97-e68b760fda4e	gabriel	barreto	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	KD81204	o3zfqLReWKfMIIJCPlsfML3NqO43
 \.
 
 
@@ -261,14 +261,14 @@ COPY public.invoices (id, date_due, currency_code, user_id, description, price, 
 JC33159	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	pending	t
 AA41388	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	pending	t
 TH20751	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	pending	t
-HJ22423	2024-09-07 19:38:21.178+00	Bdw	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description ITwwwww WORKED	1520.20	completed	t
 FA56939	2023-09-07 19:38:21.178+00	BRL	oiapoke	this is the description	150.20	paid	t
 DP70661	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	draft	t
-NR52650	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	completed	t
 SS48389	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	paid	t
-XL33637	2024-09-07 19:38:21.178+00	Bdw	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the description ITwwwww WORKED	1520.20	completed	t
 US41082	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the description	150.20	pending	t
 KD81204	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the description	150.20	pending	t
+HJ22423	2024-09-07 19:38:21.178+00	Bdw	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description ITwwwww WORKED	1520.20	overdue	t
+NR52650	2023-09-07 19:38:21.178+00	BRL	sZq0R42xeSgSS4V9yK48GC4l0WD3	this is the description	150.20	overdue	t
+XL33637	2024-09-07 19:38:21.178+00	Bdw	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the description ITwwwww WORKED	1520.20	overdue	t
 \.
 
 

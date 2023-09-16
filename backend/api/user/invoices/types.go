@@ -30,8 +30,8 @@ type invoiceItem struct {
 }
 
 type invoiceStatus struct {
-	Paid      *int `json:"paid"`
-	Completed *int `json:"completed"`
-	Pending   *int `json:"pending"`
-	Draft     *int `json:"draft"`
+	Paid    *int `json:"paid"`
+	Overdue *int `json:"overdue"`
+	Pending *int `json:"pending"`
+	Draft   *int `json:"draft"`
 }

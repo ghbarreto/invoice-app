@@ -19,13 +19,11 @@ func DeleteInvoice(w http.ResponseWriter, r *http.Request) {
 	deleteInvoice := `UPDATE invoices SET is_visible = false
 	WHERE id = $1 AND user_id = $2`
 
-	_, err := db.Db().Exec(deleteInvoice, invoice_to_delete.Id, invoice_to_delete.Uid)
+	_, err := db.GetConnection().Exec(deleteInvoice, invoice_to_delete.Id, invoice_to_delete.Uid)
 
 	if err != nil {
 		panic(err)
 	}
-
-	db.Db().Close()
 
 	api.Resp(w, 200, "invoice deleted")
 }

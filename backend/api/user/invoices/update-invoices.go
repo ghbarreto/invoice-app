@@ -20,7 +20,7 @@ func UpdateInvoice(w http.ResponseWriter, r *http.Request) {
 			WHERE id = $6 AND user_id = $7;
 		`
 
-	_, err := db.Db().Exec(updateInvoice, invoice.Date_due, invoice.Currency_code,
+	_, err := db.GetConnection().Exec(updateInvoice, invoice.Date_due, invoice.Currency_code,
 		invoice.Description, invoice.Status, invoice.Price, invoice.Id, invoice.Uid)
 
 	if err != nil {
@@ -39,8 +39,6 @@ func UpdateInvoice(w http.ResponseWriter, r *http.Request) {
 		api.Resp(w, 500, err)
 	}
 
-	db.Db().Close()
-
 	api.Resp(w, 200, invoice)
 }
 
@@ -49,7 +47,7 @@ func updateAddress(invoice manageInvoice) error {
 				address = $3, country = $4, city = $5, client_email = $6, zip_code = $7
 			WHERE invoice_id = $8 AND user_id = $9`
 
-	_, err := db.Db().Exec(u, invoice.First_name,
+	_, err := db.GetConnection().Exec(u, invoice.First_name,
 		invoice.Last_name, invoice.Address, invoice.Country,
 		invoice.City, invoice.Client_Email, invoice.Zip_Code, invoice.Id, invoice.Uid)
 
@@ -57,7 +55,7 @@ func updateAddress(invoice manageInvoice) error {
 }
 
 func bulkUpdateItems(items []invoiceItem, invoice_id string) error {
-	update, err := db.Db().Begin()
+	update, err := db.GetConnection().Begin()
 
 	if err != nil {
 		fmt.Println(err)

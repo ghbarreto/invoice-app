@@ -27,7 +27,7 @@ func GetCustomers(w http.ResponseWriter, r *http.Request) {
 	query := "SELECT id, first_name, last_name, address, country," +
 		"city, client_email as email, zip_code, phone FROM customers where user_id = $1"
 
-	rows, err := db.Db().Query(query, uid)
+	rows, err := db.GetConnection().Query(query, uid)
 
 	if err != nil {
 		api.Resp(w, 500, err)
@@ -40,8 +40,6 @@ func GetCustomers(w http.ResponseWriter, r *http.Request) {
 
 		customers = append(customers, c)
 	}
-
-	db.Db().Close()
 
 	api.Resp(w, 200, customers)
 }
