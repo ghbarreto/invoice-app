@@ -1,74 +1,74 @@
 @import 'react-datepicker/dist/react-datepicker.css';
 
 .react-datepicker {
-    font-family: 'League Spartan', sans-serif;
-    font-weight: bold;
-    font-size: 0.875rem;
-    line-height: 1.5rem;
-    letter-spacing: -0.025em;
-    border: none;
-    border-style: none;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    &-wrapper {
-        width: 100%;
+  font-family: 'League Spartan', sans-serif;
+  font-weight: bold;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  letter-spacing: -0.025em;
+  border: none;
+  border-style: none;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  &-wrapper {
+    width: 100%;
+  }
+  & {
+    &__header {
+      background-color: var(--white);
+      border: none;
     }
-    & {
-        &__header {
-            background-color: var(--white);
-            border: none;
-        }
-        &__view {
-            &-calendar-icon input {
-                font-family: 'League Spartan', sans-serif;
-                font-weight: bold;
-                font-size: 0.875rem;
-                line-height: 1.5rem;
-                letter-spacing: -0.025em;
-                padding-top: 0.75rem;
-                padding-left: 1rem;
-                padding-bottom: 0.625rem;
-            }
-        }
-        &__navigation {
-            top: 5px;
-            bottom: 5px;
-
-            &-icon {
-                &:before,
-                :after,
-                :active,
-                :hover {
-                    border-color: var(--primary);
-                }
-            }
-        }
-
-        &__day {
-            color: var(--secondary_black);
-            &:hover {
-                background-color: transparent;
-                font-size: 1rem;
-                color: var(--primary);
-            }
-            &-names {
-                display: none;
-            }
-
-            &--selected {
-                background-color: transparent;
-                color: var(--primary);
-                &:hover {
-                    background-color: transparent;
-                }
-            }
-            &--keyboard-selected {
-                background-color: transparent;
-                color: var(--primary);
-                font-size: 1rem;
-            }
-            &--outside-month {
-                color: var(--secondary_light);
-            }
-        }
+    &__view {
+      &-calendar-icon input {
+        font-family: 'League Spartan', sans-serif;
+        font-weight: bold;
+        font-size: 0.875rem;
+        line-height: 1.5rem;
+        letter-spacing: -0.025em;
+        padding-top: 0.75rem;
+        padding-left: 1rem;
+        padding-bottom: 0.625rem;
+      }
     }
+    &__navigation {
+      top: 5px;
+      bottom: 5px;
+
+      &-icon {
+        &:before,
+        :after,
+        :active,
+        :hover {
+          border-color: var(--primary);
+        }
+      }
+    }
+
+    &__day {
+      color: var(--secondary_black);
+      &:hover {
+        background-color: transparent;
+        font-size: 1rem;
+        color: var(--primary);
+      }
+      &-names {
+        display: none;
+      }
+
+      &--selected {
+        background-color: transparent;
+        color: var(--primary);
+        &:hover {
+          background-color: transparent;
+        }
+      }
+      &--keyboard-selected {
+        background-color: transparent;
+        color: var(--primary);
+        font-size: 1rem;
+      }
+      &--outside-month {
+        color: var(--secondary_light);
+      }
+    }
+  }
 }
