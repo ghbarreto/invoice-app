@@ -11,14 +11,29 @@ import (
 	"strings"
 )
 
-var GET_INVOICE = `SELECT invoices.id, date_due, currency_code, 
-description, status, first_name, last_name, price, address, country, city, client_email, zip_code 
-FROM invoices 
-LEFT JOIN invoice_address ON invoices.id = invoice_address.invoice_id
-WHERE invoices.user_id = $1 AND is_visible = true`
+// o3zfqLReWKfMIIJCPlsfML3NqO43
+var GET_INVOICE = `SELECT 
+	invoices.id, date_due, currency_code, 
+	description, status, first_name, last_name, price, address, country, city, client_email, zip_code, 
+	business_address, business_city, business_country, business_zip_code
+		FROM invoices 
+		LEFT JOIN invoice_address ON invoices.id = invoice_address.invoice_id
+		LEFT JOIN business_address ON invoices.id = business_address.invoice_id
+	WHERE invoices.user_id = $1 AND is_visible = true`
+
+type invoices_get struct {
+	invoice
+	Business struct {
+		Address *string `json:"address"`
+		City    *string `json:"city"`
+		Country *string `json:"country"`
+		Zip     *string `json:"zip"`
+	} `json:"business"`
+}
 
 func GetInvoices(w http.ResponseWriter, r *http.Request) {
-	var invoices []invoice
+	var invoices []invoices_get
+
 	uid := r.Context().Value(auth.UidContextKey).(string)
 
 	conn := db.GetConnection()
@@ -61,12 +76,15 @@ func GetInvoices(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for rows.Next() {
-		var i invoice
+		var i invoices_get
 
-		rows.Scan(&i.Id, &i.Date_due, &i.Currency_code,
+		rows.Scan(&i.Id, &i.Date_due,
+			&i.Currency_code,
 			&i.Description, &i.Status,
 			&i.First_name, &i.Last_name, &i.Price, &i.Address,
-			&i.Country, &i.City, &i.Client_Email, &i.Zip_Code)
+			&i.Country, &i.City, &i.Client_Email, &i.Zip_Code, &i.Business.Address, &i.Business.City,
+			&i.Business.Country, &i.Business.Zip,
+		)
 
 		i.Items = getInvoiceItems(i.Id)
 
@@ -77,6 +95,7 @@ func GetInvoices(w http.ResponseWriter, r *http.Request) {
 		invoices = append(invoices, i)
 
 	}
+
 	defer rows.Close()
 
 	res := map[string]interface{}{

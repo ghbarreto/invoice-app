@@ -4,3 +4,7 @@ export { Text } from './Text';
 export { Input } from './TextInput';
 export { DatePicker } from './DatePicker';
 export { Currency } from './Currency';
+export { Tag } from './Tag';
+export { PageLayout, Container } from './PageLayout';
+export { FormatDate } from './FormatDate';
+export { InvoiceIdFormat } from './InvoiceIdFormat';

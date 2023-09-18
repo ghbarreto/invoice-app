@@ -21,14 +21,24 @@ export type Invoice = {
   items: InvoiceItems;
   last_name: string;
   price: number;
-  status: string;
+  status: InvoiceStatusTypes;
   total: number;
   zip_code: string;
+  business: Business;
+};
+
+export type Business = {
+  address: string;
+  city: string;
+  country: string;
+  zip: string;
 };
 
 export type InvoiceStatus = {
   paid: number | null;
   pending: number | null;
-  completed: number | null;
   draft: number | null;
+  overdue: number | null;
 };
+
+export type InvoiceStatusTypes = keyof InvoiceStatus;
