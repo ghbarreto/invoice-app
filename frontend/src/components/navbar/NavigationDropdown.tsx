@@ -4,13 +4,12 @@ import { ImExit } from 'react-icons/im';
 import { LiaFileInvoiceSolid } from 'react-icons/lia';
 import { BsPeopleFill } from 'react-icons/bs';
 import { IoSettingsSharp } from 'react-icons/io5';
+import { useAuth } from '@/context/auth-context';
+import { useRouter } from 'next/router';
 
-type NavigationDropdownProps = {
-  logout: () => Promise<void>;
-};
-
-export const NavigationDropdown = ({ logout }: NavigationDropdownProps) => {
-  const txt = 'text-white';
+export const NavigationDropdown = () => {
+  const router = useRouter();
+  const { logout } = useAuth();
 
   const options = [
     { route: '/customers', label: 'Customers' },

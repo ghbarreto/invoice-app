@@ -8,6 +8,7 @@ type TButton = {
   txt: string;
   isDisabled?: boolean;
   customClasses?: string;
+  onClick?: () => void;
 };
 
 export const Button = ({ type, hasPlusSign, txt, ...props }: TButton) => {
@@ -29,8 +30,8 @@ export const Button = ({ type, hasPlusSign, txt, ...props }: TButton) => {
 
   return (
     <button
-      className={`${buttonProps} w-max-content flex h-14 items-center rounded-full font-sans transition ${props.customClasses}`}
-      onClick={() => alert('hello')}
+      {...props}
+      className={`${buttonProps} w-max-content flex h-14 justify-center items-center rounded-full font-sans transition ${props.customClasses}`}
       disabled={props.isDisabled}
     >
       {hasPlusSign && (
@@ -39,7 +40,7 @@ export const Button = ({ type, hasPlusSign, txt, ...props }: TButton) => {
         </div>
       )}
 
-      <div className='ml-2 mr-5 inline-flex'>
+      <div className='p-5 ml-1 mr-1'>
         {type === 'fourth' && (
           <Text t='heading-medium' customClasses='text-secondary_light_hover font-medium mr-2'>
             +

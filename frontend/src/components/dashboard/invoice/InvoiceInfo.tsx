@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { Container, Text, FormatDate, InvoiceIdFormat } from '@/components';
+import { Container, Text, FormatDate, InvoiceIdFormat, Currency } from '@/components';
 import { useInvoices } from '@/pages/dashboard/store';
+import { InvoiceItems } from './InvoiceItems';
 
 export const InvoiceInfo = () => {
   const { selectedInvoice } = useInvoices();
@@ -39,7 +40,7 @@ export const InvoiceInfo = () => {
         })}
       </div>
 
-      <div className='mt-3 w-max gap-8 flex items-baseline'>
+      <div className='mt-3 w-max gap-12 flex items-baseline'>
         <div>
           <Text t='body-variant' customClasses='font-normal dark:font-light' color={7}>
             Invoice Date
@@ -69,14 +70,31 @@ export const InvoiceInfo = () => {
           })}
         </div>
       </div>
-      <div className='mt-10'>
+
+      <div className='mt-10 '>
         <Text t='body-variant' customClasses='mt-3 font-normal dark:font-light' color={7}>
-          Send to
+          Sent to
         </Text>
         <Text t='heading-medium-variant' customClasses='mt-3' color={8}>
           {selectedInvoice.client_email}
         </Text>
       </div>
+
+      <InvoiceItems />
+
+      <Container customClasses='-mt-6 items-center p-3 bg-btn_bg rounded-none rounded-br-xl rounded-bl-xl'>
+        <div className='-ml-2 flex justify-between items-center'>
+          <Text t='heading-medium-variant' customClasses='font-light text-white'>
+            Grand Total
+          </Text>
+
+          <Currency
+            amount={selectedInvoice.total}
+            currencyCode={selectedInvoice.currency_code}
+            customClasses={`text-2xl text-white font-semibold font-sans`}
+          />
+        </div>
+      </Container>
     </Container>
   );
 };

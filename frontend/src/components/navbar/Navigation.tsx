@@ -54,7 +54,7 @@ export const Navigation = () => {
         </li>
       </ul>
 
-      {navigationOpen ? <NavigationDropdown logout={logout} /> : null}
+      {navigationOpen ? <NavigationDropdown /> : null}
     </>
   );
 };

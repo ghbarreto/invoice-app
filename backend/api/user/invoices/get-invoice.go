@@ -17,21 +17,28 @@ func GetInvoice(w http.ResponseWriter, r *http.Request) {
 
 	uid := r.Context().Value(auth.UidContextKey).(string)
 
-	var i invoice
+	var invoice invoices_get
 
 	conn := db.GetConnection()
 
 	query := conn.QueryRow(GET_INVOICE+" AND invoices.id = $2", uid, match)
 
-	err := query.Scan(&i.Id, &i.Date_due, &i.Currency_code,
-		&i.Description, &i.Status,
-		&i.First_name, &i.Last_name, &i.Price, &i.Address,
-		&i.Country, &i.City, &i.Client_Email, &i.Zip_Code)
+	err := query.Scan(&invoice.Id, &invoice.Date_due,
+		&invoice.Currency_code,
+		&invoice.Description, &invoice.Status,
+		&invoice.First_name, &invoice.Last_name, &invoice.Price, &invoice.Address,
+		&invoice.Country, &invoice.City, &invoice.Client_Email, &invoice.Zip_Code, &invoice.Business.Address, &invoice.Business.City,
+		&invoice.Business.Country, &invoice.Business.Zip)
 
-	i.Items = getInvoiceItems(i.Id)
+	if invoice.Id == "" {
+		api.Resp(w, 400, "There is no invoice with this id")
+		return
+	}
 
-	for _, items := range i.Items {
-		i.Total += items.Total
+	invoice.Items = getInvoiceItems(invoice.Id)
+
+	for _, items := range invoice.Items {
+		invoice.Total += items.Total
 	}
 
 	fmt.Println(query)
@@ -42,7 +49,5 @@ func GetInvoice(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println(i)
-
-	api.Resp(w, 200, i)
+	api.Resp(w, 200, invoice)
 }

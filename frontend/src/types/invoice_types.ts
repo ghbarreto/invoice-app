@@ -18,7 +18,7 @@ export type Invoice = {
   description: string;
   first_name: string;
   invoice_id: string;
-  items: InvoiceItems;
+  items: Array<InvoiceItems>;
   last_name: string;
   price: number;
   status: InvoiceStatusTypes;

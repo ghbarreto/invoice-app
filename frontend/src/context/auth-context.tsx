@@ -130,15 +130,15 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
   const logout = useCallback(async () => {
     try {
       localStorage.removeItem('auth_token');
-      router.push('/');
-      return await signOut(auth);
+      await signOut(auth);
+      setUser(null);
     } catch (err: any) {
       setMessage({
         type: 'error',
         message: handleError(err.code),
       });
     }
-  }, [auth, router]);
+  }, [auth]);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {

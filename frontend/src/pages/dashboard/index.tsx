@@ -1,8 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 
-import { useAuth, ProtectedRoute } from '@/context/auth-context';
-import { Button, SelectBox, Input, DatePicker, LoginForm, Navigation, Text } from '@/components';
+import { useAuth } from '@/context/auth-context';
+import { Button, Text } from '@/components';
 import { useQuery } from 'react-query';
 import { secureFetch } from '@/utils/fetch';
 import { useInvoices } from './store';
@@ -10,6 +10,7 @@ import arrowDown from '/public/arrow-down.svg';
 import { Invoice as TInvoice } from '@/types/invoice_types';
 import { Invoice } from '@/components/dashboard';
 import { PageLayout } from '@/components/base/PageLayout';
+import ilustration from '/public/illustration-empty.svg';
 
 const Dashboard = () => {
   const { user, token } = useAuth();
@@ -58,11 +59,28 @@ const Dashboard = () => {
       </section>
       {isLoading ? <div>loading...</div> : null}
 
-      {invoices?.length > 0
-        ? invoices.map((invoice: TInvoice, index: number) => {
-            return <Invoice key={invoice.first_name + index} invoice={invoice} />;
-          })
-        : null}
+      {invoices?.length > 0 ? (
+        invoices.map((invoice: TInvoice, index: number) => {
+          return <Invoice key={invoice.first_name + index} invoice={invoice} />;
+        })
+      ) : (
+        <>
+          <div className=' min-h-20 flex justify-center items-center'>
+            <div className='block m-auto'>
+              <Image
+                src={ilustration}
+                width={200}
+                height={200}
+                alt='no invoices'
+                className='flex justify-center w-full object-contain'
+              />
+              <Text t='heading-medium' customClasses='mt-10'>
+                There is nothing here
+              </Text>
+            </div>
+          </div>
+        </>
+      )}
     </PageLayout>
   );
 };

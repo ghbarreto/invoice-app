@@ -12,7 +12,7 @@ type TText = {
     | 'body-variant'
     | 'heading-medium-variant';
   id?: string;
-  tag?: 'h1' | 'p' | 'h2';
+  tag?: 'h1' | 'p' | 'h2' | 'div';
   children: React.ReactNode;
   customClasses?: string;
   color?: number;
@@ -26,7 +26,7 @@ export const Text = ({ t, children, customClasses, color, ...props }: TText) => 
     'heading-medium': 'text-2xl font-bold tracking-tighter leading-6',
     'heading-medium-variant': 'text-base font-bold tracking-tighter leading-6',
     'heading-small': 'text-sm font-bold tracking-tight leading-6',
-    'heading-small-variant': 'text-xl font-bold tracking-tighter leading-4',
+    'heading-small-variant': 'text-xl font-bold tracking-tight leading-4',
     body: 'font-medium text-sm tracking-tigther leading-5',
     'body-variant': 'font-medium text-sm  leading-4 tracking-tight',
   }[t];

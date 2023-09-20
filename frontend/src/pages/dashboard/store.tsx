@@ -18,7 +18,7 @@ export const useInvoices: UseBoundStore<StoreApi<InvoiceState>> = create((set) =
     set(() => ({ selectedInvoice: i }));
   },
   invoicesStatus: {} as InvoiceStatus,
-  setState: (res) => {
+  setState: (res: { invoices: Array<Invoice>; invoices_count: number; invoices_status: InvoiceStatus }) => {
     set(() => ({
       invoices: res.invoices,
       invoicesCount: res.invoices_count,

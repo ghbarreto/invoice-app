@@ -3,9 +3,10 @@ import { Text } from './';
 type CurrencyProps = {
   amount: number;
   currencyCode: string;
+  customClasses?: string;
 };
 
-export const Currency = ({ amount, currencyCode }: CurrencyProps) => {
+export const Currency = ({ amount, currencyCode, customClasses }: CurrencyProps) => {
   const curr = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: currencyCode,
@@ -15,7 +16,7 @@ export const Currency = ({ amount, currencyCode }: CurrencyProps) => {
   const value = curr.format(amount).replaceAll(cc?.value ?? '', '');
 
   return (
-    <Text t='heading-small' customClasses='pt-2 tracking-wide font-normal font-monospace'>
+    <Text t='heading-small' customClasses={`tracking-wide font-normal font-monospace ${customClasses}`}>
       {cc?.value ?? currencyCode}
       <span className='pl-1'>{value}</span>
     </Text>

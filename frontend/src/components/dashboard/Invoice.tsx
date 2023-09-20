@@ -43,7 +43,7 @@ export const Invoice = ({ invoice }: InvoiceProps) => {
       <div className='flex justify-between pt-5'>
         <Text t='body-variant' customClasses='text-secondary_dark font-light'>
           Due {format(date, 'dd MMM yyyy')}
-          <Currency amount={invoice.total} currencyCode={invoice.currency_code} />
+          <Currency amount={invoice.total} currencyCode={invoice.currency_code} customClasses='pt-3' />
         </Text>
         <div>
           <Tag t={invoice.status as 'pending' | 'paid' | 'overdue' | 'draft'}>{invoice.status}</Tag>

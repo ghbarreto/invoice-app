@@ -1,15 +1,12 @@
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
-import { useInvoices } from '../store';
-import { Navigation, Text, PageLayout } from '@/components';
+import { Text, PageLayout } from '@/components';
 import arrow from '/public/arrow-down.svg';
-import { ProtectedRoute } from '@/context/auth-context';
 import { InvoiceDetails } from '@/components/dashboard';
 
 export const InvoiceInfo = () => {
-  const { query, push } = useRouter();
-  const { selectedInvoice, invoices } = useInvoices();
+  const { push } = useRouter();
 
   return (
     <PageLayout>
