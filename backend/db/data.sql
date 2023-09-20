@@ -175,7 +175,8 @@ CREATE TABLE public.invoices (
     description text,
     price numeric(10,2),
     status public.status_enum,
-    is_visible boolean DEFAULT true
+    is_visible boolean DEFAULT true,
+    created_at timestamp with time zone DEFAULT now() NOT NULL
 );
 
 
@@ -211,6 +212,7 @@ be9a47dd-d444-4536-b0d3-b386fac1c10a	123 Main St	New York	10001	USA	XL33637
 
 COPY public.credentials (id, email, provider_id) FROM stdin;
 o3zfqLReWKfMIIJCPlsfML3NqO43	henriqve.dev@gmail.com	firebase
+Chw2dswewxeg0BZSrPG1xDAR3zB2	gh.barreto@hotmail.com	github.com
 \.
 
 
@@ -237,6 +239,7 @@ f259b5b5-621b-4d34-8c5f-1a2d5900df69	gabriel	barreto	this is the address	Brazil	
 87692199-5a21-477b-8b62-baa658ba8fb4	gabriel	barreto	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	AA41388	o3zfqLReWKfMIIJCPlsfML3NqO43
 cbcc21ba-f2d2-4c4c-99c2-68a6c3de2020	gabriel	barreto	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	TH20751	o3zfqLReWKfMIIJCPlsfML3NqO43
 64767353-eb3d-4338-ad17-52b4a92fb1e3	gabriel	barreto	124 Church Way	Canada	Vancouver	gg@gmail.com	BD2 PK4	XL33637	o3zfqLReWKfMIIJCPlsfML3NqO43
+6aeca32f-13bf-42e6-9600-bc4e64edf929	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	VV44940	o3zfqLReWKfMIIJCPlsfML3NqO43
 \.
 
 
@@ -254,9 +257,12 @@ b797c695-a3ac-40c2-ac68-b47f410c3cef	b2be4c29-6ae7-490e-b893-41d3040de92d	NR5265
 3282f94e-a82e-4d7d-9315-236cd5d2583e	b9dc438a-d36d-463f-8f88-c0e25f2eb970	HJ22423	22424	0.00
 b4ab8667-347e-4aae-972d-6e3da92bfa89	b2be4c29-6ae7-490e-b893-41d3040de92d	HJ22423	2522222	0.00
 4dedc1b2-b48a-41d6-ac6b-c0d5bd7fe1f9	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	HJ22423	32323	0.00
-4df2985f-e903-4e3b-93fa-3dc2e7dd7f63	b9dc438a-d36d-463f-8f88-c0e25f2eb970	XL33637	22424	0.00
-48769a46-80e6-4bc4-9bbf-14e19e7bee0d	b2be4c29-6ae7-490e-b893-41d3040de92d	XL33637	2522222	0.00
-a4176ee0-aaed-407b-87bf-899e9df32846	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	XL33637	32323	0.00
+4df2985f-e903-4e3b-93fa-3dc2e7dd7f63	b9dc438a-d36d-463f-8f88-c0e25f2eb970	XL33637	3	0.00
+48769a46-80e6-4bc4-9bbf-14e19e7bee0d	b2be4c29-6ae7-490e-b893-41d3040de92d	XL33637	4	0.00
+a4176ee0-aaed-407b-87bf-899e9df32846	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	XL33637	5	0.00
+3d4e6061-2575-47c8-9bf4-77d5935bdb31	b9dc438a-d36d-463f-8f88-c0e25f2eb970	VV44940	1	1250.00
+00490ff7-daf8-4dd6-842c-406737bffadd	b2be4c29-6ae7-490e-b893-41d3040de92d	VV44940	2	0.00
+76d30d98-8d5c-4150-8998-ae0465f8d5ba	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	VV44940	3	0.00
 \.
 
 
@@ -264,17 +270,18 @@ a4176ee0-aaed-407b-87bf-899e9df32846	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	XL3363
 -- Data for Name: invoices; Type: TABLE DATA; Schema: public; Owner: root
 --
 
-COPY public.invoices (id, date_due, currency_code, user_id, description, price, status, is_visible) FROM stdin;
-US41082	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the description	150.20	pending	t
-KD81204	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the description	150.20	pending	t
-JC33159	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the description	150.20	pending	t
-AA41388	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the description	150.20	pending	t
-TH20751	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the description	150.20	pending	t
-DP70661	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the description	150.20	draft	t
-SS48389	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the description	150.20	paid	t
-NR52650	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the description	150.20	overdue	t
-XL33637	2024-09-07 19:38:21.178+00	EUR	o3zfqLReWKfMIIJCPlsfML3NqO43	Front-end Developer	1520.20	overdue	t
-HJ22423	2024-09-07 19:38:21.178+00	GBP	o3zfqLReWKfMIIJCPlsfML3NqO43	Front-end Developer	1520.20	overdue	t
+COPY public.invoices (id, date_due, currency_code, user_id, description, price, status, is_visible, created_at) FROM stdin;
+US41082	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the description	150.20	pending	t	2023-09-20 00:26:50.725709+00
+KD81204	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the description	150.20	pending	t	2023-09-20 00:26:50.725709+00
+JC33159	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the description	150.20	pending	t	2023-09-20 00:26:50.725709+00
+AA41388	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the description	150.20	pending	t	2023-09-20 00:26:50.725709+00
+TH20751	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the description	150.20	pending	t	2023-09-20 00:26:50.725709+00
+DP70661	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the description	150.20	draft	t	2023-09-20 00:26:50.725709+00
+SS48389	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the description	150.20	paid	t	2023-09-20 00:26:50.725709+00
+NR52650	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the description	150.20	overdue	t	2023-09-20 00:26:50.725709+00
+XL33637	2024-09-07 19:38:21.178+00	EUR	o3zfqLReWKfMIIJCPlsfML3NqO43	Front-end Developer	1520.20	overdue	t	2023-09-20 00:26:50.725709+00
+HJ22423	2024-09-07 19:38:21.178+00	GBP	o3zfqLReWKfMIIJCPlsfML3NqO43	Front-end Developer	1520.20	overdue	t	2023-09-20 00:26:50.725709+00
+VV44940	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this issdwqdqtion	150.20	pending	t	2023-09-20 00:27:46.074931+00
 \.
 
 
@@ -283,9 +290,9 @@ HJ22423	2024-09-07 19:38:21.178+00	GBP	o3zfqLReWKfMIIJCPlsfML3NqO43	Front-end De
 --
 
 COPY public.items (id, name, price, stock_amount, user_id) FROM stdin;
-b9dc438a-d36d-463f-8f88-c0e25f2eb970	Item 1	19.99	100	o3zfqLReWKfMIIJCPlsfML3NqO43
-b2be4c29-6ae7-490e-b893-41d3040de92d	Item 2	29.99	75	o3zfqLReWKfMIIJCPlsfML3NqO43
-92f6232c-2d24-4860-bbdb-90c8d0d30fe4	Item 3	9.99	50	o3zfqLReWKfMIIJCPlsfML3NqO43
+b9dc438a-d36d-463f-8f88-c0e25f2eb970	Website Design	19.99	100	o3zfqLReWKfMIIJCPlsfML3NqO43
+b2be4c29-6ae7-490e-b893-41d3040de92d	Docker Design	29.99	75	o3zfqLReWKfMIIJCPlsfML3NqO43
+92f6232c-2d24-4860-bbdb-90c8d0d30fe4	Backend Design	9.99	50	o3zfqLReWKfMIIJCPlsfML3NqO43
 \.
 
 

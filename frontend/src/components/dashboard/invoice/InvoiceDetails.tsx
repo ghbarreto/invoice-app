@@ -24,9 +24,10 @@ export const InvoiceDetails = () => {
       setSelectedInvoice(data.data as Invoice);
       setError(false);
     },
-    onError: (err) => {
+    onError: () => {
       setError(true);
     },
+    retry: 2,
     enabled: !!user,
   });
 
