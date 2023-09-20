@@ -80,9 +80,9 @@ export const InvoiceInfo = () => {
         </Text>
       </div>
 
-      <InvoiceItems />
+      {!!selectedInvoice.items && <InvoiceItems />}
 
-      <Container customClasses='-mt-6 items-center p-3 bg-btn_bg rounded-none rounded-br-xl rounded-bl-xl'>
+      <Container customClasses='items-center p-3 bg-btn_bg rounded-none rounded-br-xl rounded-bl-xl'>
         <div className='-ml-2 flex justify-between items-center'>
           <Text t='heading-medium-variant' customClasses='font-light text-white'>
             Grand Total

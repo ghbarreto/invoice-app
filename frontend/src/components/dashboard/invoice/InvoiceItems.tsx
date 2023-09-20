@@ -8,7 +8,7 @@ export const InvoiceItems = () => {
   const { selectedInvoice } = useInvoices();
 
   return (
-    <Container customClasses='bg-[#F9FAFE] dark:dark_primary_hover'>
+    <Container customClasses='bg-[#F9FAFE] dark:dark_primary_hover -mb-6'>
       {selectedInvoice.items.map((e: Item, index: number) => {
         return (
           <div key={e.invoice_id + index} className='p-5 -ml-4 flex justify-between items-end'>
