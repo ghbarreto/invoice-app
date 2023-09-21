@@ -2,7 +2,6 @@ import React from 'react';
 
 import { useInvoices } from '@/pages/dashboard/store';
 import { Text, Tag, Container } from '@/components/base';
-import { InvoiceInfo } from './InvoiceInfo';
 
 export const InvoiceStatus = () => {
   const { selectedInvoice } = useInvoices();

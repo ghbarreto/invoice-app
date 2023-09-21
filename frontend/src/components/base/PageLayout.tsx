@@ -1,4 +1,4 @@
-import { ProtectedRoute } from '@/context/auth-context';
+import { ProtectedRoute } from '@/components/ProtectedRoute';
 import { Navigation } from '@/components';
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
@@ -25,7 +25,9 @@ export const Container = (props: React.HTMLProps<HTMLDivElement> & TContainer) =
   return (
     <div
       {...props}
-      className={twMerge(`bg-white mt-5 rounded-md mb-5 dark:bg-dark_primary shadow-normal ${props.customClasses}`)}
+      className={twMerge(
+        `bg-white mt-5 rounded-md mb-5 dark:bg-dark_primary hover:shadow-normal ${props.customClasses}`
+      )}
     >
       <div className='p-5'>{props.children}</div>
     </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { format, set } from 'date-fns';
+import { format } from 'date-fns';
 
 import { Currency, Text, Container } from '@/components';
 import { Invoice as TInvoice } from '@/types/invoice_types';
