@@ -213,6 +213,7 @@ be9a47dd-d444-4536-b0d3-b386fac1c10a	123 Main St	New York	10001	USA	XL33637
 COPY public.credentials (id, email, provider_id) FROM stdin;
 o3zfqLReWKfMIIJCPlsfML3NqO43	henriqve.dev@gmail.com	firebase
 Chw2dswewxeg0BZSrPG1xDAR3zB2	gh.barreto@hotmail.com	github.com
+sZq0R42xeSgSS4V9yK48GC4l0WD3	vuxgamer@gmail.com	google.com
 \.
 
 
@@ -257,12 +258,12 @@ b797c695-a3ac-40c2-ac68-b47f410c3cef	b2be4c29-6ae7-490e-b893-41d3040de92d	NR5265
 3282f94e-a82e-4d7d-9315-236cd5d2583e	b9dc438a-d36d-463f-8f88-c0e25f2eb970	HJ22423	22424	0.00
 b4ab8667-347e-4aae-972d-6e3da92bfa89	b2be4c29-6ae7-490e-b893-41d3040de92d	HJ22423	2522222	0.00
 4dedc1b2-b48a-41d6-ac6b-c0d5bd7fe1f9	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	HJ22423	32323	0.00
-4df2985f-e903-4e3b-93fa-3dc2e7dd7f63	b9dc438a-d36d-463f-8f88-c0e25f2eb970	XL33637	3	0.00
-48769a46-80e6-4bc4-9bbf-14e19e7bee0d	b2be4c29-6ae7-490e-b893-41d3040de92d	XL33637	4	0.00
 a4176ee0-aaed-407b-87bf-899e9df32846	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	XL33637	5	0.00
 3d4e6061-2575-47c8-9bf4-77d5935bdb31	b9dc438a-d36d-463f-8f88-c0e25f2eb970	VV44940	1	1250.00
 00490ff7-daf8-4dd6-842c-406737bffadd	b2be4c29-6ae7-490e-b893-41d3040de92d	VV44940	2	0.00
 76d30d98-8d5c-4150-8998-ae0465f8d5ba	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	VV44940	3	0.00
+4df2985f-e903-4e3b-93fa-3dc2e7dd7f63	b9dc438a-d36d-463f-8f88-c0e25f2eb970	XL33637	3	85.50
+48769a46-80e6-4bc4-9bbf-14e19e7bee0d	b2be4c29-6ae7-490e-b893-41d3040de92d	XL33637	3	0.00
 \.
 
 

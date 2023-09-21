@@ -26,14 +26,27 @@ export const InvoiceItems = () => {
                     />
                   </span>
                 </span>
+
+                {e.overcharge > 0 ? (
+                  <Text t='body-variant' customClasses='text-xs block items-center gap-1'>
+                    Additional Charge:{' '}
+                    <Currency
+                      amount={e.overcharge}
+                      currencyCode={selectedInvoice.currency_code}
+                      customClasses='font-sans text-xs font-semibold'
+                    />
+                  </Text>
+                ) : null}
               </Text>
             </div>
 
-            <Currency
-              amount={e.total}
-              currencyCode={selectedInvoice.currency_code}
-              customClasses='font-sans font-semibold text-md'
-            />
+            <div className='text-end'>
+              <Currency
+                amount={e.total}
+                currencyCode={selectedInvoice.currency_code}
+                customClasses='font-sans font-semibold text-md'
+              />
+            </div>
           </div>
         );
       })}

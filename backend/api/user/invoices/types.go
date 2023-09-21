@@ -2,6 +2,7 @@ package invoices
 
 type invoice struct {
 	Id            string  `json:"invoice_id"`
+	Created_at    string  `json:"created_at"`
 	Date_due      string  `json:"date_due"`
 	Currency_code *string `json:"currency_code"`
 	Description   string  `json:"description"`

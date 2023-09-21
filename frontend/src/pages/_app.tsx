@@ -2,6 +2,8 @@ import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import '@/styles/DatePicker.scss';
 
+// TODO most pages missing metadata
+
 import { AuthProvider } from '@/context/auth-context';
 import { QueryClient, QueryClientProvider } from 'react-query';
 

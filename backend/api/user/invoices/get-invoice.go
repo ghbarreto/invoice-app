@@ -23,7 +23,7 @@ func GetInvoice(w http.ResponseWriter, r *http.Request) {
 
 	query := conn.QueryRow(GET_INVOICE+" AND invoices.id = $2", uid, match)
 
-	err := query.Scan(&invoice.Id, &invoice.Date_due,
+	err := query.Scan(&invoice.Id, &invoice.Created_at, &invoice.Date_due,
 		&invoice.Currency_code,
 		&invoice.Description, &invoice.Status,
 		&invoice.First_name, &invoice.Last_name, &invoice.Price, &invoice.Address,

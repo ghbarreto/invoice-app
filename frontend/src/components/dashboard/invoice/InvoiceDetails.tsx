@@ -9,6 +9,7 @@ import { Button } from '@/components';
 import { useAuth } from '@/context/auth-context';
 import { secureFetch } from '@/utils/fetch';
 import { Invoice } from '@/types/invoice_types';
+import Head from 'next/head';
 
 export const InvoiceDetails = () => {
   const { user } = useAuth();
@@ -44,6 +45,9 @@ export const InvoiceDetails = () => {
 
   return (
     <>
+      <Head>
+        <title>Invoice #{invoiceId}</title>
+      </Head>
       <InvoiceStatus />
       <InvoiceInfo />
       <div className='bg-white -m-5 mt-12 p-5 flex justify-center gap-3'>

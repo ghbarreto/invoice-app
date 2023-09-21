@@ -13,7 +13,7 @@ import (
 
 // o3zfqLReWKfMIIJCPlsfML3NqO43
 var GET_INVOICE = `SELECT 
-	invoices.id, date_due, currency_code, 
+	invoices.id, created_at, date_due, currency_code, 
 	description, status, first_name, last_name, price, address, country, city, client_email, zip_code, 
 	business_address, business_city, business_country, business_zip_code
 		FROM invoices 
@@ -78,7 +78,7 @@ func GetInvoices(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		var i invoices_get
 
-		rows.Scan(&i.Id, &i.Date_due,
+		rows.Scan(&i.Id, &i.Created_at, &i.Date_due,
 			&i.Currency_code,
 			&i.Description, &i.Status,
 			&i.First_name, &i.Last_name, &i.Price, &i.Address,

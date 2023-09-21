@@ -46,7 +46,7 @@ export const InvoiceInfo = () => {
             Invoice Date
           </Text>
           <Text t='heading-medium-variant' customClasses='mt-3 w-max-content' color={8}>
-            <FormatDate d={selectedInvoice.date_due} />
+            <FormatDate d={selectedInvoice.created_at} />
           </Text>
 
           <Text t='body-variant' customClasses='font-normal dark:font-light mt-5' color={7}>

@@ -14,6 +14,7 @@ export type Invoice = {
   client_email: string;
   country: string;
   currency_code: string;
+  created_at: string;
   date_due: string;
   description: string;
   first_name: string;

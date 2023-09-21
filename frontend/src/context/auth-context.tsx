@@ -163,7 +163,6 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
       } else {
         router.push('/');
       }
-      console.log(user, auth);
     });
   }, [auth, router]);
 
