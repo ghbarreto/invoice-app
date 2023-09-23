@@ -1,2 +1,2 @@
 export { Invoice } from './Invoice';
-export { InvoiceDetails } from './invoice/InvoiceDetails';
+export * from './invoice/index';

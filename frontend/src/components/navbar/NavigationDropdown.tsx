@@ -6,6 +6,7 @@ import { BsPeopleFill } from 'react-icons/bs';
 import { IoSettingsSharp } from 'react-icons/io5';
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export const NavigationDropdown = () => {
   const router = useRouter();
@@ -13,7 +14,7 @@ export const NavigationDropdown = () => {
 
   const options = [
     { route: '/customers', label: 'Customers' },
-    { route: '/invoices', label: 'Invoices' },
+    { route: '/dashboard', label: 'Invoices' },
     { route: '/settings', label: 'Settings' },
   ];
 
@@ -33,12 +34,12 @@ export const NavigationDropdown = () => {
           };
 
           return (
-            <a key={op.label} href='#' role='menuitem' id='menu-item-0' className='flex items-center py-2'>
+            <Link key={op.label} href={op.route} role='menuitem' id='menu-item-0' className='flex items-center py-2'>
               {icons[index]}
               <Text t='heading-small' customClasses='py-2 text-white font-medium'>
                 {op.label}
               </Text>
-            </a>
+            </Link>
           );
         })}
 
