@@ -17,6 +17,7 @@ export const Invoice = ({ invoice }: InvoiceProps) => {
 
   return (
     <Container
+      customClasses={'hover:bg-gray-100 dark:hover:bg-gray-800 hover:cursor-pointer'}
       onClick={() => {
         const findInvoice = invoices.find((i) => i.invoice_id === invoice.invoice_id) as TInvoice;
         setSelectedInvoice(findInvoice);

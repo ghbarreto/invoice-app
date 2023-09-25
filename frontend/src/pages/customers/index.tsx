@@ -35,7 +35,9 @@ export default function CustomerIndex() {
             ? customers.map((customer: any) => {
                 return (
                   <tr key={customer.id}>
-                    <td>{customer.first_name}</td>
+                    <td>
+                      {customer.first_name} {customer.id}
+                    </td>
                     <td>{customer.last_name}</td>
                     <td>{customer.address}</td>
                   </tr>

@@ -41,8 +41,6 @@ func GetInvoice(w http.ResponseWriter, r *http.Request) {
 		invoice.Total += items.Total
 	}
 
-	fmt.Println(query)
-
 	if err != nil {
 		fmt.Println(err)
 		api.Resp(w, 400, "error")

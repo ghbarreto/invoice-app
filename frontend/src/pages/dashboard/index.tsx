@@ -28,7 +28,7 @@ const Dashboard = () => {
       <div className='break-words flex gap-2 -mt-6'>
         <details>
           <summary></summary>
-          <p className='w-80'>{token}</p>
+          <p className='w-full dark:text-primary font-bold  max-w-3xl overflow-scroll'>{token}</p>
         </details>
         {user?.uid}
       </div>

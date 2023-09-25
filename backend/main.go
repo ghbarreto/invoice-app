@@ -15,6 +15,7 @@ func main() {
 	// TODO very important: fix every connection pool to use the connection returned by GetConnection()
 	// customers wrapper
 	utils.Routes("customers", c.CustomersRoute)
+	utils.Routes("customer/", c.GetCustomer)
 
 	// invoice wrapper
 	utils.Routes("invoices", i.InvoicesRoute)

@@ -1,22 +1,25 @@
 import { useRouter } from 'next/router';
 
-import { PageLayout } from '@/components';
+import { Container, PageLayout } from '@/components';
 
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 
+import { getCookies } from 'cookies-next';
+
 import { useInvoices } from '@/pages/dashboard/store';
 import { Button } from '@/components';
 import { useAuth } from '@/context/auth-context';
-import { secureFetch } from '@/utils/fetch';
+import { secureFetch, SSRFetch } from '@/utils/fetch';
 import { Invoice } from '@/types/invoice_types';
 import Head from 'next/head';
 import { InvoiceStatus, InvoiceInfo } from '@/components/dashboard';
+import { getInvoice } from '@/apis/invoice/getInvoice';
 
 export const Info = () => {
   const { push } = useRouter();
   const { user } = useAuth();
-
+  console.log(getCookies());
   const { selectedInvoice, setSelectedInvoice } = useInvoices();
   const [error, setError] = useState(false);
   const router = useRouter();
@@ -54,13 +57,42 @@ export const Info = () => {
       </Head>
       <InvoiceStatus />
       <InvoiceInfo />
-      <div className='bg-white -m-5 mt-12 p-5 flex justify-center gap-3'>
-        <Button type='third' txt='Edit' onClick={() => router.push('edit')} />
-        <Button type='delete' txt='Delete' />
-        <Button type='primary' txt='Mark as Paid' />
-      </div>
+      <Container customClasses='-ml-5 -mb-5 -mr-5 rounded-none'>
+        <div className='flex justify-center gap-3 '>
+          <Button type='third' txt='Edit' onClick={() => router.push(`edit/${invoiceId}`)} />
+          <Button type='delete' txt='Delete' />
+          <Button type='primary' txt='Mark as Paid' />
+        </div>
+      </Container>
     </PageLayout>
   );
 };
 
 export default Info;
+
+// export async function getServerSideProps(ctx: any) {
+//   const { id, req } = ctx.params;
+
+//   if (id) {
+//     try {
+//       const response: Response = await fetch(`http://localhost:8080/api/invoice/${id}`, {
+//         method: 'GET',
+//         headers: {
+//           Accept: 'application/json',
+//           Authorization: 'Bearer ' + ctx.req.cookies.auth_token,
+//           'Content-Type': 'application/json',
+//         },
+//       });
+
+//       console.log(response);
+//       // const invoice = await SSRFetch(`invoice/${id}`, { auth: ctx.req.cookies.auth_token });
+//     } catch (err) {
+//       console.log(err);
+//     }
+//     return {
+//       props: {
+//         invoice: [],
+//       },
+//     };
+//   }
+// }

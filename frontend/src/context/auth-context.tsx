@@ -152,6 +152,7 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
               email: user.email,
               provider_id: user.providerData[0].providerId,
             });
+            document.cookie = `auth_token=${idToken}; path=/`;
             return localStorage.setItem('auth_token', idToken);
           })
           .catch((error) => {
