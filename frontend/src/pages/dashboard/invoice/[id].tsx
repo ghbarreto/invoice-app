@@ -57,8 +57,8 @@ export const Info = () => {
       </Head>
       <InvoiceStatus />
       <InvoiceInfo />
-      <Container customClasses='-ml-5 -mb-5 -mr-5 rounded-none'>
-        <div className='flex justify-center gap-3 '>
+      <Container customClasses='-ml-5 -mb-5 -mr-5 rounded-none lg:hidden'>
+        <div className='flex justify-center gap-3'>
           <Button type='third' txt='Edit' onClick={() => router.push(`edit/${invoiceId}`)} />
           <Button type='delete' txt='Delete' />
           <Button type='primary' txt='Mark as Paid' />

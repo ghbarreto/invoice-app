@@ -1,12 +1,11 @@
 import { useRouter } from 'next/router';
 
-import { Container, PageLayout } from '@/components';
+import { Container, InvoiceIdFormat, PageLayout } from '@/components';
 
 import React from 'react';
 
-import { Button } from '@/components';
+import { Text } from '@/components';
 import Head from 'next/head';
-import { InvoiceStatus, InvoiceInfo } from '@/components/dashboard';
 import { useInvoices } from '../../store';
 
 export const EditInvoice = () => {
@@ -14,11 +13,20 @@ export const EditInvoice = () => {
   const router = useRouter();
 
   return (
-    <PageLayout hasReturnArrow returnFunc={() => router.push(`/dashboard/invoice/${selectedInvoice.invoice_id}`)}>
+    <PageLayout
+      hasReturnArrow
+      returnFunc={() => router.push(`/dashboard/invoice/${selectedInvoice.invoice_id}`)}
+      customClasses='bg-white'
+    >
       <Head>
         <title>Edit Invoice #{selectedInvoice.invoice_id}</title>
       </Head>
-      <Container customClasses='-ml-5 -mb-5 -mr-5 rounded-none'>Edit</Container>
+
+      <Container customClasses='bg-transparent dark:bg-background_dark shadow-none -m-5 mt-2'>
+        <Text tag='h1' t='heading-medium' customClasses='flex gap-2'>
+          Edit <InvoiceIdFormat>{selectedInvoice.invoice_id}</InvoiceIdFormat>
+        </Text>
+      </Container>
     </PageLayout>
   );
 };

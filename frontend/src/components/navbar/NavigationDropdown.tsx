@@ -20,17 +20,17 @@ export const NavigationDropdown = () => {
 
   return (
     <div
-      className='absolute right-0 z-10 w-56 rounded-tr-none rounded-md bg-dark_primary_hover shadow-normal ring-1 ring-[#494E6E] ring-opacity-5 focus:outline-none'
+      className='absolute right-0 z-10 w-56 rounded-md rounded-tr-none bg-dark_primary_hover shadow-normal ring-1 ring-[#494E6E] ring-opacity-5 focus:outline-none xl:bottom-5  xl:left-32'
       role='menu'
       aria-orientation='vertical'
       aria-labelledby='menu-button'
     >
-      <div className='py-1 px-4' role='none'>
+      <div className='px-4 py-1' role='none'>
         {options.map((op, index: number) => {
           const icons: { [T: number]: JSX.Element } = {
-            0: <BsPeopleFill className='mr-3 font-bold text-xl text-secondary_dark' />,
-            1: <LiaFileInvoiceSolid className='mr-3 font-bold text-xl text-secondary_dark' />,
-            2: <IoSettingsSharp className='mr-3 font-bold text-xl text-secondary_dark' />,
+            0: <BsPeopleFill className='mr-3 text-xl font-bold text-secondary_dark' />,
+            1: <LiaFileInvoiceSolid className='mr-3 text-xl font-bold text-secondary_dark' />,
+            2: <IoSettingsSharp className='mr-3 text-xl font-bold text-secondary_dark' />,
           };
 
           return (
@@ -44,7 +44,7 @@ export const NavigationDropdown = () => {
         })}
 
         <button className='flex items-center py-2' role='menuitem' id='menu-item-3' onClick={logout}>
-          <ImExit className='mr-3 font-bold text-xl text-secondary_dark' />
+          <ImExit className='mr-3 text-xl font-bold text-secondary_dark' />
           <Text t='heading-small' customClasses='py-2 text-white font-medium'>
             Sign out
           </Text>

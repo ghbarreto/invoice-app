@@ -25,10 +25,10 @@ const Dashboard = () => {
 
   return (
     <PageLayout>
-      <div className='break-words flex gap-2 -mt-6'>
+      <div className='-mt-6 flex gap-2 break-words'>
         <details>
           <summary></summary>
-          <p className='w-full dark:text-primary font-bold  max-w-3xl overflow-scroll'>{token}</p>
+          <p className='w-full max-w-3xl overflow-scroll  font-bold dark:text-primary'>{token}</p>
         </details>
         {user?.uid}
       </div>
@@ -47,7 +47,7 @@ const Dashboard = () => {
         </div>
 
         <div className='flex items-center gap-5'>
-          <div className='flex gap-3 items-baseline'>
+          <div className='flex items-baseline gap-3'>
             <Text tag='p' t='heading-small-variant' customClasses='text-md'>
               Filter
             </Text>
@@ -65,14 +65,14 @@ const Dashboard = () => {
         })
       ) : (
         <>
-          <div className=' min-h-20 flex justify-center items-center'>
-            <div className='block m-auto'>
+          <div className=' min-h-20 flex items-center justify-center'>
+            <div className='m-auto block'>
               <Image
                 src={ilustration}
                 width={200}
                 height={200}
                 alt='no invoices'
-                className='flex justify-center w-full object-contain'
+                className='flex w-full justify-center object-contain'
               />
               <Text t='heading-medium' customClasses='mt-10'>
                 There is nothing here

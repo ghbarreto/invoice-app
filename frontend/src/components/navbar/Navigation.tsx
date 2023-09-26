@@ -29,25 +29,32 @@ export const Navigation = () => {
 
   return (
     <>
-      <ul className='relative flex h-20 items-center overflow-hidden justify-between bg-dark_primary_hover'>
-        <span className='mr-5 flex w-full justify-between items-center'>
-          <li className=''>
-            <Image src={pacman} alt='logo' width={80} height={80} />
+      <ul className='w relative flex h-20 items-center justify-between overflow-hidden bg-dark_primary_hover xl:fixed xl:h-screen xl:w-32 xl:rounded-br-[2.5rem] xl:rounded-tr-[2.5rem]'>
+        <span className='mr-5 flex w-full items-center justify-between'>
+          <li className='xl:absolute xl:top-0'>
+            <Image src={pacman} alt='logo' width={80} height={80} className='xl:w-56' />
           </li>
-          <li className='border-l-1 flex items-center'>
+          <li className='flex items-center xl:absolute xl:bottom-52 xl:left-12  '>
             {dark ? (
-              <Image src={moon} onClick={addProp} alt='moon' width={20} height={20} />
+              <Image src={moon} onClick={addProp} alt='moon' width={20} height={20} className='xl:w-7' />
             ) : (
-              <Image src={sun} onClick={addProp} alt='sun' width={20} height={20} />
+              <Image src={sun} onClick={addProp} alt='sun' width={20} height={20} className='xl:w-7' />
             )}
           </li>
         </span>
 
-        <span className='mr-7 h-96 w-0.5 bg-[#494E6E]'></span>
+        <span className='mr-7 h-96 w-0.5 bg-[#494E6E] xl:absolute xl:bottom-40 xl:h-0.5 xl:w-96'></span>
 
-        <li className='mr-6' onClick={openNavigation}>
+        <li className='mr-6 xl:absolute xl:bottom-10 xl:left-5 xl:right-5 xl:w-full' onClick={openNavigation}>
           {user?.photoURL ? (
-            <Image className='rounded-full' src={user?.photoURL} alt='Vercel Logo' width={60} height={60} priority />
+            <Image
+              className='rounded-full xl:w-20'
+              src={user?.photoURL}
+              alt='Vercel Logo'
+              width={60}
+              height={60}
+              priority
+            />
           ) : (
             <RxAvatar size='40' className='text-[#494E6E]' />
           )}

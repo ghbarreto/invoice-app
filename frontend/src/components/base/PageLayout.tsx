@@ -8,17 +8,26 @@ import arrow from '/public/arrow-down.svg';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
 import { Navigation } from '@/components';
 
-export const PageLayout = (props: { children: React.ReactNode; hasReturnArrow?: boolean; returnFunc?: () => void }) => {
+export const PageLayout = (props: {
+  children: React.ReactNode;
+  hasReturnArrow?: boolean;
+  returnFunc?: () => void;
+  customClasses?: string;
+}) => {
   return (
     <ProtectedRoute>
       <header>
         <Navigation />
       </header>
 
-      <main className={'h-100 min-h-screen items-center bg-background_light dark:bg-background_dark p-5'}>
-        <div className='max-w-7xl m-auto'>
+      <main
+        className={twMerge(
+          `h-100 min-h-screen items-center bg-background_light p-5 dark:bg-background_dark xl:pl-20 ${props.customClasses}`
+        )}
+      >
+        <div className='m-auto max-w-7xl '>
           {props.hasReturnArrow && (
-            <div className='pt-2 hover:cursor-pointer w-max'>
+            <div className='w-max pt-2 hover:cursor-pointer'>
               <div className='flex' onClick={props.returnFunc}>
                 <Image src={arrow} alt='arrow-down' width={10} height={10} className='rotate-90' />
 
@@ -43,7 +52,7 @@ export const Container = (props: React.HTMLProps<HTMLDivElement> & TContainer) =
   return (
     <div
       {...props}
-      className={twMerge(`bg-white mt-5 rounded-md mb-5 dark:bg-dark_primary shadow-normal ${props.customClasses}`)}
+      className={twMerge(`mb-5 mt-5 rounded-md bg-white shadow-sm dark:bg-dark_primary ${props.customClasses}`)}
     >
       <div className='p-5'>{props.children}</div>
     </div>
