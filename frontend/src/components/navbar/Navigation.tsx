@@ -10,11 +10,13 @@ import { Text } from '@/components';
 import { NavigationDropdown } from './NavigationDropdown';
 
 import { RxAvatar } from 'react-icons/rx';
+import { useRouter } from 'next/router';
 
 export const Navigation = () => {
   const { user, token, logout } = useAuth();
   const [navigationOpen, setNavigationOpen] = useState<boolean>(false);
   const [dark, setDark] = useState(false);
+  const router = useRouter();
 
   const addProp = () => {
     if (document.documentElement.classList.contains('dark')) {
@@ -31,10 +33,10 @@ export const Navigation = () => {
     <>
       <ul className='w relative flex h-20 items-center justify-between overflow-hidden bg-dark_primary_hover xl:fixed xl:h-screen xl:w-32 xl:rounded-br-[2.5rem] xl:rounded-tr-[2.5rem]'>
         <span className='mr-5 flex w-full items-center justify-between'>
-          <li className='xl:absolute xl:top-0'>
+          <li className='hover:cursor-pointer xl:absolute xl:top-0' onClick={() => router.push('/dashboard')}>
             <Image src={pacman} alt='logo' width={80} height={80} className='xl:w-56' />
           </li>
-          <li className='flex items-center xl:absolute xl:bottom-52 xl:left-12  '>
+          <li className='flex items-center hover:cursor-pointer xl:absolute xl:bottom-52 xl:left-12'>
             {dark ? (
               <Image src={moon} onClick={addProp} alt='moon' width={20} height={20} className='xl:w-7' />
             ) : (

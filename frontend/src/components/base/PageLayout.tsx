@@ -25,7 +25,7 @@ export const PageLayout = (props: {
           `h-100 min-h-screen items-center bg-background_light p-5 dark:bg-background_dark xl:pl-20 ${props.customClasses}`
         )}
       >
-        <div className='m-auto max-w-7xl '>
+        <div className='m-auto max-w-7xl xl:max-w-5xl'>
           {props.hasReturnArrow && (
             <div className='w-max pt-2 hover:cursor-pointer'>
               <div className='flex' onClick={props.returnFunc}>

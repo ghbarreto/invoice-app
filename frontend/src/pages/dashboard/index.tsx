@@ -11,6 +11,7 @@ import { Invoice as TInvoice } from '@/types/invoice_types';
 import { Invoice } from '@/components/dashboard';
 import { PageLayout } from '@/components/base/PageLayout';
 import ilustration from '/public/illustration-empty.svg';
+import Head from 'next/head';
 
 const Dashboard = () => {
   const { user, token } = useAuth();
@@ -25,6 +26,9 @@ const Dashboard = () => {
 
   return (
     <PageLayout>
+      <Head>
+        <title>Welcome {user?.displayName}</title>
+      </Head>
       <div className='-mt-6 flex gap-2 break-words'>
         <details>
           <summary></summary>
@@ -41,14 +45,17 @@ const Dashboard = () => {
           <Text t='heading-medium' tag='h1' id='dashboard-title'>
             Invoices
           </Text>
-          <Text t='body' customClasses='text-secondary_dark font-medium mt-1'>
-            {invoicesCount} invoices
+          <Text
+            t='body'
+            customClasses='text-secondary_dark font-medium mt-1 after:content-["_invoices"] xl:before:content-["There_are_"] xl:after:content-["_pending_invoices"]'
+          >
+            {invoicesCount}
           </Text>
         </div>
 
         <div className='flex items-center gap-5'>
           <div className='flex items-baseline gap-3'>
-            <Text tag='p' t='heading-small-variant' customClasses='text-md'>
+            <Text tag='p' t='heading-small-variant' customClasses="text-md xl:after:content-['_by_status']">
               Filter
             </Text>
             <Image src={arrowDown} onClick={() => null} alt='arrow-down' width={15} height={15} />

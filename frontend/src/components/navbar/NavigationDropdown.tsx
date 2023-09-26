@@ -3,6 +3,7 @@ import { ImExit } from 'react-icons/im';
 
 import { LiaFileInvoiceSolid } from 'react-icons/lia';
 import { BsPeopleFill } from 'react-icons/bs';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { IoSettingsSharp } from 'react-icons/io5';
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/router';
@@ -14,6 +15,7 @@ export const NavigationDropdown = () => {
 
   const options = [
     { route: '/customers', label: 'Customers' },
+    { route: '/product', label: 'Products' },
     { route: '/dashboard', label: 'Invoices' },
     { route: '/settings', label: 'Settings' },
   ];
@@ -29,8 +31,9 @@ export const NavigationDropdown = () => {
         {options.map((op, index: number) => {
           const icons: { [T: number]: JSX.Element } = {
             0: <BsPeopleFill className='mr-3 text-xl font-bold text-secondary_dark' />,
-            1: <LiaFileInvoiceSolid className='mr-3 text-xl font-bold text-secondary_dark' />,
-            2: <IoSettingsSharp className='mr-3 text-xl font-bold text-secondary_dark' />,
+            1: <AiOutlineShoppingCart className='mr-3 text-xl font-bold text-secondary_dark' />,
+            2: <LiaFileInvoiceSolid className='mr-3 text-xl font-bold text-secondary_dark' />,
+            3: <IoSettingsSharp className='mr-3 text-xl font-bold text-secondary_dark' />,
           };
 
           return (

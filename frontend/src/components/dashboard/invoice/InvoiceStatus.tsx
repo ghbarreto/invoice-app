@@ -14,7 +14,14 @@ export const InvoiceStatus = () => {
         </Text>
 
         <div className='flex justify-center gap-3'>
-          {/* <Button type='third' txt='Edit' onClick={() => router.push(`edit/${invoiceId}`)} /> */}
+          <Button
+            type='third'
+            txt='Edit'
+            onClick={
+              // () => router.push(`edit/${invoiceId}`)
+              () => null
+            }
+          />
           <Button type='delete' txt='Delete' />
           <Button type='primary' txt='Mark as Paid' />
         </div>
