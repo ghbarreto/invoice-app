@@ -11,18 +11,17 @@ export default function CustomerIndex() {
   const { user } = useAuth();
   const { setState, customers } = useCustomers();
 
-  console.log(customers);
-  const { isLoading, error } = useQuery({
-    queryKey: ['test'],
-    queryFn: async () => await secureFetch('customers', { method: 'GET' }),
-    onSettled: (data) => setState(data.data),
-    enabled: !!user,
-  });
+  // const { isLoading, error } = useQuery({
+  //   queryKey: ['test'],
+  //   queryFn: async () => await secureFetch('customers', { method: 'GET' }),
+  //   onSettled: (data) => setState(data.data),
+  //   enabled: !!user,
+  // });
 
   return (
     <PageLayout hasReturnArrow returnFunc={() => push('/dashboard')}>
-      <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
-        <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
+      <table className='w-full text-left text-sm text-gray-500 dark:text-gray-400'>
+        <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
           <tr>
             <th>First Name</th>
             <th>Last Name</th>

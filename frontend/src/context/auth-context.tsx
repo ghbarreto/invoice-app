@@ -89,8 +89,6 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
     async (email: string, password: string) => {
       try {
         const p = await signInWithEmailAndPassword(auth, email, password);
-
-        console.log(p);
       } catch (err: any) {
         setMessage({
           type: 'error',

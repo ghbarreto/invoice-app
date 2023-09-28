@@ -12,20 +12,15 @@ import { Invoice } from '@/components/dashboard';
 import { PageLayout } from '@/components/base/PageLayout';
 import ilustration from '/public/illustration-empty.svg';
 import Head from 'next/head';
+import { useFetchAllInvoices } from '@/hooks/invoices/useFetchInvoices';
 
 const Dashboard = () => {
   const { user, token } = useAuth();
   const { setState, invoices, invoicesCount } = useInvoices();
-
-  const { isLoading, error } = useQuery({
-    queryKey: ['test'],
-    queryFn: async () => await secureFetch('invoices', { method: 'GET' }),
-    onSettled: (data) => setState(data.data),
-    enabled: !!user,
-  });
+  const { isLoading, error } = useFetchAllInvoices();
 
   return (
-    <PageLayout>
+    <PageLayout isLoading={isLoading} error={error}>
       <Head>
         <title>Welcome {user?.displayName}</title>
       </Head>
@@ -42,20 +37,20 @@ const Dashboard = () => {
         className='mt-3 flex items-baseline justify-between'
       >
         <div>
-          <Text t='heading-medium' tag='h1' id='dashboard-title'>
+          <Text t='title' tag='h1' id='dashboard-title'>
             Invoices
           </Text>
           <Text
             t='body'
-            customClasses='text-secondary_dark font-medium mt-1 after:content-["_invoices"] xl:before:content-["There_are_"] xl:after:content-["_pending_invoices"]'
+            customClasses='text-secondary_dark font-medium mt-1 md:before:content-["There_are_"] md:after:content-["_total_invoices"] after:content-["_invoices"] xl:before:content-["There_are_"]  xl:after:content-["_pending_invoices"]'
           >
             {invoicesCount}
           </Text>
         </div>
 
-        <div className='flex items-center gap-5'>
-          <div className='flex items-baseline gap-3'>
-            <Text tag='p' t='heading-small-variant' customClasses="text-md xl:after:content-['_by_status']">
+        <div className='flex items-center gap-3'>
+          <div className='flex items-baseline gap-2'>
+            <Text tag='p' t='body' customClasses=" md:after:content-['_by_status'] font-bold">
               Filter
             </Text>
             <Image src={arrowDown} onClick={() => null} alt='arrow-down' width={15} height={15} />
@@ -81,7 +76,7 @@ const Dashboard = () => {
                 alt='no invoices'
                 className='flex w-full justify-center object-contain'
               />
-              <Text t='heading-medium' customClasses='mt-10'>
+              <Text t='body' customClasses='mt-10'>
                 There is nothing here
               </Text>
             </div>

@@ -1,31 +1,24 @@
 import React from 'react';
 
 import { useInvoices } from '@/pages/dashboard/store';
-import { Text, Tag, Container, Button } from '@/components/base';
+import { Text, Tag, Container } from '@/components/base';
+import { InvoiceActions } from './InvoiceActions';
 
 export const InvoiceStatus = () => {
   const { selectedInvoice } = useInvoices();
 
   return (
     <Container>
-      <div className='flex items-center justify-between'>
-        <Text t='body-variant' customClasses='text-[#858BB2]'>
-          Status
-        </Text>
-
-        <div className='flex justify-center gap-3'>
-          <Button
-            type='third'
-            txt='Edit'
-            onClick={
-              // () => router.push(`edit/${invoiceId}`)
-              () => null
-            }
-          />
-          <Button type='delete' txt='Delete' />
-          <Button type='primary' txt='Mark as Paid' />
+      <div className='flex items-center justify-between md:pl-5'>
+        <div className='flex w-full items-center justify-between gap-8 md:w-auto'>
+          <Text t='body-small' customClasses='text-[#858BB2] font-light'>
+            Status
+          </Text>
+          <Tag t={selectedInvoice.status}>{selectedInvoice.status}</Tag>
         </div>
-        <Tag t={selectedInvoice.status}>{selectedInvoice.status}</Tag>
+        <div className='hidden md:block'>
+          <InvoiceActions />
+        </div>
       </div>
     </Container>
   );

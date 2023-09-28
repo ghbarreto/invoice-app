@@ -37,7 +37,7 @@ export const SelectBox = ({ label, values, sel }: TSelectBox) => {
 
   return (
     <div className='w-8/12 max-w-xs' ref={ref}>
-      <Text t='body-variant' customClasses='mb-2 ml-1 text-secondary_light_hover'>
+      <Text t='body' customClasses='mb-2 ml-1 text-secondary_light_hover'>
         {label}
       </Text>
       <button
@@ -47,7 +47,7 @@ export const SelectBox = ({ label, values, sel }: TSelectBox) => {
         } dark:border-dark_primary_hover dark:bg-dark_primary`}
         type='button'
       >
-        <Text t='heading-small' customClasses='dark:text-white'>
+        <Text t='body' customClasses='dark:text-white'>
           {selected.label}
         </Text>
         <svg
@@ -77,7 +77,7 @@ export const SelectBox = ({ label, values, sel }: TSelectBox) => {
               return (
                 <li className='py-1' key={i + e.label} onClick={() => onChange(e.label, e.value)}>
                   <Text
-                    t='heading-small'
+                    t='body'
                     customClasses={`${lastIndex} px-4 py-2 hover:text-primary dark:text-secondary_light dark:hover:text-primary`}
                   >
                     {e.label}

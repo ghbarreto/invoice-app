@@ -1,7 +1,8 @@
-type Others = {
+export type Others = {
   body?: BodyInit | null | undefined | any;
   method?: 'GET' | 'POST';
 };
+
 const BE_BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
 
 const apiClient = async (endpoint: string, o?: Others) => {

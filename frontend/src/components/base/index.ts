@@ -8,3 +8,4 @@ export { Tag } from './Tag';
 export { PageLayout, Container } from './PageLayout';
 export { FormatDate } from './FormatDate';
 export { InvoiceIdFormat } from './InvoiceIdFormat';
+export { Modal } from './Modal';

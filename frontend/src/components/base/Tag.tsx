@@ -24,9 +24,9 @@ export const Tag = ({ children, t }: { children: React.ReactNode; t: InvoiceStat
   }[t as InvoiceStatusTypes];
 
   return (
-    <div className={`p-4 pl-6 pr-6 h-12 w-32 rounded-md flex justify-center items-center ${background}`}>
+    <div className={`flex h-12 w-36 items-center justify-center rounded-md p-4 pl-6 pr-6 ${background}`}>
       <div className={`h-3 w-3 rounded-full ${dot}`}></div>
-      <Text t='heading-small' customClasses={`capitalize ml-2 ${txtColor} font-bold`}>
+      <Text t='body' customClasses={`capitalize ml-2 ${txtColor} font-bold`}>
         {children}
       </Text>
     </div>

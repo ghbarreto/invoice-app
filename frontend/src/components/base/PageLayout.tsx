@@ -13,6 +13,8 @@ export const PageLayout = (props: {
   hasReturnArrow?: boolean;
   returnFunc?: () => void;
   customClasses?: string;
+  isLoading?: boolean;
+  error?: unknown;
 }) => {
   return (
     <ProtectedRoute>
@@ -25,36 +27,45 @@ export const PageLayout = (props: {
           `h-100 min-h-screen items-center bg-background_light p-5 dark:bg-background_dark xl:pl-20 ${props.customClasses}`
         )}
       >
-        <div className='m-auto max-w-7xl xl:max-w-5xl'>
+        <div className='m-auto max-w-4xl '>
           {props.hasReturnArrow && (
             <div className='w-max pt-2 hover:cursor-pointer'>
               <div className='flex' onClick={props.returnFunc}>
                 <Image src={arrow} alt='arrow-down' width={10} height={10} className='rotate-90' />
 
-                <Text t='heading-small' customClasses='ml-5'>
+                <Text t='body' customClasses='ml-5 font-bold' tag='p'>
                   Go back
                 </Text>
               </div>
             </div>
           )}
-          {props.children}
+          {props.error ? 'There was an error' : props.isLoading ? 'loading' : props.children}
         </div>
       </main>
     </ProtectedRoute>
   );
 };
 
-type TContainer = {
+export const Container = ({
+  children,
+  customClasses,
+  onClick,
+  ...props
+}: {
+  onClick?: () => void;
+  props?: React.HTMLProps<HTMLDivElement>;
+  children: React.ReactNode;
   customClasses?: string;
-};
-
-export const Container = (props: React.HTMLProps<HTMLDivElement> & TContainer) => {
+}) => {
   return (
     <div
+      onClick={onClick}
       {...props}
-      className={twMerge(`mb-5 mt-5 rounded-md bg-white shadow-sm dark:bg-dark_primary ${props.customClasses}`)}
+      className={twMerge(
+        `m-auto mb-5 mt-5 max-w-4xl rounded-md bg-white shadow-sm dark:bg-dark_primary ${customClasses}`
+      )}
     >
-      <div className='p-5'>{props.children}</div>
+      <div className='p-5'>{children}</div>
     </div>
   );
 };

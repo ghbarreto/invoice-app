@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Text } from '..';
+import { twMerge } from 'tailwind-merge';
 
 type TButton = {
   hasPlusSign?: boolean;
@@ -16,7 +17,7 @@ export const Button = ({ type, hasPlusSign, txt, ...props }: TButton) => {
     primary: `bg-primary hover:bg-primary_hover`,
     secondary: `bg-btn_bg hover:bg-secondary_black hover:dark:bg-dark_primary`,
     delete: `bg-danger hover:bg-danger_hover `,
-    third: `bg-background_light hover:bg-secondary_light dark:bg-dark_primary dark:hover:bg-background_light`,
+    third: `bg-background_light hover:bg-secondary_light dark:bg-dark_primary_hover dark:hover:bg-dark_primary`,
     fourth: `bg-background_light w-10/12 justify-center dark:bg-dark_primary max-w-sm hover:bg-secondary_light`,
   }[type];
 
@@ -31,22 +32,24 @@ export const Button = ({ type, hasPlusSign, txt, ...props }: TButton) => {
   return (
     <button
       {...props}
-      className={`${buttonProps} w-max-content flex h-14 justify-center items-center rounded-full font-sans transition ${props.customClasses}`}
+      className={twMerge(
+        `${buttonProps} w-max-content flex h-14 items-center justify-center rounded-full font-sans transition ${props.customClasses}`
+      )}
       disabled={props.isDisabled}
     >
       {hasPlusSign && (
-        <div className='relative ml-3 flex h-10 w-10 justify-center rounded-full bg-background_light font-sans font-semibold text-4xl'>
+        <div className='relative ml-3 flex h-10 w-10 justify-center rounded-full bg-background_light font-sans text-4xl font-semibold'>
           <span className='relative top-1 text-3xl text-primary'>+</span>
         </div>
       )}
 
-      <div className='p-5 ml-1 mr-1'>
+      <div className='ml-1 mr-1 p-2'>
         {type === 'fourth' && (
-          <Text t='heading-medium' customClasses='text-secondary_light_hover font-medium mr-2'>
+          <Text t='body' customClasses='text-secondary_light_hover font-medium'>
             +
           </Text>
         )}
-        <Text t='heading-small' customClasses={txtColor}>
+        <Text t='body' customClasses={twMerge(`${txtColor} font-bold p-2 md:p-5`)}>
           {txt}
         </Text>
       </div>

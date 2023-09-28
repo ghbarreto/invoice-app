@@ -10,7 +10,7 @@ export const DatePicker = () => {
 
   return (
     <div className='w-8/12 max-w-xs'>
-      <Text t='body-variant' customClasses='mb-2 ml-1 text-secondary_light_hover'>
+      <Text t='body' customClasses='mb-2 ml-1 text-secondary_light_hover'>
         Test
       </Text>
       <D

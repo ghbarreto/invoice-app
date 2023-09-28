@@ -3,14 +3,7 @@ import React from 'react';
 import { twMerge } from 'tailwind-merge';
 
 type TText = {
-  t:
-    | 'heading-large'
-    | 'heading-medium'
-    | 'heading-small'
-    | 'heading-small-variant'
-    | 'body'
-    | 'body-variant'
-    | 'heading-medium-variant';
+  t: 'title' | 'body' | 'body-small';
   id?: string;
   tag?: 'h1' | 'p' | 'h2' | 'div';
   children: React.ReactNode;
@@ -19,16 +12,12 @@ type TText = {
 };
 
 export const Text = ({ t, children, customClasses, color, ...props }: TText) => {
-  const Tag = props.tag || 'p';
+  const Tag = props.tag || 'div';
 
   const textProps = {
-    'heading-large': 'text-4xl font-bold tracking-tighter leading-8',
-    'heading-medium': 'text-2xl font-bold tracking-tighter leading-6',
-    'heading-medium-variant': 'text-base font-bold tracking-tighter leading-6',
-    'heading-small': 'text-sm font-bold tracking-tight leading-6',
-    'heading-small-variant': 'text-xl font-bold tracking-tight leading-4',
-    body: 'font-medium text-sm tracking-tigther leading-5',
-    'body-variant': 'font-medium text-sm  leading-4 tracking-tight',
+    title: 'text-[1.5rem] font-bold tracking-wide leading-7 md:text-[2.25rem]', //24px, 36px
+    body: 'font-medium text-[.93rem] tracking-tigther leading-5', //15px sm
+    'body-small': 'font-medium text-[.81rem] tracking-tigther leading-5', //13px sm
   }[t];
 
   const c = {
@@ -49,8 +38,9 @@ export const Text = ({ t, children, customClasses, color, ...props }: TText) => 
   return (
     <Tag
       className={twMerge(
-        `${textProps}   font-sans  text-secondary_black dark:text-secondary_light
+        `font-sans text-secondary_black  dark:text-secondary_light
 				${color != 0 ? c : ''}
+        ${textProps} 
 				${customClasses} `
       )}
       {...props}

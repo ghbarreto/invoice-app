@@ -38,16 +38,11 @@ export const LoginForm = () => {
     <section
       aria-labelledby='login-id'
       title='login'
-      className='center shadow-normal m-auto flex w-11/12 max-w-sm rounded-md bg-white dark:bg-dark_primary_hover'
+      className='center m-auto flex w-11/12 max-w-sm rounded-md bg-white shadow-normal dark:bg-dark_primary_hover'
     >
       <div className='w-full pl-5 pr-5'>
         <header>
-          <Text
-            tag='h1'
-            id='login-id'
-            t='heading-large'
-            customClasses='w-full p7 pt-8 pb-5 font-bold tracking-wide text-xl'
-          >
+          <Text tag='h1' id='login-id' t='body' customClasses='w-full p7 pt-8 pb-5 font-bold tracking-wide text-xl'>
             {isSigningUp ? 'Register your account' : 'Sign in to your account'}
           </Text>
         </header>
@@ -56,7 +51,7 @@ export const LoginForm = () => {
           <SocialMediaSignInButtons />
         </div>
         <div className='inline-flex w-full items-center justify-center'>
-          <hr className='dark:bg-gray-700 my-8 h-px w-64 border-0 bg-secondary_light' />
+          <hr className='my-8 h-px w-64 border-0 bg-secondary_light dark:bg-gray-700' />
           <span className='absolute left-1/2 -translate-x-1/2 bg-white px-3 font-medium text-secondary_dark dark:bg-dark_primary_hover dark:text-white'>
             or
           </span>
@@ -64,7 +59,7 @@ export const LoginForm = () => {
 
         <div className='m-auto w-full pb-5 font-sans'>
           {hasMessage ? (
-            <Text t='heading-small' customClasses={`text-center mt-2 mb-3 ${messageProps}`}>
+            <Text t='body' customClasses={`text-center mt-2 mb-3 ${messageProps}`}>
               {message.message}
             </Text>
           ) : null}
@@ -78,7 +73,7 @@ export const LoginForm = () => {
               id='remember'
               aria-describedby='remember'
               type='checkbox'
-              className='focus:ring-3 dark:bg-gray-700 mt-0.5 h-4 w-4 rounded border border-none border-secondary_light bg-secondary_light outline-none focus:ring-primary dark:border-secondary_light dark:ring-secondary_light dark:focus:ring-primary'
+              className='focus:ring-3 mt-0.5 h-4 w-4 rounded border border-none border-secondary_light bg-secondary_light outline-none focus:ring-primary dark:border-secondary_light dark:bg-gray-700 dark:ring-secondary_light dark:focus:ring-primary'
             />
             <label className={label}>Remember me</label>
           </span>
@@ -97,7 +92,7 @@ export const LoginForm = () => {
         </div>
 
         <div>
-          <p className='pb-10 pt-5 text-sm flex justify-between text-secondary_dark'>
+          <p className='flex justify-between pb-10 pt-5 text-sm text-secondary_dark'>
             {isSigningUp ? 'Already have an account? ' : "Don't have an account? "}
             <span className='text-primary' onClick={setSignUp}>
               {isSigningUp ? 'Sign in' : 'Register'}

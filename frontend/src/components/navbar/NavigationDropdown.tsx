@@ -39,7 +39,7 @@ export const NavigationDropdown = () => {
           return (
             <Link key={op.label} href={op.route} role='menuitem' id='menu-item-0' className='flex items-center py-2'>
               {icons[index]}
-              <Text t='heading-small' customClasses='py-2 text-white font-medium'>
+              <Text t='body' customClasses='py-2 text-white font-medium'>
                 {op.label}
               </Text>
             </Link>
@@ -48,7 +48,7 @@ export const NavigationDropdown = () => {
 
         <button className='flex items-center py-2' role='menuitem' id='menu-item-3' onClick={logout}>
           <ImExit className='mr-3 text-xl font-bold text-secondary_dark' />
-          <Text t='heading-small' customClasses='py-2 text-white font-medium'>
+          <Text t='body' customClasses='py-2 text-white font-medium'>
             Sign out
           </Text>
         </button>
