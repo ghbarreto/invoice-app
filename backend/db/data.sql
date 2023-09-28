@@ -222,6 +222,9 @@ sZq0R42xeSgSS4V9yK48GC4l0WD3	vuxgamer@gmail.com	google.com
 --
 
 COPY public.customers (id, user_id, first_name, last_name, address, country, city, client_email, zip_code, phone) FROM stdin;
+a161989e-0a26-434e-821a-a8076ad8ef96	o3zfqLReWKfMIIJCPlsfML3NqO43	John	Doe	123 Main St	USA	New York	john.doe@example.com	10001	555-1234
+7a3d9d30-07ee-43e6-bc27-dcce2682dcd2	o3zfqLReWKfMIIJCPlsfML3NqO43	Jane	Doe	456 Elm St	USA	Los Angeles	jane.doe@example.com	90001	555-5678
+a4d9d849-853b-4c45-8605-d29b36734cc1	o3zfqLReWKfMIIJCPlsfML3NqO43	Bob	Smith	789 Oak St	Canada	Toronto	bob.smith@example.com	M5J 2H7	555-9012
 \.
 
 
@@ -241,6 +244,8 @@ f259b5b5-621b-4d34-8c5f-1a2d5900df69	gabriel	barreto	this is the address	Brazil	
 cbcc21ba-f2d2-4c4c-99c2-68a6c3de2020	gabriel	barreto	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	TH20751	o3zfqLReWKfMIIJCPlsfML3NqO43
 64767353-eb3d-4338-ad17-52b4a92fb1e3	gabriel	barreto	124 Church Way	Canada	Vancouver	gg@gmail.com	BD2 PK4	XL33637	o3zfqLReWKfMIIJCPlsfML3NqO43
 6aeca32f-13bf-42e6-9600-bc4e64edf929	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	VV44940	o3zfqLReWKfMIIJCPlsfML3NqO43
+47d2d535-ecdc-4338-8e4e-650ede8251e1	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	QJ98646	o3zfqLReWKfMIIJCPlsfML3NqO43
+0640e099-d609-472f-bea6-39925bdcf602	Test	Last_test	this is the address	Brazil	Sao Paulo	test@gmail.com	4420-5223	SR31249	o3zfqLReWKfMIIJCPlsfML3NqO43
 \.
 
 
@@ -259,11 +264,11 @@ b797c695-a3ac-40c2-ac68-b47f410c3cef	b2be4c29-6ae7-490e-b893-41d3040de92d	NR5265
 b4ab8667-347e-4aae-972d-6e3da92bfa89	b2be4c29-6ae7-490e-b893-41d3040de92d	HJ22423	2522222	0.00
 4dedc1b2-b48a-41d6-ac6b-c0d5bd7fe1f9	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	HJ22423	32323	0.00
 a4176ee0-aaed-407b-87bf-899e9df32846	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	XL33637	5	0.00
-3d4e6061-2575-47c8-9bf4-77d5935bdb31	b9dc438a-d36d-463f-8f88-c0e25f2eb970	VV44940	1	1250.00
 00490ff7-daf8-4dd6-842c-406737bffadd	b2be4c29-6ae7-490e-b893-41d3040de92d	VV44940	2	0.00
 76d30d98-8d5c-4150-8998-ae0465f8d5ba	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	VV44940	3	0.00
 4df2985f-e903-4e3b-93fa-3dc2e7dd7f63	b9dc438a-d36d-463f-8f88-c0e25f2eb970	XL33637	3	85.50
 48769a46-80e6-4bc4-9bbf-14e19e7bee0d	b2be4c29-6ae7-490e-b893-41d3040de92d	XL33637	3	0.00
+3d4e6061-2575-47c8-9bf4-77d5935bdb31	92f6232c-2d24-4860-bbdb-90c8d0d30fe4	VV44940	1	1250.00
 \.
 
 
@@ -283,6 +288,8 @@ NR52650	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this is the 
 XL33637	2024-09-07 19:38:21.178+00	EUR	o3zfqLReWKfMIIJCPlsfML3NqO43	Front-end Developer	1520.20	overdue	t	2023-09-20 00:26:50.725709+00
 HJ22423	2024-09-07 19:38:21.178+00	GBP	o3zfqLReWKfMIIJCPlsfML3NqO43	Front-end Developer	1520.20	overdue	t	2023-09-20 00:26:50.725709+00
 VV44940	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this issdwqdqtion	150.20	pending	t	2023-09-20 00:27:46.074931+00
+QJ98646	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this issdwqdqtion	150.20	pending	t	2023-09-21 01:02:25.214556+00
+SR31249	2023-09-07 19:38:21.178+00	BRL	o3zfqLReWKfMIIJCPlsfML3NqO43	this issdwqdqtion	150.20	pending	t	2023-09-21 01:03:20.741657+00
 \.
 
 
