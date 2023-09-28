@@ -32,6 +32,7 @@ type AuthContext = {
     type: 'error' | 'success' | '';
     message: string;
   };
+  loadingUser: boolean;
 };
 
 const AuthContext = React.createContext<AuthContext>({} as AuthContext);
@@ -40,6 +41,7 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
   const router = useRouter();
   initializeApp(firebaseConfig);
   const auth = getAuth();
+  const [loadingUser, setLoadingUser] = useState(true);
   const [user, setUser] = useState<User | null>();
   // rm later
   const [token, setIdToken] = useState<string | null>();
@@ -150,7 +152,6 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
               email: user.email,
               provider_id: user.providerData[0].providerId,
             });
-            document.cookie = `auth_token=${idToken}; path=/`;
             return localStorage.setItem('auth_token', idToken);
           })
           .catch((error) => {
@@ -158,9 +159,11 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
             router.push('/');
             return localStorage.removeItem('auth_token');
           });
+        setLoadingUser(false);
         setUser({ ...user });
       } else {
         router.push('/');
+        setLoadingUser(false);
       }
     });
   }, [auth, router]);
@@ -175,8 +178,19 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
       signInWithEmailNPassword,
       message,
       forgotPassword,
+      loadingUser,
     }),
-    [login, logout, user, token, createUserWEmailAndPassword, signInWithEmailNPassword, message, forgotPassword]
+    [
+      login,
+      logout,
+      user,
+      token,
+      createUserWEmailAndPassword,
+      signInWithEmailNPassword,
+      message,
+      forgotPassword,
+      loadingUser,
+    ]
   );
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;

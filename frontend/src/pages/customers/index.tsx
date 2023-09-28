@@ -11,13 +11,6 @@ export default function CustomerIndex() {
   const { user } = useAuth();
   const { setState, customers } = useCustomers();
 
-  // const { isLoading, error } = useQuery({
-  //   queryKey: ['test'],
-  //   queryFn: async () => await secureFetch('customers', { method: 'GET' }),
-  //   onSettled: (data) => setState(data.data),
-  //   enabled: !!user,
-  // });
-
   return (
     <PageLayout hasReturnArrow returnFunc={() => push('/dashboard')}>
       <table className='w-full text-left text-sm text-gray-500 dark:text-gray-400'>

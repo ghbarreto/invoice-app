@@ -20,7 +20,7 @@ const useFetchInvoice = (): Fetch => {
   const router = useRouter();
   const invoiceId = router.query.id;
 
-  const { refetch, data, error, isLoading } = useFetch({
+  const { refetch, data, error, isLoading, isSuccess } = useFetch({
     endpoint: `invoice/${invoiceId}`,
     id: 'fetch_single_invoice',
   });
@@ -29,10 +29,12 @@ const useFetchInvoice = (): Fetch => {
     if (!selectedInvoice && typeof invoiceId !== 'undefined') {
       refetch();
     }
-    setSelectedInvoice(data);
-  }, [invoiceId, selectedInvoice, data, setSelectedInvoice, refetch]);
+    if (isSuccess) {
+      setSelectedInvoice(data);
+    }
+  }, [invoiceId, selectedInvoice, data, setSelectedInvoice, refetch, isSuccess]);
 
-  return { data, error, isLoading } as { data: Invoice; error: unknown; isLoading: boolean };
+  return { data, error, isLoading };
 };
 
 export /**
@@ -55,8 +57,7 @@ const useFetchAllInvoices = (): Fetch => {
     if (isSuccess) {
       setState(data);
     }
-    console.log(data);
   }, [data, isSuccess, refetch, setState]);
 
-  return { data, error, isLoading } as { data: Invoice; error: unknown; isLoading: boolean };
+  return { data, error, isLoading };
 };

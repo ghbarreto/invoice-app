@@ -95,7 +95,7 @@ export const InvoiceItems = () => {
                             <Currency
                               amount={e.overcharge}
                               currencyCode={selectedInvoice.currency_code}
-                              customClasses='text-xs font-semibold text-danger'
+                              customClasses='text-xs font-semibold text-danger dark:text-danger'
                             />
                           </Text>
                         ) : null}

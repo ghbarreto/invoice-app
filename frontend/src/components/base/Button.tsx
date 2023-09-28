@@ -9,6 +9,7 @@ type TButton = {
   txt: string;
   isDisabled?: boolean;
   customClasses?: string;
+  textClasses?: string;
   onClick?: () => void;
 };
 
@@ -24,7 +25,7 @@ export const Button = ({ type, hasPlusSign, txt, ...props }: TButton) => {
   const txtColor = {
     primary: `text-white`,
     secondary: `text-secondary_dark dark:text-secondary_light`,
-    delete: `text-white`,
+    delete: `text-white md:p-6`,
     third: `text-secondary_light_hover`,
     fourth: `text-secondary_light_hover`,
   }[type];
@@ -49,7 +50,10 @@ export const Button = ({ type, hasPlusSign, txt, ...props }: TButton) => {
             +
           </Text>
         )}
-        <Text t='body' customClasses={twMerge(`${txtColor} font-bold p-2 md:p-5`)}>
+        <Text
+          t='body'
+          customClasses={twMerge(`${txtColor} font-bold p-2 ${!hasPlusSign ? 'md:p-6' : ''} ${props.textClasses}`)}
+        >
           {txt}
         </Text>
       </div>

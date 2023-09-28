@@ -5,13 +5,14 @@ import { twMerge } from 'tailwind-merge';
 type TText = {
   t: 'title' | 'body' | 'body-small';
   id?: string;
-  tag?: 'h1' | 'p' | 'h2' | 'div';
+  tag?: 'h1' | 'p' | 'h2' | 'div' | 'label';
   children: React.ReactNode;
   customClasses?: string;
   color?: number;
+  onClick?: () => void;
 };
 
-export const Text = ({ t, children, customClasses, color, ...props }: TText) => {
+export const Text = ({ t, children, customClasses, color, onClick, ...props }: TText) => {
   const Tag = props.tag || 'div';
 
   const textProps = {
@@ -37,6 +38,7 @@ export const Text = ({ t, children, customClasses, color, ...props }: TText) => 
 
   return (
     <Tag
+      onClick={onClick}
       className={twMerge(
         `font-sans text-secondary_black  dark:text-secondary_light
 				${color != 0 ? c : ''}

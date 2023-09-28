@@ -28,7 +28,7 @@ export const InvoiceInfo = () => {
   );
 
   return (
-    <Container customClasses='md:p-5 dark:bg-dark_primary_hover'>
+    <Container customClasses='md:p-5'>
       <div className='block md:-mb-5 md:flex md:justify-between'>
         <div>
           <InvoiceIdFormat>{selectedInvoice.invoice_id}</InvoiceIdFormat>
