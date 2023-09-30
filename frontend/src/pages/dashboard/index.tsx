@@ -15,7 +15,7 @@ import { FilterDropdown } from '@/components/dashboard';
 
 const Dashboard = () => {
   const { user, token } = useAuth();
-  const { invoices, invoicesCount } = useInvoices();
+  const { setState, invoices, invoicesCount } = useInvoices();
   const [isOpen, setIsOpen] = useState(false);
   const { isLoading, error } = useFetchAllInvoices();
 
