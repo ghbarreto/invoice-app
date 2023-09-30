@@ -69,7 +69,7 @@ export const SelectBox = ({ label, values, sel }: TSelectBox) => {
 
       {isToggled && (
         <div className='absolute z-10 mt-3 w-8/12 max-w-xs divide-y rounded-lg bg-white shadow-[5px_5px_0px_0px_rgba(109,40,217)] dark:bg-dark_primary_hover'>
-          <ul className='py-2 ' aria-labelledby='dropdownDividerButton'>
+          <ul className='py-2' aria-labelledby='dropdownDividerButton'>
             {values.map((e, i, arr) => {
               const lastIndex =
                 arr.length - 1 !== i ? 'border-b border-b-secondary_light dark:border-dark_primary' : 'py-1';
