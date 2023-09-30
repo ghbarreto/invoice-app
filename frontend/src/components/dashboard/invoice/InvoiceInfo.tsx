@@ -7,6 +7,8 @@ import { InvoiceItems } from './InvoiceItems';
 export const InvoiceInfo = () => {
   const { selectedInvoice } = useInvoices();
 
+  if (Object.keys(selectedInvoice).length === 0) return;
+
   const business = [
     selectedInvoice.business.address,
     selectedInvoice.business.city,
