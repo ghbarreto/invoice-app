@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 
 import { PageLayout } from '@/components';
-import { useQuery } from 'react-query';
 import { useAuth } from '@/context/auth-context';
 import { secureFetch } from '@/utils/fetch';
 import { useCustomers } from './store';
