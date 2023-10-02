@@ -1,17 +1,14 @@
-import { useRouter } from 'next/router';
-
 import { PageLayout } from '@/components';
 import { useAuth } from '@/context/auth-context';
 import { secureFetch } from '@/utils/fetch';
 import { useCustomers } from './store';
 
 export default function CustomerIndex() {
-  const { push } = useRouter();
   const { user } = useAuth();
   const { setState, customers } = useCustomers();
 
   return (
-    <PageLayout hasReturnArrow returnFunc={() => push('/dashboard')}>
+    <PageLayout hasReturnArrow returnHref='/dashboard'>
       <table className='w-full text-left text-sm text-gray-500 dark:text-gray-400'>
         <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
           <tr>

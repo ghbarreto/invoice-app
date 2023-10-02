@@ -9,8 +9,8 @@ export const DatePicker = () => {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
 
   return (
-    <div className='w-8/12 max-w-xs'>
-      <Text t='body' customClasses='mb-2 ml-1 text-secondary_light_hover'>
+    <div>
+      <Text t='body-small' customClasses='mb-2 ml-1 text-secondary_light_hover'>
         Test
       </Text>
       <D
