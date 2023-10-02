@@ -5,7 +5,7 @@ import { twMerge } from 'tailwind-merge';
 type TText = {
   t: 'title' | 'body' | 'body-small';
   id?: string;
-  tag?: 'h1' | 'p' | 'h2' | 'div' | 'label' | 'h3';
+  tag?: 'h1' | 'p' | 'h2' | 'div' | 'label';
   children: React.ReactNode;
   customClasses?: string;
   color?: number;
