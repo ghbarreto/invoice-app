@@ -16,7 +16,7 @@ type TInput = {
 export const Input = ({ label, onChange, value, customClasses, labelCustomClasses, ...props }: TInput) => {
   return (
     <div>
-      <Text t='body' customClasses={`mb-2 ml-1 text-secondary_light_hover ${labelCustomClasses}`}>
+      <Text t='body-small' customClasses={`mb-2 ml-1 text-secondary_light_hover ${labelCustomClasses}`}>
         {label}
       </Text>
       <input

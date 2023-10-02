@@ -36,8 +36,8 @@ export const SelectBox = ({ label, values, sel }: TSelectBox) => {
   }, [ref]);
 
   return (
-    <div className='w-8/12 max-w-xs' ref={ref}>
-      <Text t='body' customClasses='mb-2 ml-1 text-secondary_light_hover'>
+    <div ref={ref}>
+      <Text t='body-small' customClasses='mb-2 ml-1 text-secondary_light_hover'>
         {label}
       </Text>
       <button
