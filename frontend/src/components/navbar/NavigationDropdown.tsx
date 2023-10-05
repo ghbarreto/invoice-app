@@ -20,7 +20,7 @@ export const NavigationDropdown = () => {
 
   return (
     <div
-      className='absolute right-0 z-10 w-56 rounded-md rounded-tr-none bg-dark_primary_hover shadow-normal ring-1 ring-[#494E6E] ring-opacity-5 focus:outline-none xl:bottom-5  xl:left-32'
+      className='fixed right-0 z-10 w-56 rounded-md rounded-tr-none bg-dark_primary_hover shadow-normal ring-1 ring-[#494E6E] ring-opacity-5 focus:outline-none xl:bottom-0  xl:left-32'
       role='menu'
       aria-orientation='vertical'
       aria-labelledby='menu-button'

@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Container, DatePicker, Input, PageLayout, SelectBox, Text } from '@/components';
 import { billTo, billFrom } from './helper';
+import { usePost } from '@/hooks/useFetch';
 
 export default function CreateInvoice() {
+  const { mutate } = usePost({
+    endpoint: `invoices`,
+    options: {
+      method: 'POST',
+      body: {},
+    },
+  });
+
+  useEffect(() => {
+    // mutate();
+  }, []);
+
   return (
     <PageLayout hasReturnArrow customClasses={'bg-white'}>
       <Container customClasses='shadow-none -ml-5 -mt-0'>
