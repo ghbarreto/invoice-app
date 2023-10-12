@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useInvoices } from '@/pages/dashboard/store';
+import { useInvoices } from '@/stores/invoices/store';
 import { Text, Tag, Container } from '@/components/base';
 import { InvoiceActions } from './InvoiceActions';
 

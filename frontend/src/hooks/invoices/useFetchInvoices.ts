@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import { useFetch } from '@/hooks/useFetch';
-import { useInvoices } from '@/pages/dashboard/store';
+import { useInvoices } from '@/stores/invoices/store';
 import { Invoice } from '@/types/invoice_types';
 
 type Fetch = {

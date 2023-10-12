@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import D from 'react-datepicker';
+import ReactDatePicker from 'react-datepicker';
 import Image from 'next/image';
 
 import Calendar from '/public/calendar.svg';
@@ -13,7 +13,7 @@ export const DatePicker = () => {
       <Text t='body-small' customClasses='mb-2 ml-1 text-secondary_light_hover'>
         Test
       </Text>
-      <D
+      <ReactDatePicker
         selected={startDate}
         showFourColumnMonthYearPicker={false}
         showPopperArrow={false}

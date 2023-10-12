@@ -2,7 +2,7 @@ import { useState } from 'react';
 import router from 'next/router';
 
 import { Button, Modal } from '@/components';
-import { useInvoices } from '@/pages/dashboard/store';
+import { useInvoices } from '@/stores/invoices/store';
 
 export const InvoiceActions = () => {
   const { selectedInvoice } = useInvoices();

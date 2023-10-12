@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import { useAuth } from '@/context/auth-context';
 import { Button, Text } from '@/components';
-import { useInvoices } from './store';
+import { useInvoices } from '../../stores/invoices/store';
 import arrowDown from '/public/arrow-down.svg';
 import { Invoice as TInvoice } from '@/types/invoice_types';
 import { Invoice } from '@/components/dashboard';

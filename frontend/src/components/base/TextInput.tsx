@@ -5,11 +5,11 @@ import { Text } from './Text';
 type TInput = {
   label?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  value?: string | number;
+  value?: string | number | undefined | any;
   customClasses?: string;
   labelCustomClasses?: string;
   placeholder?: string;
-  name?: string;
+  name?: string | undefined;
   type?: string;
 };
 

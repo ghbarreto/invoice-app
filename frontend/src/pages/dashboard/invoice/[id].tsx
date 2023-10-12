@@ -2,7 +2,7 @@ import { Container, PageLayout } from '@/components';
 
 import React, { useEffect } from 'react';
 
-import { useInvoices } from '@/pages/dashboard/store';
+import { useInvoices } from '@/stores/invoices/store';
 import { Button } from '@/components';
 import Head from 'next/head';
 import { InvoiceStatus, InvoiceInfo } from '@/components/dashboard';

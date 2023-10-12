@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Container, Currency, Text } from '@/components';
-import { useInvoices } from '@/pages/dashboard/store';
+import { useInvoices } from '@/stores/invoices/store';
 import { InvoiceItems as Item } from '@/types/invoice_types';
 
 export const InvoiceItems = () => {

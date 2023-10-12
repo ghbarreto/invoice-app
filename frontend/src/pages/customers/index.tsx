@@ -1,7 +1,7 @@
 import { PageLayout } from '@/components';
 import { useAuth } from '@/context/auth-context';
 import { secureFetch } from '@/utils/fetch';
-import { useCustomers } from './store';
+import { useCustomers } from '../../stores/customers/store';
 
 export default function CustomerIndex() {
   const { user } = useAuth();

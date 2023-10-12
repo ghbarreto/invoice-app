@@ -6,7 +6,7 @@ import { Currency, Text, Container, InvoiceIdFormat } from '@/components';
 import { Invoice as TInvoice } from '@/types/invoice_types';
 import { Tag } from '../base/Tag';
 import router from 'next/router';
-import { useInvoices } from '@/pages/dashboard/store';
+import { useInvoices } from '@/stores/invoices/store';
 import arrowDown from '/public/arrow-down.svg';
 
 type InvoiceProps = {

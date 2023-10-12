@@ -4,7 +4,7 @@ import React from 'react';
 
 import { Text } from '@/components';
 import Head from 'next/head';
-import { useInvoices } from '../../store';
+import { useInvoices } from '../../../../stores/invoices/store';
 import { useFetchInvoice } from '@/hooks/invoices/useFetchInvoices';
 
 export const EditInvoice = () => {

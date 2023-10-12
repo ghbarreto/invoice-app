@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useInvoices } from '@/pages/dashboard/store';
+import { useInvoices } from '@/stores/invoices/store';
 import { InvoiceStatusTypes } from '@/types/invoice_types';
 import { Text } from '@/components';
 

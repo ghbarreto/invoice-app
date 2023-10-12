@@ -43,3 +43,4 @@ export type InvoiceStatus = {
 };
 
 export type InvoiceStatusTypes = keyof InvoiceStatus;
+export type InvoiceKeys = keyof Invoice;
