@@ -6,9 +6,11 @@ import { BsPeopleFill } from 'react-icons/bs';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { IoSettingsSharp } from 'react-icons/io5';
 import { useAuth } from '@/context/auth-context';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 export const NavigationDropdown = () => {
+  const router = useRouter();
   const { logout } = useAuth();
 
   const options = [

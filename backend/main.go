@@ -4,7 +4,6 @@ import (
 	r "backend-api/api/user"
 	c "backend-api/api/user/customers"
 	i "backend-api/api/user/invoices"
-	items "backend-api/api/user/items"
 	utils "backend-api/api/utils"
 	"backend-api/db"
 	"net/http"
@@ -24,9 +23,6 @@ func main() {
 
 	// user wrapper
 	utils.Routes("credentials", r.Registration)
-
-	// items
-	utils.Routes("items", items.ItemsRoute)
 
 	http.ListenAndServe(":8080", nil)
 }
