@@ -6,14 +6,13 @@ import moon from '/public/moon.svg';
 import sun from '/public/icon-sun.svg';
 import pacman from '/public/pacman.svg';
 
-import { Text } from '@/components';
 import { NavigationDropdown } from './NavigationDropdown';
 
 import { RxAvatar } from 'react-icons/rx';
 import { useRouter } from 'next/router';
 
 export const Navigation = () => {
-  const { user, token, logout } = useAuth();
+  const { user } = useAuth();
   const [navigationOpen, setNavigationOpen] = useState<boolean>(false);
   const [dark, setDark] = useState(false);
   const router = useRouter();

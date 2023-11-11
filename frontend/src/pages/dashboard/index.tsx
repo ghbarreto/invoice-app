@@ -12,6 +12,7 @@ import ilustration from '/public/illustration-empty.svg';
 import Head from 'next/head';
 import { useFetchAllInvoices } from '@/hooks/invoices/useFetchInvoices';
 import { FilterDropdown } from '@/components/dashboard';
+import Link from 'next/link';
 
 const Dashboard = () => {
   const { user, token } = useAuth();
@@ -24,13 +25,13 @@ const Dashboard = () => {
       <Head>
         <title>Welcome {user?.displayName}</title>
       </Head>
-      {/* <div className='-mt-6 flex gap-2 break-words'>
+      <div className='-mt-6 flex gap-2 break-words'>
         <details>
           <summary></summary>
           <p className='w-full max-w-3xl overflow-scroll  font-bold dark:text-primary'>{token}</p>
         </details>
         {user?.uid}
-      </div> */}
+      </div>
       <section
         id='dashboard-title'
         aria-labelledby='dashboard-title'
@@ -75,7 +76,9 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <Button type='primary' hasPlusSign txt='New' textClasses="md:after:content-['_Invoice']" />
+          <Link href='/dashboard/invoice/create'>
+            <Button type='primary' hasPlusSign txt='New' textClasses="md:after:content-['_Invoice']" />
+          </Link>
         </div>
       </section>
 
