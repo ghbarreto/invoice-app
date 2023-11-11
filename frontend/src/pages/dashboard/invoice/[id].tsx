@@ -1,5 +1,3 @@
-import { useRouter } from 'next/router';
-
 import { Container, PageLayout } from '@/components';
 
 import React, { useEffect } from 'react';
@@ -13,17 +11,11 @@ import { Invoice } from '@/types/invoice_types';
 import { InvoiceActions } from '@/components/dashboard/invoice/InvoiceActions';
 
 export const Info = () => {
-  const { push } = useRouter();
   const { selectedInvoice } = useInvoices();
   const { error, isLoading } = useFetchInvoice();
 
   return (
-    <PageLayout
-      hasReturnArrow
-      returnFunc={() => push('/dashboard')}
-      isLoading={isLoading || !selectedInvoice}
-      error={error}
-    >
+    <PageLayout hasReturnArrow isLoading={isLoading || !selectedInvoice} error={error}>
       <Head>
         <title>Invoice #{selectedInvoice?.invoice_id}</title>
       </Head>

@@ -1,5 +1,3 @@
-import { useRouter } from 'next/router';
-
 import { Container, InvoiceIdFormat, PageLayout } from '@/components';
 
 import React from 'react';
@@ -12,14 +10,13 @@ import { useFetchInvoice } from '@/hooks/invoices/useFetchInvoices';
 export const EditInvoice = () => {
   const { selectedInvoice } = useInvoices();
   const { error, isLoading } = useFetchInvoice();
-  const router = useRouter();
 
   return (
     <PageLayout
       isLoading={isLoading || !selectedInvoice}
       error={error}
       hasReturnArrow
-      returnFunc={() => router.push(`/dashboard/invoice/${selectedInvoice.invoice_id}`)}
+      returnHref={`/dashboard/invoice/${selectedInvoice.invoice_id}`}
       customClasses='bg-white'
     >
       <Head>
